@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
+package src.br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 public class HotelCaliforniaSistema {
 
