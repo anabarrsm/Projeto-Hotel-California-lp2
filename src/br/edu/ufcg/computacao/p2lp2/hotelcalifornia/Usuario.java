@@ -15,6 +15,24 @@ public class Usuario {
 	
 	public Usuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
 		
+		if(idAutenticacao == null) {
+			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO ID NULO");
+		}
+		
+		if(nome == null) {
+			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO NOME NULO");
+		}
+		
+		if(tipoUsuario == null) {
+			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO TIPO VAZIO");
+		}
+		
+		
+		// pq tipo long n tem como passar null? dps conserto isso
+//		if(documento == null) {
+//			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO DOCUMENTO VAZIO");
+//		}
+		
 		this.idAutenticacao = idAutenticacao;
 		this.nome = nome;
 		this.tipoUsuario = tipoUsuario;
