@@ -14,7 +14,6 @@ public class Usuario {
 	private long documento;
 	
 	public Usuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
-//		if(idAutentica)
 		
 		this.idAutenticacao = idAutenticacao;
 		this.nome = nome;
@@ -32,6 +31,10 @@ public class Usuario {
 	
 	public String getTipo() {
 		return tipoUsuario;
+	}
+	
+	public void setTipo(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 	
 	public long getDocumento() {
