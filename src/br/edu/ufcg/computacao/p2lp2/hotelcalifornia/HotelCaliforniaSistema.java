@@ -1,6 +1,7 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class HotelCaliforniaSistema {
@@ -238,6 +239,20 @@ public class HotelCaliforniaSistema {
 	}
 
 	public String[] listaReservasTodas(String idAutenticacao){
+		return null;
+	}
+
+	// Metodos US04 --> Verificar se tem existe a acrescentar.
+	public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo, LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel){
+		return null;
+	}
+	public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal, boolean disponivel){
+		return null;
+	}
+	public String exibirRefeicao(long idRefeicao){
+		return null;
+	}
+	public String[] listarRefeicoes(){
 		return null;
 	}
 
