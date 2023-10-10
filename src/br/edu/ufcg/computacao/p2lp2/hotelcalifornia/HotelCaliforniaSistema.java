@@ -28,7 +28,10 @@ public class HotelCaliforniaSistema {
 		 * já vem cadastrado por padrão.
 		 */
 
-		usuarios.add(new Usuario("ADM1", "João Costa", "ADM", 123456));
+		Usuario usuario = new Usuario(idAutenticacao, nome, tipoUsuario, documento);
+		usuarios.add(usuario);
+		
+		//usuarios.add(new Usuario("ADM1", "João Costa", "ADM", 123456));
 		Usuario cadastrante = encontrarUsuarioPorId(idAutenticacao);
 
 		if (cadastrante == null) {
@@ -146,7 +149,9 @@ public class HotelCaliforniaSistema {
 	public String exibirUsuario(String idUsuario) {
 		Usuario usuario = encontrarUsuarioPorId(idUsuario);
 		if (usuario != null) {
-			return "[" + usuario.getId() + "] " + usuario.getNome() + " (No. Doc. " + usuario.getDocumento() + ")";
+			
+			return usuario.toString();
+			//return "[" + usuario.getId() + "] " + usuario.getNome() + " (No. Doc. " + usuario.getDocumento() + ")";
 		} else {
 			return "USUÁRIO NÃO ENCONTRADO!";
 		}
