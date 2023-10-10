@@ -1,5 +1,6 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class HotelCaliforniaSistema {
@@ -183,19 +184,19 @@ public class HotelCaliforniaSistema {
 
 	// Metodos US02 --> Verificar se existe algo a acrescentar.
 
-	public String disponibilizarQuartoSingle(idAutenticacao:String, idQuartoNum:int, precoPorPessoa:double, precoBase:double) {
+	public String disponibilizarQuartoSingle(String idAutenticacao,int idQuartoNum,double precoPorPessoa,double precoBase) {
 		return null;
 	}
 
-	public String disponibilizarQuartoDouble(idAutenticacao:String, idQuartoNum:int, precoPorPessoa:double, precoBase:double, pedidos:String[]) {
+	public String disponibilizarQuartoDouble(String idAutenticacao,int idQuartoNum ,double precoPorPessoa,double precoBase,String[] pedidos) {
 		return null;
 	}
 
-	public String disponibilizarQuartoFamily(idAutenticacao:String, idQuartoNum:int, precoPorPessoa:double, precoBase:double, pedidos:String[], qtdMaxPessoas:int) {
+	public String disponibilizarQuartoFamily(String idAutenticacao, int idQuartoNum,double precoPorPessoa, double precoBase, String[] pedidos,int qtdMaxPessoas) {
 		return null;
 	}
 
-	public String exibirQuarto(idQuartoNum:int) {
+	public String exibirQuarto(int idQuartoNum) {
 		return null;
 	}
 
@@ -203,5 +204,41 @@ public class HotelCaliforniaSistema {
 		return null;
 	}
 
+	// Metodos US03 --> Verificar se existe algo a acrescentar.
+	public String reservaQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim, String[] idRefeicoes){
+		return null;
+	}
+
+ 	public String reservarQuartoDouble(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos){
+		return null;
+	}
+
+	public String reservaQuartoFamily(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos, int numPessoas){
+		return null;
+	}
+
+	public String exibeReserva(String idAutenticacao, long idReserva){
+		return null;
+	}
+
+	public String[] listaReservasAtivasDoCliente(String idAutenticacao, String idCliente){
+		return null;
+	}
+
+	public String[] listaReservasAtivasDoClientePorTipo(String idAutenticacao, String idCliente, String tipo){
+		return null;
+	}
+
+	public String[] listaReservasAtivasPorTipo(String idAutenticacao, String tipo){
+		return null;
+	}
+
+	public String[] listaReservasAtivas(String idAutenticacao){
+		return null;
+	}
+
+	public String[] listaReservasTodas(String idAutenticacao){
+		return null;
+	}
 
 }
