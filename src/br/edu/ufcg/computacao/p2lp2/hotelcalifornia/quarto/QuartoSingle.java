@@ -8,12 +8,12 @@ public class QuartoSingle extends Quarto {
 
 	@Override
 	public String exibirQuarto() {
-		return "[" + idQuartoNum + "]" + "Quarto Single (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
+		return "[" + idQuartoNum + "]" + " Quarto Single (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
 				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária)";
 	}
 
 	@Override
-	double calcularDiaria() {
+	public double calcularDiaria() {
 		double diaria = precoBase + precoPorPessoa;
 		return diaria;
 	}
