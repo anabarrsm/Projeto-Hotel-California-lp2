@@ -19,7 +19,7 @@ public class Usuario {
 			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO ID NULO");
 		}
 		
-		if(nome == null) {
+		if(nome == null)  {
 			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO NOME NULO");
 		}
 		
