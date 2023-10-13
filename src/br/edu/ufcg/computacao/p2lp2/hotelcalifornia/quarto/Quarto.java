@@ -13,9 +13,10 @@ public abstract class Quarto {
 		this.precoPorPessoa = precoPorPessoa;
 		this.precoBase = precoBase;
 	}
+	
 
 	public abstract String exibirQuarto();
 
-	abstract double calcularDiaria();
+	public abstract double calcularDiaria();
 }
 

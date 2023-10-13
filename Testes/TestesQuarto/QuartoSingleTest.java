@@ -13,7 +13,7 @@ class QuartoSingleTest {
 
 	@BeforeEach
 	void setUp() {
-		quartoSingle = new QuartoSingle("1", 301, 50.0, 100.0);
+		quartoSingle = new QuartoSingle("ADM1", 301, 50.0, 100.0);
 	}
 	
 	// ver questão da formatação das casas decimais

@@ -21,182 +21,182 @@ public class HotelCaliforniaSistema {
 		this.usuarios = new ArrayList<Usuario>();
 		this.adm = new Usuario("adm1", "Joao Costa", "ADM", 123456);
 		this.quartos = new HashMap<>();
-		
+
 	}
 
-		/**
-		 * Cadastra um usuário.
-		 * 
-		 * @param idAutenticacao
-		 * @param nome
-		 * @param tipoUsuario
-		 * @param documento
-		 * @return
-		 */
+	/**
+	 * Cadastra um usuário.
+	 * 
+	 * @param idAutenticacao
+	 * @param nome
+	 * @param tipoUsuario
+	 * @param documento
+	 * @return
+	 */
 
-		public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
+	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
 //			/**
 //			 * Administrador {id=ADM1, nome=João Costa, tipo=ADM, documento=123456}, já vem
 //			 * cadastrado por padrão.
 //			 */
 //
 //			usuarios.add(new Usuario("ADM1", "João Costa", "ADM", 123456));
-			Usuario cadastrante = encontrarUsuarioPorId(idAutenticacao);
+		
+		Usuario cadastrante = encontrarUsuarioPorId(idAutenticacao);
 
-			if (cadastrante == null) {
-				throw new NullPointerException("USUÁRIO NÃO ENCONTRADO!");
-			}
-
-			/**
-			 * confere se já há um gerente cadastrado
-			 */
-
-			if (tipoUsuario.equals("GER") && gerenteCadastrado) {
-				return "JÁ EXISTE UM GERENTE CADASTRADO";
-
-			}
-
-			/**
-			 * Administrador só pode ser cadastrado por outro Administrador.
-			 */
-
-			if (tipoUsuario.equals("ADM")) {
-				if (!cadastrante.getTipo().equals("ADM")) {
-					return "APENAS UM ADMINISTRADOR PODE CADASTRAR OUTRO ADMINISTRADOR.";
-				}
-
-				/**
-				 * Gerente só pode ser cadastrado por Administrador.
-				 */
-
-			} else if (tipoUsuario.equals("GER")) {
-				if (!cadastrante.getTipo().equals("ADM")) {
-					return "APENAS UM ADMINISTRADOR PODE CADASTRAR UM GERENTE.";
-				}
-				gerenteCadastrado = true;
-
-				/**
-				 * Funcionário só pode ser cadastrado por Administrador ou Gerente.
-				 */
-
-			} else if (tipoUsuario.equals("FUN")) {
-				if (!cadastrante.getTipo().equals("ADM") && !cadastrante.getTipo().equals("GER")) {
-					return "APENAS UM ADMINISTRADOR OU GERENTE PODEM CADASTRAR UM FUNCIONÁRIO.";
-				}
-
-				/**
-				 * Cliente pode ser cadastrado por qualquer Usuário, exceto por outro Cliente.
-				 */
-
-			} else if (tipoUsuario.equals("CLI")) {
-				if (cadastrante.getTipo().equals("CLI")) {
-					return "CLIENTES NÃO PODEM CADASTRAR OUTROS CLIENTES.";
-				}
-			}
-
-			if (encontrarUsuarioPorId(idAutenticacao) != null) {
-				return "JÁ EXISTE UM USUÁRIO COM O ID ESPECIFICADO.";
-			}
-
-			usuarios.add(new Usuario(idAutenticacao, nome, tipoUsuario, documento));
-			return "USUÁRIO CADASTRADO COM SUCESSO!";
+		if (cadastrante == null) {
+			throw new NullPointerException("USUÁRIO NÃO ENCONTRADO!");
 		}
 
 		/**
-		 * Atualiza o tipo de usuário
-		 * 
-		 * @param idAutenticacao
-		 * @param idUsuario
-		 * @param novoTipoUsuario
-		 * @return
+		 * confere se já há um gerente cadastrado
 		 */
 
-		public String atualizarUsuario(String idAutenticacao, String idUsuario, String novoTipoUsuario) {
-			Usuario autenticante = encontrarUsuarioPorId(idAutenticacao);
-
-			if (autenticante == null) {
-				throw new NullPointerException("USUÁRIO NÃO ENCONTRADO!");
-			}
-
-			/**
-			 * Apenas o Administrador pode atualizar os Usuários.
-			 */
-
-			if (!autenticante.getTipo().equals("ADM")) {
-				return "APENAS UM ADMINISTRADOR PODE ATUALIZAR OS USUÁRIOS.";
-			}
-
-			Usuario usuario = encontrarUsuarioPorId(idUsuario);
-
-			if (usuario == null) {
-				throw new NullPointerException("USUÁRIO NÃO ENCONTRADO!");
-			}
-
-			/**
-			 * Quando um novo Gerente é adicionado, o antigo será posto com o cargo de
-			 * Funcionário.
-			 */
-
-			if (novoTipoUsuario.equals("GER")) {
-				if (usuario.getTipo().equals("GER")) {
-					usuario.setTipo("FUN");
-					gerenteCadastrado = false;
-				}
-			}
-
-			usuario.setTipo(novoTipoUsuario);
-			return "USUÁRIO ATUALIZADO!";
+		if (tipoUsuario.equals("GER") && gerenteCadastrado) {
+			return "JÁ EXISTE UM GERENTE CADASTRADO";
 
 		}
 
 		/**
-		 * Exibe informações sobre o Usuário.
-		 * 
-		 * @param idUsuario
-		 * @return
+		 * Administrador só pode ser cadastrado por outro Administrador.
 		 */
 
-		public String exibirUsuario(String idUsuario) {
-			Usuario usuario = encontrarUsuarioPorId(idUsuario);
-			if (usuario != null) {
-				return "[" + usuario.getId() + "] " + usuario.getNome() + " (No. Doc. " + usuario.getDocumento() + ")";
-			} else {
-				return "USUÁRIO NÃO ENCONTRADO!";
+		if (tipoUsuario.equals("ADM")) {
+			if (!cadastrante.getTipo().equals("ADM")) {
+				return "APENAS UM ADMINISTRADOR PODE CADASTRAR OUTRO ADMINISTRADOR.";
 			}
+
+			/**
+			 * Gerente só pode ser cadastrado por Administrador.
+			 */
+
+		} else if (tipoUsuario.equals("GER")) {
+			if (!cadastrante.getTipo().equals("ADM")) {
+				return "APENAS UM ADMINISTRADOR PODE CADASTRAR UM GERENTE.";
+			}
+			gerenteCadastrado = true;
+
+			/**
+			 * Funcionário só pode ser cadastrado por Administrador ou Gerente.
+			 */
+
+		} else if (tipoUsuario.equals("FUN")) {
+			if (!cadastrante.getTipo().equals("ADM") && !cadastrante.getTipo().equals("GER")) {
+				return "APENAS UM ADMINISTRADOR OU GERENTE PODEM CADASTRAR UM FUNCIONÁRIO.";
+			}
+
+			/**
+			 * Cliente pode ser cadastrado por qualquer Usuário, exceto por outro Cliente.
+			 */
+
+		} else if (tipoUsuario.equals("CLI")) {
+			if (cadastrante.getTipo().equals("CLI")) {
+				return "CLIENTES NÃO PODEM CADASTRAR OUTROS CLIENTES.";
+			}
+		}
+
+		if (encontrarUsuarioPorId(idAutenticacao) != null) {
+			return "JÁ EXISTE UM USUÁRIO COM O ID ESPECIFICADO.";
+		}
+
+		usuarios.add(new Usuario(idAutenticacao, nome, tipoUsuario, documento));
+		return "USUÁRIO CADASTRADO COM SUCESSO!";
+	}
+
+	/**
+	 * Atualiza o tipo de usuário
+	 * 
+	 * @param idAutenticacao
+	 * @param idUsuario
+	 * @param novoTipoUsuario
+	 * @return
+	 */
+
+	public String atualizarUsuario(String idAutenticacao, String idUsuario, String novoTipoUsuario) {
+		Usuario autenticante = encontrarUsuarioPorId(idAutenticacao);
+
+		if (autenticante == null) {
+			throw new NullPointerException("USUÁRIO NÃO ENCONTRADO!");
 		}
 
 		/**
-		 * Lista Usuários
-		 * 
-		 * @return
+		 * Apenas o Administrador pode atualizar os Usuários.
 		 */
 
-		public String[] listarUsuarios() {
-			ArrayList<String> usuariosExistentes = new ArrayList<>();
-			for (Usuario usuario : usuarios) {
-				usuariosExistentes.add("[" + usuario.getId() + "] " + usuario.getNome() + " (No. Doc. "
-						+ usuario.getDocumento() + ")");
-			}
-			return usuariosExistentes.toArray(new String[0]);
+		if (!autenticante.getTipo().equals("ADM")) {
+			return "APENAS UM ADMINISTRADOR PODE ATUALIZAR OS USUÁRIOS.";
+		}
 
+		Usuario usuario = encontrarUsuarioPorId(idUsuario);
+
+		if (usuario == null) {
+			throw new NullPointerException("USUÁRIO NÃO ENCONTRADO!");
 		}
 
 		/**
-		 * método para encontrar um usuário pelo seu ID
-		 * 
-		 * @param idAutenticacao
-		 * @return
+		 * Quando um novo Gerente é adicionado, o antigo será posto com o cargo de
+		 * Funcionário.
 		 */
 
-		public Usuario encontrarUsuarioPorId(String idAutenticacao) {
-			for (Usuario usuario : usuarios) {
-				if (usuario.getId().equals(idAutenticacao)) {
-					return usuario;
-				}
+		if (novoTipoUsuario.equals("GER")) {
+			if (usuario.getTipo().equals("GER")) {
+				usuario.setTipo("FUN");
+				gerenteCadastrado = false;
 			}
-			return null;
 		}
 
+		usuario.setTipo(novoTipoUsuario);
+		return "USUÁRIO ATUALIZADO!";
+
+	}
+
+	/**
+	 * Exibe informações sobre o Usuário.
+	 * 
+	 * @param idUsuario
+	 * @return
+	 */
+
+	public String exibirUsuario(String idUsuario) {
+		Usuario usuario = encontrarUsuarioPorId(idUsuario);
+		if (usuario != null) {
+			return "[" + usuario.getId() + "] " + usuario.getNome() + " (No. Doc. " + usuario.getDocumento() + ")";
+		} else {
+			return "USUÁRIO NÃO ENCONTRADO!";
+		}
+	}
+
+	/**
+	 * Lista Usuários
+	 * 
+	 * @return
+	 */
+
+	public String[] listarUsuarios() {
+		ArrayList<String> usuariosExistentes = new ArrayList<>();
+		for (Usuario usuario : usuarios) {
+			usuariosExistentes.add(
+					"[" + usuario.getId() + "] " + usuario.getNome() + " (No. Doc. " + usuario.getDocumento() + ")");
+		}
+		return usuariosExistentes.toArray(new String[0]);
+
+	}
+
+	/**
+	 * método para encontrar um usuário pelo seu ID
+	 * 
+	 * @param idAutenticacao
+	 * @return
+	 */
+
+	public Usuario encontrarUsuarioPorId(String idAutenticacao) {
+		for (Usuario usuario : usuarios) {
+			if (usuario.getId().equals(idAutenticacao)) {
+				return usuario;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * @author maria helena
@@ -242,10 +242,15 @@ public class HotelCaliforniaSistema {
 			throw new IllegalArgumentException("OS PREÇOS NÃO PODEM SER NEGATIVOS");
 		}
 
-		QuartoDouble quartoDouble = new QuartoDouble(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase, pedidos);
-		quartos.put(idAutenticacao, quartoDouble);
+		if (idAutenticacao == "ADM") {
+			QuartoDouble quartoDouble = new QuartoDouble(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase,
+					pedidos);
+			quartos.put(idAutenticacao, quartoDouble);
+			return "QUARTO DOUBLE DISPONÍVEL!";
 
-		return "QUARTO DOUBLE DISPONÍVEL";
+		}
+
+		return "APENAS ADMINISTRADORES PODEM GERENCIAR OS QUARTOS";
 	}
 
 	public String disponibilizarQuartoFamily(String idAutenticacao, int idQuartoNum, double precoPorPessoa,

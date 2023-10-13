@@ -13,7 +13,7 @@ public class QuartoFamily extends Quarto {
 		this.pedidos = pedidos;
 		this.qtdMaxPessoas = qtdMaxPessoas;
 	}
-
+ 
 	@Override
 	public String exibirQuarto() {
 		return "[" + idQuartoNum + "]" + "Quarto Single (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
@@ -21,7 +21,7 @@ public class QuartoFamily extends Quarto {
 	}
 
 	@Override
-	double calcularDiaria() {
+	public double calcularDiaria() {
 		double diaria = precoBase + (precoPorPessoa * qtdMaxPessoas);
 		return diaria;
 	}
