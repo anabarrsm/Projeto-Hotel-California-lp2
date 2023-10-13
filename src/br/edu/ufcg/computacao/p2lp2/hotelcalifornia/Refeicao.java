@@ -12,8 +12,23 @@ public class Refeicao {
     private boolean refeicaoDisponivel;
 
     public Refeicao(String idRefeicao, String tipo, String titulo, LocalTime horaInicio, LocalTime horaFim, double valorPorPessoa, boolean disponivel){
+        switch (tipo){
+            case "Café-da-manhã":
+                tipoRefeicao = tipo;
+                break;
+            case "Almoço":
+                tipoRefeicao = tipo;
+                break;
+            case "Jantar":
+                tipoRefeicao = tipo;
+                break;
+            default:
+                System.out.println("Tipo não existe");
+                break;
+        }
+
         this.idRefeicao = idRefeicao;
-        this.tipoRefeicao = tipo;
+        //this.tipoRefeicao = tipo;
         this.tituloRefeicao = titulo;
         this.horaInicio = horaInicio;
         this.horaFim = horaFim;
@@ -35,14 +50,17 @@ public class Refeicao {
     public void setHoraFim(LocalTime horaFim){
         this.horaFim = horaFim;
     }
-    public boolean isRefeicaoDisponivel(){
-        return this.refeicaoDisponivel;
+    public String isRefeicaoDisponivel(){
+        if(refeicaoDisponivel){
+            return "VIGENTE";
+        }
+        return "INDISPONIVEL";
     }
 
     @Override
     public String toString(){
         //[<id>] <tipoRefeicao>: <titulo> (<inicio> as <fim>). Valor por pessoa: R$<valorPorPessoa>. <ativa?>
-        return "[" + idRefeicao + "]" + tipoRefeicao + ": " + tituloRefeicao + "(" + horaInicio + " as " + horaFim + "). Valor por pessoa: R$ " + valorPorPessoa + ". " + refeicaoDisponivel + ".";
+        return "[" + idRefeicao + "]" + tipoRefeicao + ": " + tituloRefeicao + "(" + horaInicio + " as " + horaFim + "). Valor por pessoa: R$ " + valorPorPessoa + ". " + isRefeicaoDisponivel() + ".";
     }
 
 }
