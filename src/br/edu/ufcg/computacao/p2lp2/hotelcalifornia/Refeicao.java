@@ -3,7 +3,7 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 import java.time.LocalTime;
 
 public class Refeicao {
-    private String idRefeicao;
+    private long idRefeicao;
     private String tipoRefeicao;
     private String tituloRefeicao;
     private LocalTime horaInicio;
@@ -11,7 +11,7 @@ public class Refeicao {
     private double valorPorPessoa;
     private boolean refeicaoDisponivel;
 
-    public Refeicao(String idRefeicao, String tipo, String titulo, LocalTime horaInicio, LocalTime horaFim, double valorPorPessoa, boolean disponivel){
+    public Refeicao(long idRefeicao, String tipo, String titulo, LocalTime horaInicio, LocalTime horaFim, double valorPorPessoa, boolean disponivel){
         switch (tipo){
             case "Café-da-manhã":
                 tipoRefeicao = tipo;
@@ -36,6 +36,7 @@ public class Refeicao {
         this.refeicaoDisponivel = disponivel;
     }
 
+    // sets para valores que podem ser alterados nos controllers, de acordo com o metódo alterarRefeição.
     public void setValorPorPessoa(double valor){
         valorPorPessoa = valor;
     }
