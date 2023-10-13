@@ -23,8 +23,22 @@ public class Refeicao {
                 tipoRefeicao = tipo;
                 break;
             default:
-                System.out.println("Tipo não existe");
-                break;
+                throw new IllegalArgumentException("NÃO É UM TIPO POSSÍVEL");
+        }
+        //if(tipo == null) {
+        //    throw new NullPointerException("TIPO DE REFEIÇÃO NÃO PODE SER NULO");
+        //}
+
+        if(titulo == null)  {
+            throw new NullPointerException("TITULO DE REFEIÇÃO NÃO PODE SER NULO");
+        }
+
+        if(horaInicio == null) {
+            throw new NullPointerException("REFEIÇÃO DEVE TER HORA DE INICIO");
+        }
+
+        if(horaFim == null) {
+            throw new NullPointerException("REFEIÇÃO DEVE TER HORA DE FIM");
         }
 
         this.idRefeicao = idRefeicao;
