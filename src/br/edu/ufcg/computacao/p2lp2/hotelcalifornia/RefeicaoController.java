@@ -6,14 +6,22 @@ import java.util.ArrayList;
 public class RefeicaoController {
     private ArrayList<Refeicao> refeicoes = new ArrayList<>();
 
-    public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo,
-                                         LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
+    public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo, LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
+        long id = Long.parseLong(idAutenticacao);
+        Refeicao r = new Refeicao(id, tipoRefeicao, titulo, horarioInicio, horarioFinal, valor, disponivel);
         return null;
     }
 
-    public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal,
-                                  boolean disponivel) {
-        return null;
+    public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal, boolean disponivel) {
+        for (Refeicao r: refeicoes) {
+            if(r.getId() == idRefeicao){
+                 r.setHoraInicio(horarioInicio);
+                 r.setHoraFim(horarioFinal);
+                 r.setRefeicaoDisponivel(disponivel);
+            }
+           return "Refeição alterada";
+        }
+        return "Refeição não existe";
     }
 
     public String exibirRefeicao(long idRefeicao) {
