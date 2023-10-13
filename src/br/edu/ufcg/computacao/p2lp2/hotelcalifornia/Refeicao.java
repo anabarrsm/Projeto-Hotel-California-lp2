@@ -36,6 +36,10 @@ public class Refeicao {
         this.refeicaoDisponivel = disponivel;
     }
 
+    public long getId(){
+        return this.idRefeicao;
+    }
+
     // sets para valores que podem ser alterados nos controllers, de acordo com o metódo alterarRefeição.
     public void setValorPorPessoa(double valor){
         valorPorPessoa = valor;

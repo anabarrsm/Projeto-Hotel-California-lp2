@@ -344,6 +344,7 @@ public class HotelCaliforniaSistema {
 	}
 
 	// Metodos US04 --> Verificar se tem existe a acrescentar.
+	/*
 	public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo,
 			LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
 		return null;
@@ -361,6 +362,7 @@ public class HotelCaliforniaSistema {
 	public String[] listarRefeicoes() {
 		return null;
 	}
+	 */
 
 	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdePessoas, String refeicao){
 		return null;
