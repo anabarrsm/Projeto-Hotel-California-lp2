@@ -362,4 +362,35 @@ public class HotelCaliforniaSistema {
 		return null;
 	}
 
+	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdePessoas, String refeicao){
+		return null;
+	}
+
+	public String disponibilizarFormaDePagamento(String idAutenticacao, String formaPagamento, double percentualDesconto){
+		return null;
+	}
+	public String alterarFormaDePagamento(String idAutenticacao, int idFormaPagamento, String formaPagamento, double percentualDesconto){
+		return null;
+	}
+	public String exibirFormaPagamento(int idFormaPagamento){
+		return null;
+	}
+	public String[] listarFormasPagamentos(){
+		return null;
+	}
+
+	public String pagarReservaComDinheiro(String idCliente, long idReserva, String nomeTitular){
+		return null;
+	}
+	public String pagarReservaComCartao(String idCliente, long idReserva, String nomeTitular, String numCartao, String validade, String codigoDeSeguranca, int qtdeParcelas){
+		return null;
+	}
+	public String pagarReservaComPix(String idCliente, long idReserva, String nomeTitular, String cpf, String banco){
+		return null;
+	}
+
+	public String cancelarReserva(String idCliente, String idReserva){
+		return null;
+	}
+
 }
