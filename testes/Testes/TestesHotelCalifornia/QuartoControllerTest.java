@@ -1,4 +1,4 @@
-package TestesHotelCalifornia;
+package Testes.TestesHotelCalifornia;
 
 import static org.junit.jupiter.api.Assertions.*;
 

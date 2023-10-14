@@ -1,6 +1,9 @@
-package TestesHotelCalifornia;
+package Testes.TestesHotelCalifornia;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.UsuarioController;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Usuario;
@@ -58,8 +61,5 @@ public class UsuarioControllerTest {
 //	void testCadastrarMaisGerente() {
 //		assertEquals("JÁ ESXISTE UM GERENTE CADASTRADO", sistema.cadastrarUsuario("ADM2", "Ana Gerente", "GER", 555));
 //	}
-
-	
-	@
 }
 

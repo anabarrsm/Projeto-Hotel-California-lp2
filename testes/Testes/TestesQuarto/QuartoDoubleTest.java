@@ -1,4 +1,4 @@
-package TestesQuarto;
+package Testes.TestesQuarto;
 
 import static org.junit.jupiter.api.Assertions.*;
 
