@@ -18,31 +18,30 @@ public class UsuarioControllerTest {
 	}
 	
 	@Test
-	public void testCadastrarAdmPorAdm() {
-		String usuario = controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "789012");
-		assertEquals("USUÁRIO CADASTRADO COM SUCESSO!", usuario);
+	public void testCadastrarUsuarioComSucesso() {
+		String saida = controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "123456");
+		assertEquals("USUÁRIO CADASTRADO COM SUCESSO!", saida);
 	}
 	
 	@Test
-	public void testCadastrarAdmPorNaoAdm() {
-		String usuario = controller.cadastrarUsuario("GER1", "Lucas Santos", "ADM", "987765");
-		assertEquals("APENAS UM ADMINISTRADOR PODE CADASTRAR UM ADMINISTRADOR.", usuario);
+	public void testCadastrarUsuarioComTipoInvalido() {
+		String usuario = controller.cadastrarUsuario("GER1", "Lucas Santos", "lalala", "987765");
+		assertEquals("TIPO INVÁLIDO!", usuario);
 	}
 	
 	@Test
-	public void testCadastrarGerentePorGerente() {
-		controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "789012");
-		String usuario = controller.cadastrarUsuario("GER1", "Lucas Santos", "GER", "987765");
-		assertEquals("APENAS UM ADMINISTRADOR PODE CADASTRAR UM GERENTE.", usuario);
-	}
+    public void testCadastrarUsuarioComIdExistente() {
+        controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "123456");
+        String resultado = controller.cadastrarUsuario("ADM2", "Maria", "ADM", "789012");
+        assertEquals("ID INVÁLIDO!", resultado);
+    }
 	
 	@Test
-	public void testCadastrarClientePorGerente() {
-		controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "789012");
-		controller.cadastrarUsuario("GER1", "Lucas Santos", "GER", "987765");
-		String usuario = controller.cadastrarUsuario("CLI1", "Heitor Barros", "CLI", "678987");
-		assertEquals("USUÁRIO CADASTRADO COM SUCESSO!", usuario);
-	}
+    public void testCadastrarGerenteDuplicado() {
+        controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "123456");
+        String resultado = controller.cadastrarUsuario("GER1", "Lucas", "GER", "789012");
+        assertEquals("JÁ EXISTE UM GERENTE CADASTRADO!", resultado);
+    }
 	
 	 @Test
 	 public void testTentarCadastrarClientePorCliente() {
@@ -52,14 +51,5 @@ public class UsuarioControllerTest {
 	     String usuario = controller.cadastrarUsuario("CLI2", "Carlos Lima", "CLI", "123456");
 	     assertEquals("CLIENTES NÃO PODEM CADASTRAR OUTROS CLIENTES.", usuario);
 	    }
-	
-//	@Test
-//	void testCadastrarUsuarioJaExistente() {
-//		controller.cadastrarUsuario("ADM")
-//	}
-//	@Test
-//	void testCadastrarMaisGerente() {
-//		assertEquals("JÁ ESXISTE UM GERENTE CADASTRADO", sistema.cadastrarUsuario("ADM2", "Ana Gerente", "GER", 555));
-//	}
+	 
 }
-

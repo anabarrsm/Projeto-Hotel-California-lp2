@@ -8,51 +8,40 @@ import java.util.Objects;
  */
 
 public class Usuario {
-	private String idAutenticacao;
 	private String nome;
 	private String tipoUsuario;
 	private String documento;
+	private String id;
 	
-	public Usuario(String idAutenticacao, String nome, String tipoUsuario, String documento) {
-		
-		if(idAutenticacao == null) {
-			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO ID NULO");
+	public Usuario(String nome, String tipoUsuario, String documento) {
+		if(nome == null || tipoUsuario == null || documento == null) {
+			throw new NullPointerException("PARÂMETRO INVÁLIDO!");
 		}
 		
-		if(nome == null) {
-			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO NOME NULO");
-		}
-		
-		if(tipoUsuario == null) {
-			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO TIPO VAZIO");
-		}
-		
-		
-		// pq tipo long n tem como passar null? dps conserto isso
-		if(documento == null) {
-			throw new NullPointerException("USUÁRIO INVÁLIDO - CAMPO DOCUMENTO VAZIO");
-		}
-		
-		this.idAutenticacao = idAutenticacao;
 		this.nome = nome;
 		this.tipoUsuario = tipoUsuario;
 		this.documento = documento;
+		this.id = "";
 	}
 	
 	public String getId() {
-		return idAutenticacao;
+		return id;
 	}
 	
-	public String getNome() {
-		return nome;
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public String getTipo() {
 		return tipoUsuario;
 	}
-	
+
 	public void setTipo(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+	
+	public String getNome() {
+		return nome;
 	}
 	
 	public String getDocumento() {
@@ -63,16 +52,20 @@ public class Usuario {
 	
 	public boolean equals(Object o) {
 		if(this == o) return true;
-		if(!(o instanceof Usuario usuario)) return false;
-		return Objects.equals(idAutenticacao, usuario.idAutenticacao);
+		if(o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		
+		Usuario usuario = (Usuario) o;
+		return Objects.equals(id, usuario.id);
 	}
 	
 	@Override
     public int hashCode() {
-        return Objects.hash(idAutenticacao);
+        return Objects.hash(id);
     }
 	
 	public String toString() {
-		return "[" + idAutenticacao + "] " + nome + " (No. Doc. " + documento + ")";
+		return "[" + id + "] " + nome + " (No. Doc. " + documento + ")";
 	}
 }
