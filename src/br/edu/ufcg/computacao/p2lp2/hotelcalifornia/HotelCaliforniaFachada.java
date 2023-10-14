@@ -10,7 +10,7 @@ public class HotelCaliforniaFachada {
 		this.quartoController = new QuartoController();
 	}
 
-	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
+	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, String documento) {
 		return this.usuarioController.cadastrarUsuario(idAutenticacao, nome, tipoUsuario, documento);
 
 	}

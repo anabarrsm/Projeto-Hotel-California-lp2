@@ -19,9 +19,32 @@ public class HotelCaliforniaSistema {
 
 	public HotelCaliforniaSistema() {
 		this.usuarios = new ArrayList<Usuario>();
-		this.adm = new Usuario("adm1", "Joao Costa", "ADM", 123456);
+		Usuario adm1 = new Usuario("ADM1", "João Costa", "ADM", "123456");
 		this.quartos = new HashMap<>();
 
+	}
+	
+	/**
+	 * método para encontrar um usuário pelo seu ID
+	 * 
+	 * @param idAutenticacao
+	 * @return
+	 */
+	
+	public Usuario encontrarUsuarioPorId(String idAutenticacao) {
+		for (Usuario usuario : usuarios) {
+			if (usuario.getId().equals(idAutenticacao)) {
+				return usuario;
+			}
+		}
+		return null;
+	}
+	
+	public boolean validaTipo(String tipoUsuario) {
+		if(!(tipoUsuario.equals("ADM")) || !(tipoUsuario.equals("GER")) || !(tipoUsuario.equals("CLI")) || !(tipoUsuario.equals("FUN"))) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -34,26 +57,32 @@ public class HotelCaliforniaSistema {
 	 * @return
 	 */
 
-	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
-//			/**
-//			 * Administrador {id=ADM1, nome=João Costa, tipo=ADM, documento=123456}, já vem
-//			 * cadastrado por padrão.
-//			 */
-//
-//			usuarios.add(new Usuario("ADM1", "João Costa", "ADM", 123456));
+public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, String documento) {
 		
 		Usuario cadastrante = encontrarUsuarioPorId(idAutenticacao);
-
-		if (cadastrante == null) {
-			throw new NullPointerException("USUÁRIO NÃO ENCONTRADO!");
+		
+		if((nome == null || (documento == null))) {
+			throw new NullPointerException("PARÂMETRO INVÁLIDO!");
+		
+		} else if (encontrarUsuarioPorId(idAutenticacao) == null) {
+			throw new NullPointerException("ID NÃO EXISTE!");
+			
+		} else if (validaTipo(tipoUsuario) == false) {
+			throw new IllegalArgumentException("TIPO INVÁLIDO!");
 		}
-
+		
+		
+		
 		/**
 		 * confere se já há um gerente cadastrado
 		 */
 
-		if (tipoUsuario.equals("GER") && gerenteCadastrado) {
-			return "JÁ EXISTE UM GERENTE CADASTRADO";
+		if (tipoUsuario.equals("GER")) {
+			for (Usuario u : usuarios) {
+				if(u.getTipo().equals("GER")) {
+					return "JÁ EXISTE UM GERENTE CADASTRADO";
+				}
+			}
 
 		}
 
@@ -186,25 +215,6 @@ public class HotelCaliforniaSistema {
 	 * método para encontrar um usuário pelo seu ID
 	 * 
 	 * @param idAutenticacao
-	 * @return
-	 */
-
-	public Usuario encontrarUsuarioPorId(String idAutenticacao) {
-		for (Usuario usuario : usuarios) {
-			if (usuario.getId().equals(idAutenticacao)) {
-				return usuario;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @author maria helena
-	 * 
-	 * @param idAutenticacao
-	 * @param idQuartoNum
-	 * @param precoPorPessoa
-	 * @param precoBase
 	 * @return
 	 */
 
