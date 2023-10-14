@@ -34,10 +34,10 @@ public class UsuarioController {
 	}
 	
 	public boolean validaTipo(String tipoUsuario) {
-		if(!(tipoUsuario.equals("ADM")) || !(tipoUsuario.equals("GER")) || !(tipoUsuario.equals("CLI")) || !(tipoUsuario.equals("FUN"))) {
-			return false;
+		if((tipoUsuario.equals("ADM")) || (tipoUsuario.equals("GER")) || (tipoUsuario.equals("CLI")) || (tipoUsuario.equals("FUN"))) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -53,13 +53,16 @@ public class UsuarioController {
 	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, String documento) {
 		
 		if((nome == null || (documento == null))) {
-			throw new NullPointerException("PARÂMETRO INVÁLIDO!");
+			return "PARÂMETRO INVÁLIDO";
+			//throw new NullPointerException("PARÂMETRO INVÁLIDO!");
 		
-		} else if (encontrarUsuarioPorId(idAutenticacao) == false) {
-			throw new NullPointerException("ID INVÁLIDO!");
+		} else if (encontrarUsuarioPorId(idAutenticacao) == true) {
+			return "ID INVÁLIDO!";
+			//throw new NullPointerException("ID INVÁLIDO!");
 			
 		} else if (validaTipo(tipoUsuario) == false) {
-			throw new IllegalArgumentException("TIPO INVÁLIDO!");
+			return "TIPO INVÁLIDO!";
+			//throw new IllegalArgumentException("TIPO INVÁLIDO!");
 			
 		} else if (idAutenticacao.contains("CLI")) {
 			return "CLIENTE NÃO PODE CADASTRAR USUÁRIO!";

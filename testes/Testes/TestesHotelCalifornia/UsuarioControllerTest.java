@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.UsuarioController;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Usuario;
+import org.w3c.dom.ls.LSOutput;
+
+import java.util.ArrayList;
 
 public class UsuarioControllerTest {
 
@@ -32,7 +35,10 @@ public class UsuarioControllerTest {
 	@Test
     public void testCadastrarUsuarioComIdExistente() {
         controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "123456");
-        String resultado = controller.cadastrarUsuario("ADM2", "Maria", "ADM", "789012");
+		String resultado = controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "123456");
+        resultado = controller.cadastrarUsuario("ADM2", "Maria", "ADM", "789012");
+		//System.out.println(resultado);
+		//System.out.println(controller.cadastrarUsuario("ADM2", "Maria", "ADM", "789012"));
         assertEquals("ID INVÁLIDO!", resultado);
     }
 	
