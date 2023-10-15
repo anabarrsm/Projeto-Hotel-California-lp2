@@ -79,7 +79,7 @@ public class Refeicao {
     @Override
     public String toString(){
         //[<id>] <tipoRefeicao>: <titulo> (<inicio> as <fim>). Valor por pessoa: R$<valorPorPessoa>. <ativa?>
-        return "[" + idRefeicao + "]" + tipoRefeicao + ": " + tituloRefeicao + "(" + horaInicio + " as " + horaFim + "). Valor por pessoa: R$ " + valorPorPessoa + ". " + isRefeicaoDisponivel() + ".";
+        return "[" + idRefeicao + "]" + tipoRefeicao + ": " + tituloRefeicao + " (" + horaInicio + " as " + horaFim + "). Valor por pessoa: R$ " + valorPorPessoa + ". " + isRefeicaoDisponivel() + ".";
     }
 
 }

@@ -9,7 +9,8 @@ public class RefeicaoController {
     public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo, LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
         long id = Long.parseLong(idAutenticacao);
         Refeicao r = new Refeicao(id, tipoRefeicao, titulo, horarioInicio, horarioFinal, valor, disponivel);
-        return null;
+        refeicoes.add(r);
+        return "Refeição adicionada!";
     }
 
     public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal, boolean disponivel) {
