@@ -3,6 +3,11 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+/**
+ * Classe controller de refeição.
+ * @author José Lucas Silva Palmeira
+ */
+
 public class RefeicaoController {
     private ArrayList<Refeicao> refeicoes = new ArrayList<>();
 

@@ -2,6 +2,11 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 import java.time.LocalTime;
 
+/**
+ * Classe que cria uma refeição no sistema.
+ * @author José Lucas Silva Palmeira
+ */
+
 public class Refeicao {
     private long idRefeicao;
     private String tipoRefeicao;
