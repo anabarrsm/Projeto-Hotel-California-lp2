@@ -35,19 +35,19 @@ public class Refeicao {
         //}
 
         if(titulo == null)  {
-            throw new NullPointerException("Titulo da refeição não pode ser nulo");
+            throw new NullPointerException("TITULO DA REFEIÇÃO NÃO PODE SER NULO");
         }
 
         if(horaInicio == null) {
-            throw new NullPointerException("Horário inicial não deve ser nulo");
+            throw new NullPointerException("HORÁRIO INICIAL NÃO DEVE SER NULO");
         }
 
         if(horaFim == null) {
-            throw new NullPointerException("Horário final não deve ser nulo");
+            throw new NullPointerException("HORÁRIO FINAL NÃO DEVE SER NULO");
         }
 
         if(horaFim.isBefore(horaInicio)){
-            throw new IllegalArgumentException("Horário final deve ser posterior ao horário inicial");
+            throw new IllegalArgumentException("HORÁRIO FINAL DEVE SER POSTERIOR AO HORÁRIO INICIAL");
         }
 
         this.idRefeicao = idRefeicao;
