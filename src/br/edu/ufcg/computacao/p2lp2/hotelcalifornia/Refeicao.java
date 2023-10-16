@@ -46,6 +46,10 @@ public class Refeicao {
             throw new NullPointerException("REFEIÇÃO DEVE TER HORA DE FIM");
         }
 
+        if(horaFim.isBefore(horaInicio)){
+            throw new IllegalArgumentException("HORÁRIO FINAL DEVE SER POSTERIOR AO HORÁRIO DE INICIO!");
+        }
+
         this.idRefeicao = idRefeicao;
         //this.tipoRefeicao = tipo;
         this.tituloRefeicao = titulo;
