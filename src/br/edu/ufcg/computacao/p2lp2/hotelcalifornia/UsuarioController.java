@@ -67,13 +67,17 @@ public class UsuarioController {
 		} else if (idAutenticacao.contains("CLI")) {
 			return "CLIENTE NÃO PODE CADASTRAR USUÁRIO!";
 			
-		} else if((idAutenticacao.contains("FUN")) && ((tipoUsuario.equals("ADM")) || (tipoUsuario.equals("GER")) || (tipoUsuario.equals("FUN")))) {
-			return "FUNCIONÁRIO SÓ PODE CADASTRAR CLIENTE!";
+		} else if (tipoUsuario.equals("FUN") && !idAutenticacao.equals("ADM") && !idAutenticacao.equals("GER")) {
+	        return "FUNCIONÁRIO SÓ PODE SER CADASTRADO POR ADMINISTRADOR OU GERENTE";
 			
-		} else if ((idAutenticacao.contains("GER")) && (tipoUsuario.equals("ADM"))) {
-			return "GERENTE NÃO PODE CADASTRAR ADMINISTRADOR!";
+		} else if (tipoUsuario.equals("GER") && !idAutenticacao.equals("ADM")) {
+	        return "GERENTE SÓ PODE SER CADASTRADO POR ADMINISTRADOR";
+	        
+	    } else if (tipoUsuario.equals("ADM") && !idAutenticacao.equals("ADM")) {
+	        return "ADMINISTRADOR SÓ PODE SER CADASTRADO POR OUTRO ADMINISTRADOR";
 			
 		} else if (tipoUsuario.equals("GER")) {
+			
 			for(Usuario usuario : usuarios) {
 				if (usuario.getTipo().equals("GER")) {
 					return "JÁ EXISTE UM GERENTE CADASTRADO!";
@@ -181,5 +185,4 @@ public class UsuarioController {
 		return usuariosExistentes.toArray(new String[0]);
 
 	}
-
 }
