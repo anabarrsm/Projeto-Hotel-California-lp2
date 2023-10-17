@@ -41,12 +41,13 @@ public class UsuarioControllerTest {
 		//System.out.println(controller.cadastrarUsuario("ADM2", "Maria", "ADM", "789012"));
         assertEquals("ID INVÁLIDO!", resultado);
     }
-	
 	@Test
-    public void testCadastrarGerenteDuplicado() {
+	
+	public void testCadastrarGerenteDuplicado() {
         controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "123456");
-        String resultado = controller.cadastrarUsuario("GER1", "Lucas", "GER", "789012");
-        assertEquals("JÁ EXISTE UM GERENTE CADASTRADO", resultado);
+        controller.cadastrarUsuario("ADM2", "Lucas", "GER", "789012");
+        String resultado = controller.cadastrarUsuario("ADM2", "Lucas", "GER", "789012");
+        assertEquals("JÁ EXISTE UM GERENTE CADASTRADO!", resultado);
     }
 	
 	 @Test
@@ -94,7 +95,7 @@ public class UsuarioControllerTest {
 	 public void testTentarCadastrarAdministradorPorGerente() {
 		 controller.cadastrarUsuario("GER1", "Ana Laura", "GER", "123456");
 	     controller.cadastrarUsuario("GER2", "Lucas Santos", "GER", "987765");
-	     String usuario = controller.cadastrarUsuario("ADM1", "Carlos Lima", "ADM", "123456");
+	     String usuario = controller.cadastrarUsuario("GER2", "Carlos Lima", "ADM", "123456");
 	     assertEquals("ADMINISTRADOR SÓ PODE SER CADASTRADO POR OUTRO ADMINISTRADOR", usuario);
 		 
 	 }
@@ -103,7 +104,7 @@ public class UsuarioControllerTest {
 	 public void testTentarCadastrarAdministradorPorFuncionario() {
 		 controller.cadastrarUsuario("FUN1", "Ana Laura", "FUN", "123456");
 	     controller.cadastrarUsuario("FUN2", "Lucas Santos", "FUN", "987765");
-	     String usuario = controller.cadastrarUsuario("ADM1", "Carlos Lima", "ADM", "123456");
+	     String usuario = controller.cadastrarUsuario("FUN2", "Carlos Lima", "ADM", "123456");
 	     assertEquals("ADMINISTRADOR SÓ PODE SER CADASTRADO POR OUTRO ADMINISTRADOR", usuario);
 		 
 	 }
@@ -112,15 +113,16 @@ public class UsuarioControllerTest {
 	 public void testTentarCadastrarAdministradorPorCliente() {
 		 controller.cadastrarUsuario("CLI1", "Ana Laura", "CLI", "123456");
 	     controller.cadastrarUsuario("CLI2", "Lucas Santos", "CLI", "987765");
-	     String usuario = controller.cadastrarUsuario("ADM1", "Carlos Lima", "ADM", "123456");
-	     assertEquals("ADMINISTRADOR SÓ PODE SER CADASTRADO POR OUTRO ADMINISTRADOR", usuario);
+	     String usuario = controller.cadastrarUsuario("CLI2", "Carlos Lima", "ADM", "123456");
+	     assertEquals("CLIENTE NÃO PODE CADASTRAR USUÁRIO!", usuario);
 		 
 	 }
 	 
 	 @Test
 	 public void testAtualizarUsuarioComSucesso() {
-		 controller.cadastrarUsuario("ADM1", "Ana Laura", "ADM", "789012");
-		 String usuario = controller.atualizarUsuario("ADM1", "ADM1", "GER1");
+		 controller.cadastrarUsuario("ADM2", "Gabriel oliveira", "ADM", "789012");
+		 controller.cadastrarUsuario("ADM3", "João pedro", "ADM", "284928");
+		 String usuario = controller.atualizarUsuario("ADM2", "ADM3", "FUN");
 		 assertEquals("USUÁRIO ATUALIZADO!", usuario);
 		 
 	 }
@@ -128,8 +130,9 @@ public class UsuarioControllerTest {
 	 @Test
 	 public void testAtualizarUsuarioTipoInvalido() {
 		 controller.cadastrarUsuario("ADM2", "Ana Laura", "ADM", "789012");
+		 controller.cadastrarUsuario("ADM3", "Ana Oliveira", "ADM", "284929");
 		 try {
-			 String resultado = controller.atualizarUsuario("ADM2", "ADM2", "lalala");
+			 String resultado = controller.atualizarUsuario("ADM2", "ADM3", "lalala");
 			 fail("DEVERIA LANÇAR EXCEÇÃO");
 		 } catch (IllegalArgumentException e) {
 			 assertEquals("TIPO INVÁLIDO!", e.getMessage());

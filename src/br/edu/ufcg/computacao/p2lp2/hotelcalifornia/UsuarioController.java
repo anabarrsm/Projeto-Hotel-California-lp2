@@ -51,8 +51,14 @@ public class UsuarioController {
 	 */
 
 	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, String documento) {
+		if (tipoUsuario.equals("GER")) {	
+			for(Usuario usuario : usuarios) {
+				if (usuario.getTipo().equals("GER")) {
+					return "JÁ EXISTE UM GERENTE CADASTRADO!";
+				}
+			}
 		
-		if((nome == null || (documento == null))) {
+		} if((nome == null || (documento == null))) {
 			return "PARÂMETRO INVÁLIDO";
 			//throw new NullPointerException("PARÂMETRO INVÁLIDO!");
 		
@@ -67,22 +73,15 @@ public class UsuarioController {
 		} else if (idAutenticacao.contains("CLI")) {
 			return "CLIENTE NÃO PODE CADASTRAR USUÁRIO!";
 			
-		} else if (tipoUsuario.equals("FUN") && !idAutenticacao.equals("ADM") && !idAutenticacao.equals("GER")) {
+		} else if (tipoUsuario.equals("FUN") && !idAutenticacao.contains("ADM") && !idAutenticacao.contains("GER")) {
 	        return "FUNCIONÁRIO SÓ PODE SER CADASTRADO POR ADMINISTRADOR OU GERENTE";
 			
-		} else if (tipoUsuario.equals("GER") && !idAutenticacao.equals("ADM")) {
+		} else if (tipoUsuario.equals("GER") && !idAutenticacao.contains("ADM")) {
 	        return "GERENTE SÓ PODE SER CADASTRADO POR ADMINISTRADOR";
 	        
-	    } else if (tipoUsuario.equals("ADM") && !idAutenticacao.equals("ADM")) {
+	    } else if (tipoUsuario.equals("ADM") && !idAutenticacao.contains("ADM")) {
 	        return "ADMINISTRADOR SÓ PODE SER CADASTRADO POR OUTRO ADMINISTRADOR";
 			
-		} else if (tipoUsuario.equals("GER")) {
-			
-			for(Usuario usuario : usuarios) {
-				if (usuario.getTipo().equals("GER")) {
-					return "JÁ EXISTE UM GERENTE CADASTRADO!";
-				}
-			}
 		} else {
 			Usuario usuario = new Usuario(nome, tipoUsuario, documento);
 			this.usuarios.add(usuario);
@@ -112,7 +111,7 @@ public class UsuarioController {
 	 */
 
 	public String atualizarUsuario(String idAutenticacao, String idUsuario, String novoTipoUsuario) {
-		if ((encontrarUsuarioPorId(idAutenticacao) == false) || ((encontrarUsuarioPorId(idUsuario) == false))) {
+		if ((encontrarUsuarioPorId(idAutenticacao) == false) && ((encontrarUsuarioPorId(idUsuario) == false))) {
 			throw new IllegalArgumentException("ID NÃO EXISTE!");
 			
 		} else if (validaTipo(novoTipoUsuario) == false) {
@@ -177,12 +176,11 @@ public class UsuarioController {
 	 */
 
 	public String[] listarUsuarios() {
-		ArrayList<String> usuariosExistentes = new ArrayList<>();
-		for (Usuario usuario : usuarios) {
-			usuariosExistentes.add(
-					"[" + usuario.getId() + "] " + usuario.getNome() + " (No. Doc. " + usuario.getDocumento() + ")");
+		String[] usuariosExistentes = new String[usuarios.size()];
+		for (int i = 0; i < usuariosExistentes.length; i++) {
+			usuariosExistentes[i] = usuarios.get(i).toString();
 		}
-		return usuariosExistentes.toArray(new String[0]);
+		return usuariosExistentes;
 
 	}
 }
