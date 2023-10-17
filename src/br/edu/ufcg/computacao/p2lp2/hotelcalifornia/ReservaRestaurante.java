@@ -9,6 +9,23 @@ public class ReservaRestaurante {
     private LocalDate dataFinal;
     private Refeicao refeicao;
     private boolean pagamentoEfetuado;
+    private int qtdPessoas;
+    private int capacidadeRestaurante;
+
+    public ReservaRestaurante(String clienteCadastrado, LocalDate dataInicial, LocalDate dataFinal, int qtdPessoas, Refeicao refeicaoServida, boolean pagamentoEfetuado){
+        capacidadeRestaurante = 50;
+        this.clienteCadastrado = clienteCadastrado;
+        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
+
+        if(qtdPessoas<= capacidadeRestaurante){
+            this.qtdPessoas = qtdPessoas;
+        }else{
+            throw new RuntimeException("QUANTIDADE DE PESSOAS CONVIDADAS NÃO DEVE EXCEDER A CAPACIDADE DO RESTAURANTE");
+        }
+        this.refeicao = refeicaoServida;
+        this.pagamentoEfetuado = pagamentoEfetuado;
+    }
 
     public String situacaoPagamento(){
         if(this.pagamentoEfetuado){

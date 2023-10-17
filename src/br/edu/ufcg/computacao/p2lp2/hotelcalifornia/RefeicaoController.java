@@ -68,4 +68,13 @@ public class RefeicaoController {
         return retorno;
     }
 
+    public Refeicao encontraRefeicao(Refeicao r1){
+        for (Refeicao r:refeicoes) {
+            if(r.equals(r1)){
+                return r;
+            }
+        }
+        return null;
+    }
+
 }
