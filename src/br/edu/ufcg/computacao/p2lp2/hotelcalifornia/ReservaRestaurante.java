@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ReservaRestaurante {
+    private double valorReservaRestaurante;
     private String clienteCadastrado;
     private LocalDate dataInicial;
     private LocalDate dataFinal;
@@ -31,5 +32,10 @@ public class ReservaRestaurante {
             return "JÁ FOI PAGO.";
         }
         return "PENDENTE.";
+    }
+
+    @Override
+    public String toString(){
+        return "[" + "] ...";
     }
 }
