@@ -85,6 +85,18 @@ public class Refeicao {
         return "INDISPONIVEL";
     }
 
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
+
+    public LocalTime getHoraFim() {
+        return horaFim;
+    }
+
+    public double getValorPorPessoa() {
+        return valorPorPessoa;
+    }
+
     @Override
     public String toString(){
         //[<id>] <tipoRefeicao>: <titulo> (<inicio> as <fim>). Valor por pessoa: R$<valorPorPessoa>. <ativa?>
