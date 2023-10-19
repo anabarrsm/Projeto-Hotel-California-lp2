@@ -22,7 +22,7 @@ public class ReservaRestaurante {
         }else{
             throw new RuntimeException("QUANTIDADE DE PESSOAS CONVIDADAS NÃO DEVE EXCEDER A CAPACIDADE DO RESTAURANTE");
         }
-
+        valorReservaRestaurante = qtdPessoas * refeicao.getValorPorPessoa();
         this.clienteCadastrado = clienteCadastrado;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
@@ -42,12 +42,13 @@ public class ReservaRestaurante {
     // valor reserva = num pessoas x quantidade de dias x refeicao.
     public Double calculaPreco(){
         long diferencaEmDias = dataInicial.until(dataFinal).getDays();
-        double valorReserva = qtdPessoas * diferencaEmDias * refeicao.getValorPorPessoa();
+        //double valorReserva = qtdPessoas * refeicao.getValorPorPessoa();
+        double valorReserva = valorReservaRestaurante * diferencaEmDias;
         return valorReserva;
     }
 
     @Override
     public String toString(){
-        return "[" + "] ...";
+        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + clienteCadastrado + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicial + " ate " + dataFinal + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicial.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
     }
 }
