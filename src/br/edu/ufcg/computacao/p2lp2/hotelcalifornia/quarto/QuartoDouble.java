@@ -14,7 +14,7 @@ public class QuartoDouble extends Quarto {
 
 	@Override
 	public String exibirQuarto() {
-		return "[" + idQuartoNum + "]" + "Quarto Single (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
+		return "[" + idQuartoNum + "]" + "Quarto Double (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
 				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária). Pedidos: " + representarPedidos(); 
 	}
 

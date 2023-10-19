@@ -16,8 +16,8 @@ public class QuartoFamily extends Quarto {
  
 	@Override
 	public String exibirQuarto() {
-		return "[" + idQuartoNum + "]" + "Quarto Single (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
-				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária). Capacidade: " + this.qtdMaxPessoas + ". Pedidos: " + representarPedidos();
+		return "[" + idQuartoNum + "]" + "Quarto Family (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
+				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária). Capacidade: " + this.qtdMaxPessoas + " pessoa(s)" + ". Pedidos: " + representarPedidos();
 	}
 
 	@Override
