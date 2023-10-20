@@ -6,6 +6,8 @@ public abstract class Quarto {
 	protected int idQuartoNum;
 	protected double precoPorPessoa;
 	protected double precoBase;
+	protected boolean quartoReservado;
+	
 
 	public Quarto(String idAutenticacao, int idQuartoNum, double precoPorPessoa, double precoBase) {
 		this.idAutenticacao = idAutenticacao;
@@ -13,10 +15,41 @@ public abstract class Quarto {
 		this.precoPorPessoa = precoPorPessoa;
 		this.precoBase = precoBase;
 	}
+
+	public String getIdAutenticacao() {
+		return idAutenticacao;
+	}
+
+
+	public int getIdQuartoNum() {
+		return idQuartoNum;
+	}
+
+
+	public double getPrecoPorPessoa() {
+		return precoPorPessoa;
+	}
+
+
+	public double getPrecoBase() {
+		return precoBase;
+	}
+
+
+	public boolean isQuartoReservado() {
+		return quartoReservado;
+	}
+
 	
+	public void setQuartoReservado(boolean quartoReservado) {
+		this.quartoReservado = quartoReservado;
+	}
 
 	public abstract String exibirQuarto();
 
 	public abstract double calcularDiaria();
+
+	
+
 }
 

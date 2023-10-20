@@ -19,9 +19,13 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
  */
 public class QuartoController {
 	private HashMap<String, Quarto> quartos;
+	private HashMap<Long, Reserva> reservas;
+	private long idReserva;
 	
 	public QuartoController() {
 		this.quartos = new HashMap<>();
+		this.reservas = new HashMap<>();
+		this.idReserva = 1;
 		
 	}
 
@@ -140,7 +144,7 @@ public class QuartoController {
 		     if(quartos.containsKey(numQuarto)) {
 		    	 Quarto quarto = quartos.get(numQuarto);
 			
-			 if (quarto.getQuartoReservado() == false) {
+			 if (quarto.isQuartoReservado() == false) {
 				 if(verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
 				ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes);
 				reservas.put(idReserva, reservaQuartoSingle);
@@ -177,7 +181,7 @@ public class QuartoController {
 		     if(quartos.containsKey(numQuarto)) {
 		    	 Quarto quarto = quartos.get(numQuarto);
 			
-			 if (quarto.getQuartoReservado() == false) {
+			 if (quarto.isQuartoReservado() == false) {
 				 if(verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
 					 
 				ReservaQuartoDouble reservaQuartoDouble = new ReservaQuartoDouble(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes, pedidos);
@@ -220,7 +224,7 @@ public class QuartoController {
 		     if(quartos.containsKey(numQuarto)) {
 		    	 Quarto quarto = quartos.get(numQuarto);
 			
-			 if (quarto.getQuartoReservado() == false) {
+			 if (quarto.isQuartoReservado() == false) {
 				 if(verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
 					 
 				ReservaQuartoFamily reservaQuartoFamily = new ReservaQuartoFamily(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes, pedidos, numPessoas);
