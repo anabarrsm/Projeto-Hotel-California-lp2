@@ -20,7 +20,7 @@ public class Refeicao {
         switch (tipo){
             case "Café-da-manhã":
                 tipoRefeicao = tipo;
-                break;
+                break; 
             case "Almoço":
                 tipoRefeicao = tipo;
                 break;

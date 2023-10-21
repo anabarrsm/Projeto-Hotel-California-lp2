@@ -8,19 +8,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.QuartoController;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.UsuarioController;
 
 class QuartoControllerTest {
 	
 	private QuartoController quartoController;
+	private UsuarioController usuarioController;
 	private String[] pedidos = {" 01 (uma) cama infantil", "01 (uma) roupa de cama adicional"};
 	private String[] refeicoes = {"Cafe completo reforcado"};
 	
 	@BeforeEach
 	void setUp() {
 		this.quartoController = new QuartoController();
+		this.usuarioController = new UsuarioController();
 		this.quartoController.disponibilizarQuartoSingle("ADM2", 601, 50.0, 100.0);
 		this.quartoController.disponibilizarQuartoDouble("ADM3",155 , 60.0, 100.0, pedidos);
 		this.quartoController.disponibilizarQuartoFamily("ADM4", 123, 50.0, 100.0, pedidos, 10);
+		this.usuarioController.cadastrarUsuario("ADM2","HELENA", "FUN", "123456");
 	}
 
 	@Test
@@ -70,5 +74,9 @@ class QuartoControllerTest {
 		assertEquals(this.quartoController.reservarQuartoSingle("FUN1", "CLI05", 601, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 13, 14, 0, 0), refeicoes), "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO");
 	}
 
+	@Test
+	void testExibirReserva() {
+		assertEquals(this.quartoController.exibirReserva("ADM2", 1), "NAO SEI");
+	}
 }
 

@@ -21,6 +21,7 @@ public class QuartoController {
 	private HashMap<Integer, Quarto> quartos;
 	private HashMap<Long, Reserva> reservas;
 	private long idReserva;
+	private UsuarioController usuarioController;
 
 	public QuartoController() {
 		this.quartos = new HashMap<>();
@@ -286,33 +287,42 @@ public class QuartoController {
 		return true;
 
 	}
+	// AARAY DE STRING QUE TEM [ [12] CAFE DA MANHA........, [05] BLA BLA BLA]
+	
 
 	public double calcularVQR(int numQuarto, long idReserva) {
 
-		// falta acrescentar o calculo das refeições
-
 		Quarto quarto = quartos.get(numQuarto);
-		Reserva reserva = reservas.get(idReserva);
-
-		String[] refeicoes = reserva.getIdRefeicoes();
-
+		Reserva reserva = reservas.get(idReserva);		
+		
 		LocalDateTime dataInicio = reserva.getDataInicio();
 		LocalDateTime dataFim = reserva.getDataFim();
 
-		double valorBasico = quarto.getPrecoBase();
-		double valorPessoa = quarto.getPrecoPorPessoa();
-		int quantHospedes = quarto.getQtdMaxPessoas();
+		double VB = quarto.getPrecoBase();
+		double VP = quarto.getPrecoPorPessoa();
+		int QH = quarto.getQtdMaxPessoas();
 
 		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toDays();
-		double diarias = Math.ceil(diferencaEmHoras);
-		// double refeicoes =
-
-		return diarias * (valorBasico + quantHospedes + valorPessoa) + diarias * quantHospedes;
+		double ND = Math.ceil(diferencaEmHoras);
+		
+		double SRI = reserva.getValorTotalRefeicoes();
+		
+		double VRQ = ND * (VB + QH * VP) + ND * QH * SRI;
+		return VRQ;
 
 	}
 
 	public String exibirReserva(String idAutenticacao, long idReserva) {
-		return idAutenticacao;
+		String usuario = usuarioController.exibirUsuario(idAutenticacao);
+		
+		Reserva reserva = reservas.get(idReserva);
+		String saidaReserva = reserva.exibirReserva();
+		
+		String exibir = "[" + idAutenticacao + "] Reserva de quarto em favor de: " + "\n" + "-" + usuario + "\n"
+ + saidaReserva ;
+		
+		return exibir;
+		
 
 	}
 
