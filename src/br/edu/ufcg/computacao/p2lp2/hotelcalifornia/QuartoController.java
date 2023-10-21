@@ -132,9 +132,6 @@ public class QuartoController {
 		return quartosArray;
 	}
 
-	// us03
-	// rever lógica do horário disponivel
-	// guardar essa hora, para poder fazer o set para true or false
 
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
@@ -171,7 +168,7 @@ public class QuartoController {
 
 						return "RESERVA QUARTO SINGLE REALIZADA";
 
-					}
+					} 
 
 				}
 			} else {
@@ -199,9 +196,10 @@ public class QuartoController {
 			if (quartos.containsKey(numQuarto)) {
 				Quarto quarto = quartos.get(numQuarto);
 
-				if (quarto.isQuartoReservado() == false) {
-
-					if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
+				if (!quarto.isQuartoReservado()) {
+					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
+					
+				}	if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
 
 						ReservaQuartoDouble reservaQuartoDouble = new ReservaQuartoDouble(idAutenticacao, idCliente,
 								numQuarto, dataInicio, dataFim, idRefeicoes, pedidos);
@@ -212,13 +210,8 @@ public class QuartoController {
 						this.idReserva++;
 
 						return "RESERVA QUARTO DOUBLE REALIZADA";
+					} 
 
-					} else {
-
-						return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
-					}
-
-				}
 			} else {
 				return "O QUARTO NÃO EXISTE";
 			}
@@ -249,7 +242,9 @@ public class QuartoController {
 
 				}
 
-				if (quarto.isQuartoReservado() == false) {
+				if (!quarto.isQuartoReservado()) {
+					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
+				}
 					if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
 
 						ReservaQuartoFamily reservaQuartoFamily = new ReservaQuartoFamily(idAutenticacao, idCliente,
@@ -261,13 +256,8 @@ public class QuartoController {
 						this.idReserva++;
 
 						return "RESERVA QUARTO FAMILY REALIZADA";
-
-					} else {
-
-						return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
 					}
 
-				}
 			} else {
 				return "O QUARTO NÃO EXISTE";
 			}
