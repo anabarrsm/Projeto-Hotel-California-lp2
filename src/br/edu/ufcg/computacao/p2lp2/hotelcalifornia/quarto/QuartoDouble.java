@@ -10,6 +10,7 @@ public class QuartoDouble extends Quarto {
 			String[] pedidos) {
 		super(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase);
 		this.pedidos = pedidos;
+		qtdMaxPessoas = 2;
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class QuartoDouble extends Quarto {
 
 	@Override
 	public double calcularDiaria() {
-		double diaria = precoBase + (2 * precoPorPessoa);
+		double diaria = precoBase + (qtdMaxPessoas * precoPorPessoa);
 		return diaria;
 	}
 
