@@ -32,7 +32,7 @@ public class ReservaQuartoSingle extends Reserva {
 	        "Detalhes da Instalação: " + "\n" + "[" + numQuarto + "]" + quartoSingle + "\n" + 
 	        "Detalhes da Reserva:\n" + "- Periodo: " + dataInicio + "até" + dataFim + 
 	        "\n- No. Hospedes: 01 pessoa(s)" + "\n" + 
-	        "- Refeicoes incluidas: [ \n" + refeicoes + 
+		"- Refeicoes incluidas: [ \n" + refeicoes + "";
 	        ;
 		return saida;
 	}
