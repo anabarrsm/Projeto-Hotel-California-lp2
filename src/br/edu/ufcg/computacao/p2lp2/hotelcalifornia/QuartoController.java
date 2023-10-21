@@ -196,10 +196,13 @@ public class QuartoController {
 			if (quartos.containsKey(numQuarto)) {
 				Quarto quarto = quartos.get(numQuarto);
 
-				if (!quarto.isQuartoReservado()) {
+				if (quarto.isQuartoReservado()) {
 					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
 					
-				}	if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
+				}if (!quarto.isQuartoReservado()) {	
+					
+					if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
+				}
 
 						ReservaQuartoDouble reservaQuartoDouble = new ReservaQuartoDouble(idAutenticacao, idCliente,
 								numQuarto, dataInicio, dataFim, idRefeicoes, pedidos);
@@ -237,14 +240,18 @@ public class QuartoController {
 			if (quartos.containsKey(numQuarto)) {
 				Quarto quarto = quartos.get(numQuarto);
 
-				if (numPessoas > quarto.getQuantMaxPessoas()) {
-					return "NUMERO DE PESSOAS SUPERA A QUANTIDADE MÁXIMA DE PESSOAS PERMITIDA DO QUARTO";
+				if (numPessoas > quarto.getQtdMaxPessoas()) {
+					return "O NUMERO DE PESSOAS SUPERA A QUANTIDADE MÁXIMA DE PESSOAS DESSE QUARTO";
 
 				}
 
-				if (!quarto.isQuartoReservado()) {
+				if (quarto.isQuartoReservado()) {
 					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
 				}
+				
+				if (!quarto.isQuartoReservado()) {
+					
+	
 					if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
 
 						ReservaQuartoFamily reservaQuartoFamily = new ReservaQuartoFamily(idAutenticacao, idCliente,
@@ -257,6 +264,7 @@ public class QuartoController {
 
 						return "RESERVA QUARTO FAMILY REALIZADA";
 					}
+				}
 
 			} else {
 				return "O QUARTO NÃO EXISTE";
@@ -293,7 +301,7 @@ public class QuartoController {
 
 		double valorBasico = quarto.getPrecoBase();
 		double valorPessoa = quarto.getPrecoPorPessoa();
-		int quantHospedes = quarto.getQuantMaxPessoas();
+		int quantHospedes = quarto.getQtdMaxPessoas();
 
 		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toDays();
 		double diarias = Math.ceil(diferencaEmHoras);

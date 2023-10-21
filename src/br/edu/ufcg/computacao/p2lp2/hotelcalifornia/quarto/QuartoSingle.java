@@ -5,7 +5,7 @@ public class QuartoSingle extends Quarto {
 
 	public QuartoSingle(String idAutenticacao, int idQuartoNum, double precoPorPessoa, double precoBase) {
 		super(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase);
-		qtdMaxPessoas = 1;
+		
 	}
 
 	@Override
@@ -16,8 +16,13 @@ public class QuartoSingle extends Quarto {
 
 	@Override
 	public double calcularDiaria() {
-		double diaria = precoBase + (qtdMaxPessoas * precoPorPessoa);
+		double diaria = precoBase + (getQtdMaxPessoas() * precoPorPessoa);
 		return diaria;
+	}
+
+	@Override
+	public int getQtdMaxPessoas() {
+		return 1;
 	}
 
 }

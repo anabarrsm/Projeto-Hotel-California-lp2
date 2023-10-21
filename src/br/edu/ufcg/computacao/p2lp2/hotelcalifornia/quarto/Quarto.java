@@ -6,7 +6,6 @@ public abstract class Quarto {
 	protected int idQuartoNum;
 	protected double precoPorPessoa;
 	protected double precoBase;
-	protected int qtdMaxPessoas; 
 	protected boolean quartoReservado;
 	
 
@@ -15,7 +14,6 @@ public abstract class Quarto {
 		this.idQuartoNum = idQuartoNum;
 		this.precoPorPessoa = precoPorPessoa;
 		this.precoBase = precoBase;
-		this.qtdMaxPessoas = qtdMaxPessoas;
 		this.quartoReservado = false;
 	}
 
@@ -31,10 +29,6 @@ public abstract class Quarto {
 
 	public double getPrecoPorPessoa() {
 		return precoPorPessoa;
-	}
-
-	public int getQuantMaxPessoas() {
-		return qtdMaxPessoas;
 	}
 
 	public double getPrecoBase() {
@@ -54,6 +48,8 @@ public abstract class Quarto {
 	public abstract String exibirQuarto();
 
 	public abstract double calcularDiaria();
+	
+	public abstract int getQtdMaxPessoas();
 
 	
 

@@ -36,4 +36,9 @@ public class QuartoFamily extends Quarto {
 		return output;
 	}
 
+	@Override
+	public int getQtdMaxPessoas() {
+		return qtdMaxPessoas;
+	}
+
 }
