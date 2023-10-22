@@ -2,6 +2,7 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Classe controller de refeição.
@@ -62,8 +63,11 @@ public class RefeicaoController {
         // ArrayList retorno1 = new ArrayList();
         int contador = 0;
         String[] retorno = new String[refeicoes.size()];
-        for (Refeicao r:refeicoes
-             ) {retorno[contador] = r.toString() + "\n";
+        
+        for (Refeicao r:refeicoes){
+        
+        	retorno[contador] = r.toString()+ "\n";
+
         }
         return retorno;
     }

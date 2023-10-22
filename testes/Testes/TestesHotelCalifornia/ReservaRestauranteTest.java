@@ -29,3 +29,4 @@ public class ReservaRestauranteTest {
         assertEquals(retorno, "[<id>]  Reserva de RESTAURANTE em favor de: Lucas \n Detalhes da reserva: \n - Periodo: "  + datainicial + " ate " + dataFinal + "\n - Qtde. de Convidados: 50 pessoa(s) \n Refeicao incluida: " + refeicao1 + "\nVALOR TOTAL DA RESERVA: R$ " + restaurante1.getValorReservaRestaurante() + "x" + datainicial.until(dataFinal).getDays() + " (diarias)  => R$ " + restaurante1.calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + restaurante1.situacaoPagamento());
     }
 }
+ 

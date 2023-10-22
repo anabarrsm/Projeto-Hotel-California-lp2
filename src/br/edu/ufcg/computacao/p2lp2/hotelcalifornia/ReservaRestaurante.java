@@ -13,7 +13,7 @@ public class ReservaRestaurante {
     private int qtdPessoas;
     private int capacidadeRestaurante;
     private LocalTime horaInicial;
-    private LocalTime horaFinal;
+    private LocalTime horaFinal; 
 
     public ReservaRestaurante(String clienteCadastrado, LocalDate dataInicial, LocalDate dataFinal, int qtdPessoas, Refeicao refeicaoServida, boolean pagamentoEfetuado){
         capacidadeRestaurante = 50;
@@ -54,5 +54,5 @@ public class ReservaRestaurante {
     @Override
     public String toString(){
         return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + clienteCadastrado + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicial + " ate " + dataFinal + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicial.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
-    }
+    } 
 }
