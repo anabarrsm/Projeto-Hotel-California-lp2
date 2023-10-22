@@ -1,377 +1,110 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoDouble;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoFamily;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoSingle;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
 
 public class HotelCaliforniaSistema {
-	private ArrayList<Usuario> usuarios;
-	private boolean gerenteCadastrado = false;
-	private HashMap<String, Quarto> quartos;
-	private Usuario adm;
-
-	public HotelCaliforniaSistema() {
-		this.usuarios = new ArrayList<Usuario>();
-		Usuario adm1 = new Usuario("João Costa", "ADM", "123456");
-		adm1.setId("ADM1");
-		this.quartos = new HashMap<>();
-
-	}
-	/**
-	 * método para encontrar um usuário pelo seu ID
-	 * 
-	 * @param idAutenticacao
-	 * @return
-	 */
 	
-	public boolean encontrarUsuarioPorId(String id) {
-		for (Usuario usuario : usuarios) {
-			if (usuario.getId().equals(id)) {
-				return true;
-			}
-		}
-		return false;
-	}
+	private UsuarioController usuarioController;
+	private QuartoController quartoController;
+	private RefeicaoController refeicaoController;
+	private HashMap<Long, Reserva> reservas;
 	
-	public boolean validaTipo(String tipoUsuario) {
-		if(!(tipoUsuario.equals("ADM")) || !(tipoUsuario.equals("GER")) || !(tipoUsuario.equals("CLI")) || !(tipoUsuario.equals("FUN"))) {
-			return false;
-		}
-		return true;
-	}
+	private long idReserva;
 
-	/**
-	 * Cadastra um usuário.
-	 * 
-	 * @param idAutenticacao
-	 * @param nome
-	 * @param tipoUsuario
-	 * @param documento
-	 * @return
-	 */
+		public HotelCaliforniaSistema() {
+		this.usuarioController = new UsuarioController();
+		this.quartoController = new QuartoController();
+		this.reservas = new HashMap<>();
+		this.idReserva = 1;
+	}
 
 	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, String documento) {
-		
-		if((nome == null || (documento == null))) {
-			throw new NullPointerException("PARÂMETRO INVÁLIDO!");
-		
-		} else if (encontrarUsuarioPorId(idAutenticacao) == false) {
-			throw new NullPointerException("ID NÃO EXISTE!");
-			
-		} else if (validaTipo(tipoUsuario) == false) {
-			throw new IllegalArgumentException("TIPO INVÁLIDO!");
-			
-		} else if (idAutenticacao.contains("CLI")) {
-			return "CLIENTE NÃO PODE CADASTRAR USUÁRIO!";
-			
-		} else if((idAutenticacao.contains("FUN")) && ((tipoUsuario.equals("ADM")) || (tipoUsuario.equals("GER")) || (tipoUsuario.equals("FUN")))) {
-			return "FUNCIONÁRIO SÓ PODE CADASTRAR CLIENTE!";
-			
-		} else if ((idAutenticacao.contains("GER")) && (tipoUsuario.equals("ADM"))) {
-			return "GERENTE NÃO PODE CADASTRAR ADMINISTRADOR!";
-			
-		} else if (tipoUsuario.equals("GER")) {
-			for(Usuario usuario : usuarios) {
-				if (usuario.getTipo().equals("GER")) {
-					return "JÁ EXISTE UM GERENTE CADASTRADO!";
-				}
-			}
-		} else {
-			Usuario usuario = new Usuario(nome, tipoUsuario, documento);
-			this.usuarios.add(usuario);
-			
-			for(int i = 0; i < usuarios.size(); i++) {
-				if(usuarios.get(i).equals(usuario)) {
-					usuarios.get(i).setId(tipoUsuario + (i + 1));
-				}
-			}
-		}
-		return "USUÁRIO CADASTRADO COM SUCESSO!";
-	}
-		
-		
-		/**
-		 * confere se já há um gerente cadastrado
-		 */
+		return this.usuarioController.cadastrarUsuario(idAutenticacao, nome, tipoUsuario, documento);
 
-		
-	/**
-	 * Atualiza o tipo de usuário
-	 * 
-	 * @param idAutenticacao
-	 * @param idUsuario
-	 * @param novoTipoUsuario
-	 * @return
-	 */
+	}
 
 	public String atualizarUsuario(String idAutenticacao, String idUsuario, String novoTipoUsuario) {
-		if ((encontrarUsuarioPorId(idAutenticacao) == false) || ((encontrarUsuarioPorId(idUsuario) == false))) {
-			throw new IllegalArgumentException("ID NÃO EXISTE!");
-			
-		} else if (validaTipo(novoTipoUsuario) == false) {
-			throw new IllegalArgumentException("TIPO INVÁLIDO!");
-			
-		}
-		
-		else if (!idAutenticacao.contains("ADM")) {
-			return "APENAS UM ADMINISTRADOR PODE ATUALIZAR OS USUÁRIOS.";
-		}
-		
-		else if(novoTipoUsuario.equals("GER")) {
-			for (int i = 0; i < usuarios.size(); i++) {
-				if(usuarios.get(i).getTipo().equals("GER")) {
-					usuarios.get(i).setTipo("FUN");
-					usuarios.get(i).setTipo("FUN" + (i+1));
-					
-				} else if(usuarios.get(i).getId().equals(novoTipoUsuario)) {
-					usuarios.get(i).setTipo("GER");
-					usuarios.get(i).setId("GER" + (i+1));
-				}
-			}
-			
-		} else {
-			for (int i = 0; i < usuarios.size(); i++) {
-				if(usuarios.get(i).getId().equals(novoTipoUsuario)) {
-					usuarios.get(i).setTipo("GER");
-					usuarios.get(i).setId("GER" + (i+1));
-				}
-			}
-		}
-		return "USUÁRIO ATUALIZADO!";
-		
+		return this.usuarioController.atualizarUsuario(idAutenticacao, idUsuario, novoTipoUsuario);
 	}
-
-	/**
-	 * Exibe informações sobre o Usuário.
-	 * 
-	 * @param idUsuario
-	 * @return
-	 */
 
 	public String exibirUsuario(String idUsuario) {
-		String saida = "";
-		if (encontrarUsuarioPorId(idUsuario) == false) {
-			throw new IllegalArgumentException("ID NÃO EXISTE!");
-	
-		} else {
-			for (Usuario usuario : usuarios) {
-				if(usuario.getId().equals(idUsuario)) {
-					saida = usuario.toString();
-				}
-			}
-		}
-		return saida;
+		return this.usuarioController.exibirUsuario(idUsuario);
+ 
 	}
-
-	/**
-	 * Lista Usuários
-	 * 
-	 * @return
-	 */
 
 	public String[] listarUsuarios() {
-		ArrayList<String> usuariosExistentes = new ArrayList<>();
-		for (Usuario usuario : usuarios) {
-			usuariosExistentes.add(
-					"[" + usuario.getId() + "] " + usuario.getNome() + " (No. Doc. " + usuario.getDocumento() + ")");
-		}
-		return usuariosExistentes.toArray(new String[0]);
-
+		return this.usuarioController.listarUsuarios();
 	}
-
 
 	public String disponibilizarQuartoSingle(String idAutenticacao, int idQuartoNum, double precoPorPessoa,
 			double precoBase) {
-		if (idAutenticacao == null || idAutenticacao.isEmpty()) {
-			throw new IllegalArgumentException("ID DE AUTENTICAÇÃO INVÁLIDO");
-		}
-
-		if (idQuartoNum <= 0) {
-			throw new IllegalArgumentException("ID DO QUARTO INVÁLIDO");
-		}
-
-		if (precoPorPessoa < 0 || precoBase < 0) {
-			throw new IllegalArgumentException("OS PREÇOS NÃO PODEM SER NEGATIVOS");
-		}
-
-		QuartoSingle quartoSingle = new QuartoSingle(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase);
-		quartos.put(idAutenticacao, quartoSingle);
-
-		return "QUARTO SINGLE DISPONÍVEL";
+		return this.quartoController.disponibilizarQuartoSingle(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase);
 	}
 
 	public String disponibilizarQuartoDouble(String idAutenticacao, int idQuartoNum, double precoPorPessoa,
 			double precoBase, String[] pedidos) {
-		if (idAutenticacao == null || idAutenticacao.isEmpty()) {
-			throw new IllegalArgumentException("ID DE AUTENTICAÇÃO INVÁLIDO");
-		}
-
-		if (idQuartoNum <= 0) {
-			throw new IllegalArgumentException("ID DO QUARTO INVÁLIDO");
-		}
-
-		if (precoPorPessoa < 0 || precoBase < 0) {
-			throw new IllegalArgumentException("OS PREÇOS NÃO PODEM SER NEGATIVOS");
-		}
-
-		if (idAutenticacao == "ADM") {
-			QuartoDouble quartoDouble = new QuartoDouble(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase,
-					pedidos);
-			quartos.put(idAutenticacao, quartoDouble);
-			return "QUARTO DOUBLE DISPONÍVEL!";
-
-		}
-
-		return "APENAS ADMINISTRADORES PODEM GERENCIAR OS QUARTOS";
+		return this.quartoController.disponibilizarQuartoDouble(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase,
+				pedidos);
 	}
 
 	public String disponibilizarQuartoFamily(String idAutenticacao, int idQuartoNum, double precoPorPessoa,
 			double precoBase, String[] pedidos, int qtdMaxPessoas) {
-		if (idAutenticacao == null || idAutenticacao.isEmpty()) {
-			throw new IllegalArgumentException("ID DE AUTENTICAÇÃO INVÁLIDO");
-		}
-
-		if (idQuartoNum <= 0) {
-			throw new IllegalArgumentException("ID DO QUARTO INVÁLIDO");
-		}
-
-		if (precoPorPessoa < 0 || precoBase < 0) {
-			throw new IllegalArgumentException("OS PREÇOS NÃO PODEM SER NEGATIVOS");
-		}
-
-		if (qtdMaxPessoas < 0 || qtdMaxPessoas > 10) {
-			throw new IllegalArgumentException("QUANTIDADE DE PESSOAS INVÁLIDAS");
-		}
-
-		QuartoFamily quartoFamily = new QuartoFamily(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase, pedidos,
-				qtdMaxPessoas);
-		quartos.put(idAutenticacao, quartoFamily);
-
-		return "QUARTO FAMILY DISPONÍVEL";
+		return this.quartoController.disponibilizarQuartoFamily(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase,
+				pedidos, qtdMaxPessoas);
 	}
 
-	public String exibirQuarto(int idQuartoNum) {
-
-		if (!quartos.containsKey(idQuartoNum)) {
-			throw new IllegalArgumentException("ESSE QUARTO NÃO ESTÁ DISPONÍVEL");
-		}
-
-		Quarto quarto = quartos.get(idQuartoNum);
-		return quarto.exibirQuarto();
-
-	}
-
-	public String[] listarQuartos() {
-		int tamanhoArray = quartos.size();
-		String[] quartosArray = new String[tamanhoArray];
-
-		int i = 0;
-		for (String idQuartoNum : quartos.keySet()) {
-			Quarto quarto = quartos.get(idQuartoNum);
-			quartosArray[i] = quarto.exibirQuarto();
-			i++;
-
-		}
-		return quartosArray;
-	}
-
-	// Metodos US03 --> Verificar se existe algo a acrescentar.
-	public String reservaQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
+	
+	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
-		return null;
-	}
 
-	public String reservarQuartoDouble(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
-			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos) {
-		return null;
-	}
+		if (idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) {
 
-	public String reservaQuartoFamily(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
-			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos, int numPessoas) {
-		return null;
-	}
+			long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
 
-	public String exibeReserva(String idAutenticacao, long idReserva) {
-		return null;
-	}
+			if (diferencaEmHoras < 24) {
+				return "O período mínimo da reserva é de uma diária (24 horas).";
+			}
 
-	public String[] listaReservasAtivasDoCliente(String idAutenticacao, String idCliente) {
-		return null;
-	}
+			if (dataFim.isBefore(dataInicio)) {
+				return "A data de fim deve ser posterior à data de início";
+			}
+			
+			if (quartoController.getQuartos().containsKey(numQuarto)) {
+				Quarto quarto = quartoController.getQuartos().get(numQuarto);
 
-	public String[] listaReservasAtivasDoClientePorTipo(String idAutenticacao, String idCliente, String tipo) {
-		return null;
-	}
+				if (quarto.isQuartoReservado()) {
+					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
+				}
 
-	public String[] listaReservasAtivasPorTipo(String idAutenticacao, String tipo) {
-		return null;
-	}
+				else {
 
-	public String[] listaReservasAtivas(String idAutenticacao) {
-		return null;
-	}
+					if (quartoController.verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
+						
+						ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idAutenticacao, idCliente,
+								numQuarto, dataInicio, dataFim, idRefeicoes);
+						reservas.put(idReserva, reservaQuartoSingle);
 
-	public String[] listaReservasTodas(String idAutenticacao) {
-		return null;
-	}
+						quarto.setQuartoReservado(true);
+						this.idReserva++;
 
-	// Metodos US04 --> Verificar se tem existe a acrescentar.
-	/*
-	public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo,
-			LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
-		return null;
-	}
+						return "RESERVA QUARTO SINGLE REALIZADA";
 
-	public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal,
-			boolean disponivel) {
-		return null;
-	}
+					} 
 
-	public String exibirRefeicao(long idRefeicao) {
-		return null;
-	}
+				}
+			} else {
+				return "O QUARTO NÃO EXISTE";
+			}
+		}
 
-	public String[] listarRefeicoes() {
-		return null;
+		return "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO";
 	}
-	 */
-
-	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdePessoas, String refeicao){
-		return null;
-	}
-
-	public String disponibilizarFormaDePagamento(String idAutenticacao, String formaPagamento, double percentualDesconto){
-		return null;
-	}
-	public String alterarFormaDePagamento(String idAutenticacao, int idFormaPagamento, String formaPagamento, double percentualDesconto){
-		return null;
-	}
-	public String exibirFormaPagamento(int idFormaPagamento){
-		return null;
-	}
-	public String[] listarFormasPagamentos(){
-		return null;
-	}
-
-	public String pagarReservaComDinheiro(String idCliente, long idReserva, String nomeTitular){
-		return null;
-	}
-	public String pagarReservaComCartao(String idCliente, long idReserva, String nomeTitular, String numCartao, String validade, String codigoDeSeguranca, int qtdeParcelas){
-		return null;
-	}
-	public String pagarReservaComPix(String idCliente, long idReserva, String nomeTitular, String cpf, String banco){
-		return null;
-	}
-
-	public String cancelarReserva(String idCliente, String idReserva){
-		return null;
-	}
+	
 
 }

@@ -183,4 +183,10 @@ public class UsuarioController {
 		return usuariosExistentes;
 
 	}
+
+	public ArrayList<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	
+	
 }

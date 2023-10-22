@@ -20,13 +20,11 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
 public class QuartoController {
 	private HashMap<Integer, Quarto> quartos;
 	private HashMap<Long, Reserva> reservas;
-	private long idReserva;
-	private UsuarioController usuarioController;
+
 
 	public QuartoController() {
 		this.quartos = new HashMap<>();
 		this.reservas = new HashMap<>();
-		this.idReserva = 1;
 
 	}
 
@@ -156,12 +154,12 @@ public class QuartoController {
 					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
 				}
 
-				if (!quarto.isQuartoReservado()) {
+				else {
 
 					if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
-
-						ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idAutenticacao, idCliente,
-								numQuarto, dataInicio, dataFim, idRefeicoes);
+						
+//						ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idAutenticacao, idCliente,
+//								numQuarto, dataInicio, dataFim, idRefeicoes);
 						reservas.put(idReserva, reservaQuartoSingle);
 
 						quarto.setQuartoReservado(true);
@@ -275,7 +273,7 @@ public class QuartoController {
 		return "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO";
 	}
 
-	private boolean verificarDisponibilidade(int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim) {
+	public boolean verificarDisponibilidade(int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim) {
 		for (Reserva reserva : reservas.values()) {
 			if (reserva.getNumQuarto() == numQuarto) {
 				if (dataInicio.isBefore(reserva.getDataFim()) && dataFim.isAfter(reserva.getDataInicio()))
@@ -308,12 +306,12 @@ public class QuartoController {
 		double SRI = reserva.getValorTotalRefeicoes();
 		
 		double VRQ = ND * (VB + QH * VP) + ND * QH * SRI;
-		return VRQ;
+		return VRQ; 
 
-	}
+	} 
 
 	public String exibirReserva(String idAutenticacao, long idReserva) {
-		String usuario = usuarioController.exibirUsuario(idAutenticacao);
+		String usuario = 
 		
 		Reserva reserva = reservas.get(idReserva);
 		String saidaReserva = reserva.exibirReserva();
@@ -322,7 +320,6 @@ public class QuartoController {
  + saidaReserva ;
 		
 		return exibir;
-		
 
 	}
 
@@ -349,5 +346,9 @@ public class QuartoController {
 	public String[] listarReservasTodas(String idAutenticacao) {
 		return null;
 
+	}
+
+	public HashMap<Integer, Quarto> getQuartos() {
+		return quartos;
 	}
 }

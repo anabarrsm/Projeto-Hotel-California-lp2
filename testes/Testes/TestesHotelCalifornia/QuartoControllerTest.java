@@ -24,7 +24,7 @@ class QuartoControllerTest {
 		this.quartoController.disponibilizarQuartoSingle("ADM2", 601, 50.0, 100.0);
 		this.quartoController.disponibilizarQuartoDouble("ADM3",155 , 60.0, 100.0, pedidos);
 		this.quartoController.disponibilizarQuartoFamily("ADM4", 123, 50.0, 100.0, pedidos, 10);
-		this.usuarioController.cadastrarUsuario("ADM2","HELENA", "FUN", "123456");
+		usuarioController.cadastrarUsuario("ADM2","HELENA", "FUN", "123456");
 	}
 
 	@Test
@@ -76,7 +76,7 @@ class QuartoControllerTest {
 
 	@Test
 	void testExibirReserva() {
-		assertEquals(this.quartoController.exibirReserva("ADM2", 1), "NAO SEI");
+		assertEquals(this.quartoController.exibirReserva("ADM2",  1), "NAO SEI");
 	}
 }
 
