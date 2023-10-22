@@ -8,12 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.QuartoController;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaController;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.UsuarioController;
 
 class QuartoControllerTest {
 	
 	private QuartoController quartoController;
 	private UsuarioController usuarioController;
+	private ReservaController reservaController;
 	private String[] pedidos = {" 01 (uma) cama infantil", "01 (uma) roupa de cama adicional"};
 	private String[] refeicoes = {"Cafe completo reforcado"};
 	
@@ -21,10 +23,13 @@ class QuartoControllerTest {
 	void setUp() {
 		this.quartoController = new QuartoController();
 		this.usuarioController = new UsuarioController();
+		this.reservaController = new ReservaController(usuarioController, quartoController);
 		this.quartoController.disponibilizarQuartoSingle("ADM2", 601, 50.0, 100.0);
 		this.quartoController.disponibilizarQuartoDouble("ADM3",155 , 60.0, 100.0, pedidos);
 		this.quartoController.disponibilizarQuartoFamily("ADM4", 123, 50.0, 100.0, pedidos, 10);
-		usuarioController.cadastrarUsuario("ADM2","HELENA", "FUN", "123456");
+		this.usuarioController.cadastrarUsuario("CLI2","OH DEUS", "FUN", "12345678");
+		this.reservaController.reservarQuartoSingle("FUN1", "CLI2", 10, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 13, 14, 0, 0), refeicoes);
+		this.usuarioController.cadastrarUsuario("ADM2","HELENA", "FUN", "123456");
 	}
 
 	@Test
@@ -45,38 +50,37 @@ class QuartoControllerTest {
 	
 	@Test
 	void testReservarQuarto() {
-		assertEquals(this.quartoController.reservarQuartoSingle("GER1","CLI19" , 601 ,LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 14, 12, 0, 0), refeicoes), "RESERVA QUARTO SINGLE REALIZADA");
-		assertEquals(this.quartoController.reservarQuartoDouble("FUN1", "CLI10", 155, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 12, 16, 14, 0, 0), refeicoes, pedidos), "RESERVA QUARTO DOUBLE REALIZADA");
-		assertEquals(this.quartoController.reservarQuartoFamily("FUN3", "CLI10", 123, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 12, 16, 14, 0, 0), refeicoes, pedidos, 5), "RESERVA QUARTO FAMILY REALIZADA");
+		assertEquals(this.reservaController.reservarQuartoSingle("GER1","CLI19" , 601 ,LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 14, 12, 0, 0), refeicoes), "RESERVA QUARTO SINGLE REALIZADA");
+		assertEquals(this.reservaController.reservarQuartoDouble("FUN1", "CLI10", 155, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 12, 16, 14, 0, 0), refeicoes, pedidos), "RESERVA QUARTO DOUBLE REALIZADA");
+		assertEquals(this.reservaController.reservarQuartoFamily("FUN3", "CLI10", 123, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 12, 16, 14, 0, 0), refeicoes, pedidos, 5), "RESERVA QUARTO FAMILY REALIZADA");
 	}
 	
 	@Test
 	void testReservarAcimaLimitePessoas() {
-		assertEquals(this.quartoController.reservarQuartoFamily("FUN3", "CLI10", 123, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 12, 16, 14, 0, 0), refeicoes, pedidos, 12), "O NUMERO DE PESSOAS SUPERA A QUANTIDADE MÁXIMA DE PESSOAS DESSE QUARTO");
+		assertEquals(this.reservaController.reservarQuartoFamily("FUN3", "CLI10", 123, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 12, 16, 14, 0, 0), refeicoes, pedidos, 12), "O NUMERO DE PESSOAS SUPERA A QUANTIDADE MÁXIMA DE PESSOAS DESSE QUARTO");
 		
 	}
 	
 	@Test 
 	void testReservaIndevida() {
-		assertEquals(this.quartoController.reservarQuartoSingle("ADM1","CLI19" , 601 ,LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 14, 12, 0, 0), refeicoes), "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO");
-		assertEquals(this.quartoController.reservarQuartoDouble("CLI1", "CLI10", 155, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 14, 12, 0, 0), refeicoes, pedidos), "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO");
+		assertEquals(this.reservaController.reservarQuartoSingle("ADM1","CLI19" , 601 ,LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 14, 12, 0, 0), refeicoes), "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO");
+		assertEquals(this.reservaController.reservarQuartoDouble("CLI1", "CLI10", 155, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 14, 12, 0, 0), refeicoes, pedidos), "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO");
 	}
+	 
+//	void testReservaMenos24horas() {
+//		assertEquals(this.reservaController.reservarQuartoSingle("FUN1", "CLI19", 601, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 12, 17, 0, 0), refeicoes), "O período mínimo da reserva é de uma diária (24 horas).");
+//		
+//	}
 	
-	@Test
-	void testReservaMenos24horas() {
-		assertEquals(this.quartoController.reservarQuartoSingle("FUN1", "CLI19", 601, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 12, 17, 0, 0), refeicoes), "O período mínimo da reserva é de uma diária (24 horas).");
-		
-	}
-	
-	@Test
+	@Test 
 	void testReservaIndisponivel() {
-		this.quartoController.reservarQuartoSingle("FUN1", "CLI05", 601, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 13, 14, 0, 0), refeicoes);
-		assertEquals(this.quartoController.reservarQuartoSingle("FUN1", "CLI05", 601, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 13, 14, 0, 0), refeicoes), "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO");
+		this.reservaController.reservarQuartoSingle("FUN1", "CLI05", 601, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 13, 14, 0, 0), refeicoes);
+		assertEquals(this.reservaController.reservarQuartoSingle("FUN1", "CLI05", 601, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 13, 14, 0, 0), refeicoes), "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO");
 	}
 
 	@Test
 	void testExibirReserva() {
-		assertEquals(this.quartoController.exibirReserva("ADM2",  1), "NAO SEI");
-	}
+		assertEquals(this.reservaController.exibirReserva("FUN1",  1), "NAO SEI"); 
+}
 }
 

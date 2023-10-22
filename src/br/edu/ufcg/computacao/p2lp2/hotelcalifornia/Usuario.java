@@ -16,7 +16,7 @@ public class Usuario {
 	public Usuario(String nome, String tipoUsuario, String documento) {
 		if(nome == null || tipoUsuario == null || documento == null) {
 			throw new NullPointerException("PARÂMETRO INVÁLIDO!");
-		}
+		} 
 		
 		this.nome = nome;
 		this.tipoUsuario = tipoUsuario;

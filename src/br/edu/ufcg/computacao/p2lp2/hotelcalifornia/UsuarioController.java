@@ -7,13 +7,12 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
 
 public class UsuarioController {
 	private ArrayList<Usuario> usuarios;
-	private HashMap<String, Quarto> quartos;
+
 
 	public UsuarioController() {
 			this.usuarios = new ArrayList<Usuario>();
 			Usuario adm1 = new Usuario("João Costa", "ADM", "123456");
 			adm1.setId("ADM1");
-			this.quartos = new HashMap<>();
 
 		}
 	
@@ -187,6 +186,6 @@ public class UsuarioController {
 	public ArrayList<Usuario> getUsuarios() {
 		return usuarios;
 	}
-	
+
 	
 }

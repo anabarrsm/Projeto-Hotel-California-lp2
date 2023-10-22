@@ -12,16 +12,16 @@ public class HotelCaliforniaSistema {
 	
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
+	private ReservaController reservaController;
 	private RefeicaoController refeicaoController;
-	private HashMap<Long, Reserva> reservas;
-	
-	private long idReserva;
+ 
 
 		public HotelCaliforniaSistema() {
 		this.usuarioController = new UsuarioController();
 		this.quartoController = new QuartoController();
-		this.reservas = new HashMap<>();
-		this.idReserva = 1;
+		this.reservaController = new ReservaController(usuarioController, quartoController);
+
+
 	}
 
 	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, String documento) {
@@ -62,49 +62,7 @@ public class HotelCaliforniaSistema {
 	
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
-
-		if (idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) {
-
-			long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
-
-			if (diferencaEmHoras < 24) {
-				return "O período mínimo da reserva é de uma diária (24 horas).";
-			}
-
-			if (dataFim.isBefore(dataInicio)) {
-				return "A data de fim deve ser posterior à data de início";
-			}
-			
-			if (quartoController.getQuartos().containsKey(numQuarto)) {
-				Quarto quarto = quartoController.getQuartos().get(numQuarto);
-
-				if (quarto.isQuartoReservado()) {
-					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
-				}
-
-				else {
-
-					if (quartoController.verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
-						
-						ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idAutenticacao, idCliente,
-								numQuarto, dataInicio, dataFim, idRefeicoes);
-						reservas.put(idReserva, reservaQuartoSingle);
-
-						quarto.setQuartoReservado(true);
-						this.idReserva++;
-
-						return "RESERVA QUARTO SINGLE REALIZADA";
-
-					} 
-
-				}
-			} else {
-				return "O QUARTO NÃO EXISTE";
-			}
-		}
-
-		return "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO";
+		return this.reservaController.reservarQuartoSingle(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes);
 	}
-	
-
+  
 }
