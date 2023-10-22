@@ -31,23 +31,28 @@ public class ReservaRestauranteController {
 			LocalDate dataFim, int qtdPessoas, String refeicao) {
 
 		if (idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) {
-			if (qtdPessoas > capacidadeRestaurante) {
-				throw new RuntimeException(
-						"QUANTIDADE DE PESSOAS CONVIDADAS NÃO DEVE EXCEDER A CAPACIDADE DO RESTAURANTE");
-			}
+			
+			if(usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
+				if (qtdPessoas > capacidadeRestaurante) {
+					throw new RuntimeException(
+							"QUANTIDADE DE PESSOAS CONVIDADAS NÃO DEVE EXCEDER A CAPACIDADE DO RESTAURANTE");
+				}
 
-			ReservaRestaurante reservaRestaurante = new ReservaRestaurante(idCliente, dataInicio, dataFim, qtdPessoas, refeicao);
-			this.idReserva ++; 
+				ReservaRestaurante reservaRestaurante = new ReservaRestaurante(idCliente, dataInicio, dataFim, qtdPessoas, refeicao);
+				this.idReserva ++; 
+				
+				reservaRestaurante.setIdReserva(idReserva);
+				reservasRestaurante.put(idReserva, reservaRestaurante);
+				
+				
+				return "Reserva Restaurante Realizada!";		
+			}
 			
-			reservaRestaurante.setIdReserva(idReserva);
-			reservasRestaurante.put(idReserva, reservaRestaurante);
-			
-			
-			return "Reserva Restaurante Realizada!";
+			return "Usuario não cadastrado";
 			
 			}
 		
-		return refeicao;
+		return "Apenas gerente e funcionário podem efetuar Reserva";
 	}
 
 }
