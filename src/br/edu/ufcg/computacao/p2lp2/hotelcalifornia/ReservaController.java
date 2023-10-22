@@ -31,7 +31,7 @@ public class ReservaController {
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
 
-		if (idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) {
+		if (idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) { 
 
 			long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
 

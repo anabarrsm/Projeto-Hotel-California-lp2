@@ -6,7 +6,7 @@ import java.util.HashMap;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
 
 public class UsuarioController {
-	private ArrayList<Usuario> usuarios;
+	private ArrayList<Usuario> usuarios; 
 
 
 	public UsuarioController() {

@@ -16,7 +16,7 @@ public class Refeicao {
     private double valorPorPessoa;
     private boolean refeicaoDisponivel;
 
-    public Refeicao(long idRefeicao, String tipo, String titulo, LocalTime horaInicio, LocalTime horaFim, double valorPorPessoa, boolean disponivel){
+    public Refeicao(String tipo, String titulo, LocalTime horaInicio, LocalTime horaFim, double valorPorPessoa, boolean disponivel){
         switch (tipo){
             case "Café-da-manhã":
                 tipoRefeicao = tipo;
@@ -50,7 +50,7 @@ public class Refeicao {
             throw new IllegalArgumentException("HORÁRIO FINAL DEVE SER POSTERIOR AO HORÁRIO INICIAL");
         }
 
-        this.idRefeicao = idRefeicao;
+        this.idRefeicao = 0;
         //this.tipoRefeicao = tipo;
         this.tituloRefeicao = titulo;
         this.horaInicio = horaInicio;
@@ -59,9 +59,15 @@ public class Refeicao {
         this.refeicaoDisponivel = disponivel;
     }
 
-    public long getId(){
-        return this.idRefeicao;
-    }
+    public long getIdRefeicao() {
+		return idRefeicao;
+	}
+
+	public void setIdRefeicao(long idRefeicao) {
+		this.idRefeicao = idRefeicao;
+	}
+
+
 
     // sets para valores que podem ser alterados nos controllers, de acordo com o metódo alterarRefeição.
     public void setValorPorPessoa(double valor){
@@ -100,7 +106,7 @@ public class Refeicao {
     @Override
     public String toString(){
         //[<id>] <tipoRefeicao>: <titulo> (<inicio> as <fim>). Valor por pessoa: R$<valorPorPessoa>. <ativa?>
-        return "[" + idRefeicao + "]" + tipoRefeicao + ": " + tituloRefeicao + " (" + horaInicio + " as " + horaFim + "). Valor por pessoa: R$ " + valorPorPessoa + ". " + isRefeicaoDisponivel() + ".";
+        return "[" + idRefeicao + "] " + tipoRefeicao + ": " + tituloRefeicao + " (" + horaInicio + " as " + horaFim + "). Valor por pessoa: R$" + valorPorPessoa + ". " + isRefeicaoDisponivel() + ".";
     }
 
 }
