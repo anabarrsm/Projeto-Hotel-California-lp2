@@ -17,7 +17,7 @@ public class RefeicaoController {
 	
 	public RefeicaoController(UsuarioController usuarioController) {
 		this.refeicoes = new HashMap<>();
-    	this.usuarioController = usuarioController;
+    	this.usuarioController = usuarioController; 
     	this.idRefeicao = 0;
     }
 

@@ -11,7 +11,7 @@ public class UsuarioController {
 
 	public UsuarioController() {
 			this.usuarios = new ArrayList<Usuario>();
-			Usuario adm1 = new Usuario("João Costa", "ADM", "123456");
+			Usuario adm1 = new Usuario("João Costa", "ADM", "123456"); 
 			adm1.setId("ADM1");
 
 		}
@@ -186,6 +186,7 @@ public class UsuarioController {
 	public ArrayList<Usuario> getUsuarios() {
 		return usuarios;
 	}
+	
 
 	
 }

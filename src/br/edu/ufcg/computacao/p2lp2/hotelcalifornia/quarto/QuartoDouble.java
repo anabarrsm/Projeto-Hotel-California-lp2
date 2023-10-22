@@ -2,6 +2,16 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto;
 
 import java.util.Arrays;
 
+/**
+ * Classe que representa um Quarto Double, uma subclasse de Quarto.
+ * 
+ * Um Quarto Double é um tipo de quarto projetado para acomodar até duas pessoas.
+ * Ele possui um custo base e um custo adicional por pessoa, bem como a capacidade
+ * de incluir pedidos específicos relacionados ao quarto.
+ * 
+ * @author Maria Helena
+ */
+
 public class QuartoDouble extends Quarto {
 
 	private String[] pedidos;

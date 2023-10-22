@@ -1,5 +1,10 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto;
 
+/** 
+ * @author maria helena
+ * 
+ * cria a classe abstrata Quarto
+ */
 public abstract class Quarto {
 
 	protected String idAutenticacao;
@@ -45,7 +50,16 @@ public abstract class Quarto {
 		this.quartoReservado = status;
 	}
 
+	/**
+	 * Exibe a representação textual do quarto
+	 * @return String resentação textual do quarto
+	 */
 	public abstract String exibirQuarto();
+	
+	/**
+	 * Realiza o cálculo da diária de um quarto
+	 * @return double valor da diária do quarto
+	 */
 
 	public abstract double calcularDiaria();
 	

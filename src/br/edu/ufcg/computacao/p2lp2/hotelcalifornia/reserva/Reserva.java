@@ -6,27 +6,34 @@ import java.util.regex.Pattern;
 
 public abstract class Reserva {
 
-
-		protected String idAutenticacao;
 		protected String idCliente;
 		protected int numQuarto;
 		protected LocalDateTime dataInicio;
 		protected LocalDateTime dataFim;
 		protected String[] idRefeicoes;
+		protected long idReserva;
 		
 
 
-		public Reserva(String idAtutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim, String[] idRefeicoes) {
-			this.idAutenticacao = idAutenticacao;
+		public Reserva(String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim, String[] idRefeicoes) {
 			this.numQuarto = numQuarto;
 			this.dataInicio = dataInicio;
 			this.dataFim = dataFim;
-			this.idRefeicoes = idRefeicoes;
+			this.idRefeicoes = idRefeicoes; 
+			this.idReserva = 0;
 
 			
 		}
 
-		public abstract String exibirReserva();
+		public long getIdReserva() {
+			return idReserva;
+		}
+
+		public void setIdReserva(long idReserva) {
+			this.idReserva = idReserva;
+		}
+
+		public abstract String exibirReserva(); 
 		
 		
 		public double getValorTotalRefeicoes() {

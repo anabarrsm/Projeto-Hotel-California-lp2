@@ -2,6 +2,17 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto;
 
 import java.util.Arrays;
 
+
+/**
+ * Classe que representa um Quarto Family, uma subclasse de Quarto.
+ * 
+ * Um Quarto Family é um tipo de quarto que pode acomodar um número específico
+ * de pessoas (capacidade máxima). Ele possui um custo base e um custo adicional por pessoa.
+ * Além disso, permite que os hóspedes façam pedidos específicos relacionados ao quarto.
+ * 
+ * @author Maria Helena
+ */
+
 public class QuartoFamily extends Quarto {
 
 	private String[] pedidos;

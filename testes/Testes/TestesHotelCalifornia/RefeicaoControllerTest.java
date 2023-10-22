@@ -21,7 +21,7 @@ public class RefeicaoControllerTest {
 
 	@BeforeEach
 	void setUp() {
-		this.usuario = new UsuarioController();
+		this.usuario = new UsuarioController(); 
 		this.controller = new RefeicaoController(usuario);
 		this.lt = LocalTime.parse("12:30");
 		this.lt2 = LocalTime.parse("13:30");

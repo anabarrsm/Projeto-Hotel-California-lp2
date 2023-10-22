@@ -21,18 +21,21 @@ public class ReservaController {
 	public ReservaController(UsuarioController usuarioController, QuartoController quartoController) {
 		this.reservas = new HashMap<>();
 		this.usuarioController = usuarioController;
-		this.quartoController = quartoController;
-		this.idReserva =1; 
+		this.quartoController = quartoController; 
+		this.idReserva =0;  
+
 
 	}
-	
-
 
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
 
-		if (idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) { 
-
+		if (!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN")) {
+			
+		return "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO"; 
+		
+		} else { 
+			
 			long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
 
 			if (diferencaEmHoras < 24) {
@@ -52,31 +55,32 @@ public class ReservaController {
 						
 				if (quarto.isQuartoReservado()) {
 					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
-				}
-
-				else {
+	
+				} if (!quarto.isQuartoReservado()) {
+	
 
 					if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
 						
-						ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idAutenticacao, idCliente,
+						ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idCliente,
 								numQuarto, dataInicio, dataFim, idRefeicoes);
+						
+						this.idReserva++;
+						 
+						reservaQuartoSingle.setIdReserva(idReserva);
+						
 						reservas.put(idReserva, reservaQuartoSingle);
 
 						quarto.setQuartoReservado(true);
-						this.idReserva++;
-
-						return "RESERVA QUARTO SINGLE REALIZADA";
-
 					} 
 
 				}
 			} else {
 				return "O QUARTO NÃO EXISTE";
 			}
-		}
-
-		return "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO";
 	}
+		return "RESERVA QUARTO SINGLE REALIZADA";
+		
+}
 
 	public String reservarQuartoDouble(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos) {
@@ -107,11 +111,16 @@ public class ReservaController {
 
 						ReservaQuartoDouble reservaQuartoDouble = new ReservaQuartoDouble(idAutenticacao, idCliente,
 								numQuarto, dataInicio, dataFim, idRefeicoes, pedidos);
+						
+						this.idReserva++;
+						
+						
+					
 						reservas.put(idReserva, reservaQuartoDouble);
 
 						quarto.setQuartoReservado(true);
 
-						this.idReserva++;
+						
 
 						return "RESERVA QUARTO DOUBLE REALIZADA";
 					} 
@@ -215,23 +224,26 @@ public class ReservaController {
 	} 
 
 	public String exibirReserva(String idAutenticacao, long idReserva) { 
-		
-		if(idAutenticacao.contains("GER")|| idAutenticacao.contains("FUN")) {
+		String saida = "";
+		if(!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN")) {
+		return "APENAS GERENTES E FUNCIONÁRIOS POSSUEM AUTORIZAÇÃO PARA LISTAR RESERVA";
+		} else {
+			
+			
 			
 			if(reservas.containsKey(idReserva)) {
 			
 			Reserva reserva = reservas.get(idReserva);
-			String idCliente = reserva.getIdCliente();
+			String idCliente = reserva.getIdCliente(); 
 			String cliente = usuarioController.exibirUsuario(idCliente);
 			
-			String saida = "[" + idReserva + "] Reserva de quarto em favor de: " + "\n"
-			+ "- " + cliente; 
-			 
-		return saida; 
+			saida = reserva.exibirReserva();
+			
+			 return saida; 
 			}
 		}
 		
-		return "APENAS GERENTES E FUNCIONÁRIOS POSSUEM AUTORIZAÇÃO PARA LISTAR RESERVA";
+		return "nao tem esse reserva no array de reservas";
 	}
 
 	public String[] listarReservaAtivasDoCliente(String idAutenticacao, String idCliente) {
@@ -259,9 +271,9 @@ public class ReservaController {
 
 	}
 
-	public HashMap<Integer, Quarto> getQuartos() {
-		return quartos;
-	}
+//	public HashMap<Integer, Quarto> getQuartos() {
+//		return quartos;
+//	}
 }
 
 

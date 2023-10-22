@@ -22,7 +22,7 @@ public class Usuario {
 		this.tipoUsuario = tipoUsuario;
 		this.documento = documento;
 		this.id = "";
-	}
+	} 
 	
 	public String getId() {
 		return id;

@@ -14,7 +14,7 @@ public class ReservaRestauranteTest {
     ReservaRestaurante restaurante1;
     private LocalTime horaInicio = LocalTime.of(12, 30);
     private LocalTime horaFinal = LocalTime.of(12, 30);
-    private Refeicao refeicao1 = new Refeicao(01, "Almoço", "Arroz", horaInicio, horaFinal,30, true );
+    private Refeicao refeicao1 = new Refeicao("Almoço", "Arroz", horaInicio, horaFinal,30, true );
     private LocalDate datainicial = LocalDate.of(2023, 5, 13);
     private LocalDate dataFinal = LocalDate.of(2023, 5, 14);
 
