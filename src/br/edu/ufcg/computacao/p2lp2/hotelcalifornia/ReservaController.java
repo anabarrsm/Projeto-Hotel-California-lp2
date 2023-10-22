@@ -218,6 +218,8 @@ public class ReservaController {
 		
 		if(idAutenticacao.contains("GER")|| idAutenticacao.contains("FUN")) {
 			
+			if(reservas.containsKey(idReserva)) {
+			
 			Reserva reserva = reservas.get(idReserva);
 			String idCliente = reserva.getIdCliente();
 			String cliente = usuarioController.exibirUsuario(idCliente);
@@ -226,7 +228,7 @@ public class ReservaController {
 			+ "- " + cliente; 
 			 
 		return saida; 
-		
+			}
 		}
 		
 		return "APENAS GERENTES E FUNCIONÁRIOS POSSUEM AUTORIZAÇÃO PARA LISTAR RESERVA";

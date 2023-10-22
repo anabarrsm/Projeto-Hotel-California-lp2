@@ -28,7 +28,7 @@ class QuartoControllerTest {
 		this.quartoController.disponibilizarQuartoDouble("ADM3",155 , 60.0, 100.0, pedidos);
 		this.quartoController.disponibilizarQuartoFamily("ADM4", 123, 50.0, 100.0, pedidos, 10);
 		this.usuarioController.cadastrarUsuario("CLI2","OH DEUS", "FUN", "12345678");
-		this.reservaController.reservarQuartoSingle("FUN1", "CLI2", 10, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 13, 14, 0, 0), refeicoes);
+		this.reservaController.reservarQuartoSingle("FUN1", "CLI2", 10, LocalDateTime.of(2023, 10, 12, 14 ,0, 0), LocalDateTime.of(2023, 10, 13, 14, 0, 0), refeicoes); // id 1
 		this.usuarioController.cadastrarUsuario("ADM2","HELENA", "FUN", "123456");
 	}
 
