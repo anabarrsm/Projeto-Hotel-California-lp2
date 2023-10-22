@@ -18,12 +18,12 @@ public class RefeicaoController {
 	public RefeicaoController(UsuarioController usuarioController) {
 		this.refeicoes = new HashMap<>();
     	this.usuarioController = usuarioController; 
-    	this.idRefeicao = 0;
+    	this.idRefeicao = 0; 
     }
 
     /**
      * Cria uma nova refeição e adiciona no ArrayList de refeições.
-     * @param idAutenticacao / id da refeição.
+     * @param idAutenticacao / id da refeição. 
      * @param tipoRefeicao / tipo da refeição(café da manhã, almoço, janta).
      * @param titulo / titulo ou descrição da refeição.
      * @param horarioInicio / hora de inicio.
@@ -34,11 +34,10 @@ public class RefeicaoController {
      */
     public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo, LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
  
-    	// falta verificar se o usuário foi cadastrado
     	
     	if(idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) {
+    		if(usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
     			
-       // long id = Long.parseLong(idAutenticacao);
         Refeicao r = new Refeicao(tipoRefeicao, titulo, horarioInicio, horarioFinal, valor, disponivel);
         idRefeicao ++;
         
@@ -49,7 +48,8 @@ public class RefeicaoController {
         return "Refeição adicionada!";
         
     	}
-    	
+    		
+    	}
     	return "Apenas gerentes e funcionários podem disponibilizar refeições"; 
     }
     
@@ -74,18 +74,11 @@ public class RefeicaoController {
     		        
     		        return "Refeição alterada";
     		    }
+    		    
     		    }
     	 return "Refeição não existe";
     	}
     
-//    		for (Refeicao r: refeicoes) {
-//                if(r.getId() == idRefeicao){
-//                     r.setHoraInicio(horarioInicio);
-//                     r.setHoraFim(horarioFinal);
-//                     r.setRefeicaoDisponivel(disponivel);
-//    	}
-          
-   
 
     public String exibirRefeicao(long idRefeicao) {
     	
@@ -99,13 +92,6 @@ public class RefeicaoController {
     	return "Refeição não disponível";
     		
     }
-//    	
-//        for (Refeicao r: refeicoes) {
-//            if(r.getId() == idRefeicao){
-//                return r.toString(); 
-//            }
-//        }
-//        return null;
     
     public String[] listarRefeicoes() {
         int contador = 0;
@@ -129,31 +115,11 @@ public class RefeicaoController {
         return retorno;
     }
 
-//    public String[] listarRefeicoes() {
-//        // ArrayList retorno1 = new ArrayList();
-//        int contador = 0;
-//        String[] retorno = new String[refeicoes.size()];
-//        
-//        for (Refeicao r:refeicoes){
-//        
-//        	retorno[contador] = r.toString()+ "\n";
-//
-//        }
-//        return retorno;
-//    }
+
 
     public Refeicao encontraRefeicao(Refeicao r1) {
-        return refeicoes.get(r1.getId());
+        return refeicoes.get(r1.getIdRefeicao());
         
         
-//    public Refeicao encontraRefeicao(Refeicao r1){
-//        for (Refeicao r:refeicoes) {
-//            if(r.equals(r1)){
-//                return r;
-//            }
-//        }
-//        return null;
-//    }
-//    
-
-}}
+}
+    }

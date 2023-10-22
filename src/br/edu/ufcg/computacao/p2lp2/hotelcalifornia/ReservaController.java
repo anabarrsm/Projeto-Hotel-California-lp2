@@ -22,65 +22,64 @@ public class ReservaController {
 		this.reservas = new HashMap<>();
 		this.usuarioController = usuarioController;
 		this.quartoController = quartoController; 
-		this.idReserva =0;  
+		this.idReserva = 0;  
 
 
 	}
 
-	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
-			LocalDateTime dataFim, String[] idRefeicoes) {
+	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim, String[] idRefeicoes) {
 
-		if (!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN")) {
-			
-		return "APENAS GERENTES E FUNCIONÁRIOS PODEM RESERVAR UM QUARTO"; 
-		
-		} else { 
-			
 			long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
 
 			if (diferencaEmHoras < 24) {
-				return "O período mínimo da reserva é de uma diária (24 horas).";
+				throw new IllegalArgumentException ("O período mínimo da reserva é de uma diária (24 horas).");
 			}
 
 			if (dataFim.isBefore(dataInicio)) {
-				return "A data de fim deve ser posterior à data de início";
+				throw new IllegalArgumentException ("A data de fim deve ser posterior à data de início");
 			}
 
-			HashMap<Integer, Quarto> quartos = quartoController.getQuartos();	
-				
-			if (quartos.containsKey(numQuarto)) {
-				
-				Quarto quarto = quartos.get(numQuarto);
-	
-						
-				if (quarto.isQuartoReservado()) {
-					return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO";
-	
-				} if (!quarto.isQuartoReservado()) {
-	
-
-					if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
-						
-						ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idCliente,
-								numQuarto, dataInicio, dataFim, idRefeicoes);
-						
-						this.idReserva++;
-						 
-						reservaQuartoSingle.setIdReserva(idReserva);
-						
-						reservas.put(idReserva, reservaQuartoSingle);
-
-						quarto.setQuartoReservado(true);
-					} 
-
-				}
-			} else {
-				return "O QUARTO NÃO EXISTE";
+			if (!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN")) {
+				throw new IllegalArgumentException ("Apenas gerentes ou funcionários podem reservar um quarto");
 			}
-	}
-		return "RESERVA QUARTO SINGLE REALIZADA";
+				
+			if(usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
+			
+				HashMap<Integer, Quarto> quartos = quartoController.getQuartos();	
+						
+					if (quartos.containsKey(numQuarto)) {
+							Quarto quarto = quartos.get(numQuarto);
+				
+					if (!quarto.isQuartoReservado()) {
 		
-}
+							if (verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
+								
+								ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idCliente,
+										numQuarto, dataInicio, dataFim, idRefeicoes);
+								
+								this.idReserva++;
+								 
+								reservaQuartoSingle.setIdReserva(idReserva);
+								
+								reservas.put(idReserva, reservaQuartoSingle);
+
+								quarto.setQuartoReservado(true);
+								
+								return "RESERVA QUARTO SINGLE REALIZADA";
+								
+							}
+		} else {
+					return "Quarto indisponível para reserva";
+	        }
+		
+			return "Quarto não encontrado!!";
+			
+	        }
+	        return "Quarto não cadastrado!";
+	    }
+	    return "Cliente não encontrado!!";
+	}
+
 
 	public String reservarQuartoDouble(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos) {

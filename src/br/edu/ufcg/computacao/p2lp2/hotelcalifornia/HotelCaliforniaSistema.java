@@ -14,12 +14,12 @@ public class HotelCaliforniaSistema {
 	private QuartoController quartoController;
 	private ReservaController reservaController;
 	private RefeicaoController refeicaoController;
-	private ReservaRestauranteController restauranteController;
+	private ReservaRestauranteController restauranteController; 
  
 
-		public HotelCaliforniaSistema() { 
+		public HotelCaliforniaSistema() {  
 		this.usuarioController = new UsuarioController();
-		this.quartoController = new QuartoController();
+		this.quartoController = new QuartoController(usuarioController);
 		this.reservaController = new ReservaController(usuarioController, quartoController);
 		this.refeicaoController = new RefeicaoController(usuarioController);
 		this.restauranteController = new ReservaRestauranteController(usuarioController, quartoController, reservaController, refeicaoController);

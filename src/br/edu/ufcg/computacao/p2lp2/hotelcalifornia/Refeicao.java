@@ -109,4 +109,6 @@ public class Refeicao {
         return "[" + idRefeicao + "] " + tipoRefeicao + ": " + tituloRefeicao + " (" + horaInicio + " as " + horaFim + "). Valor por pessoa: R$" + valorPorPessoa + ". " + isRefeicaoDisponivel() + ".";
     }
 
+
+
 }

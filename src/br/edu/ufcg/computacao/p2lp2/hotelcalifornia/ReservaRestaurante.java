@@ -1,28 +1,32 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ReservaRestaurante {
     private double valorReservaRestaurante;
-    private String clienteCadastrado;
-    private LocalDate dataInicial;
+    private String idCliente;
+    private LocalDate dataInicio;
     private LocalDate dataFinal;
-    private Refeicao refeicao;
+    private String refeicao;
     private boolean pagamentoEfetuado;
     private int qtdPessoas;
     private int capacidadeRestaurante;
     private LocalTime horaInicial;
     private LocalTime horaFinal; 
-
-    public ReservaRestaurante(String clienteCadastrado, LocalDate dataInicial, LocalDate dataFinal, int qtdPessoas, Refeicao refeicaoServida, boolean pagamentoEfetuado){
-        this.clienteCadastrado = clienteCadastrado;
-        this.dataInicial = dataInicial;
+    private long idReserva;
+    
+    public ReservaRestaurante(String idCliente, LocalDate dataInicio, LocalDate dataFinal, int qtdPessoas, String refeicao){
+        this.idCliente = idCliente;
+        this.dataInicio = dataInicio;
         this.dataFinal = dataFinal;
-        this.refeicao = refeicaoServida;
-        this.pagamentoEfetuado = pagamentoEfetuado;
-        this.horaInicial = refeicao.getHoraInicio(); 
-        this.horaFinal = refeicao.getHoraFim();
+        this.refeicao = refeicao;
+        this.idReserva = 0;
+        // this.refeicao = refeicaoServida;
+        //this.pagamentoEfetuado = pagamentoEfetuado;
+       // this.horaInicial = refeicao.getHoraInicio(); 
+       // this.horaFinal = refeicao.getHoraFim();
         
     	}
     	 
@@ -30,7 +34,19 @@ public class ReservaRestaurante {
     //valorReservaRestaurante = qtdPessoas * refeicao.getValorPorPessoa();
 
 
-    public String situacaoPagamento(){
+
+
+	public long getIdReserva() {
+		return idReserva;
+	}
+
+
+	public void setIdReserva(long idReserva) {
+		this.idReserva = idReserva;
+	}
+
+
+	public String situacaoPagamento(){
         if(this.pagamentoEfetuado){
             return "JÁ FOI PAGO.";
         }
@@ -39,7 +55,7 @@ public class ReservaRestaurante {
 
     // valor reserva = num pessoas x quantidade de dias x refeicao.
     public Double calculaPreco(){
-        long diferencaEmDias = dataInicial.until(dataFinal).getDays();
+        long diferencaEmDias = dataInicio.until(dataFinal).getDays();
         //double valorReserva = qtdPessoas * refeicao.getValorPorPessoa();
         double valorReserva = valorReservaRestaurante * diferencaEmDias;
         return valorReserva;
@@ -51,6 +67,6 @@ public class ReservaRestaurante {
 
     @Override
     public String toString(){
-        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + clienteCadastrado + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicial + " ate " + dataFinal + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicial.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
+        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicial + " ate " + dataFinal + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicial.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
     } 
 }
