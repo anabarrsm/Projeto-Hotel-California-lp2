@@ -12,7 +12,7 @@ public class ReservaRestauranteController {
 	private RefeicaoController refeicaoController;
 	private HashMap<Long, ReservaRestaurante> reservasRestaurante;
 	private int capacidadeRestaurante;
-	private Long idReserva;
+	private int idReserva;
 
 	public ReservaRestauranteController(UsuarioController usuarioController, QuartoController quartoController,
 			ReservaController reservaController, RefeicaoController refeicaoController) {

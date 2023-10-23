@@ -12,10 +12,10 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoFamily;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
 
 public class ReservaController {
-	private HashMap<Long, Reserva> reservas;
+	private HashMap<Integer, Reserva> reservas;
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
-	private long idReserva;
+	private int idReserva;
 	
 	
 	public ReservaController(UsuarioController usuarioController, QuartoController quartoController) {

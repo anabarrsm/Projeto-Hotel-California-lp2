@@ -2,6 +2,7 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
@@ -66,6 +67,18 @@ public class HotelCaliforniaSistema {
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
 		return this.reservaController.reservarQuartoSingle(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes);
+	}
+
+	public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo, LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel){
+			return this.refeicaoController.disponibilizarRefeicao(idAutenticacao, tipoRefeicao, titulo, horarioInicio, horarioFinal, valor, disponivel);
+	}
+
+	public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal, boolean disponivel) {
+			return this.refeicaoController.alterarRefeicao(idRefeicao, horarioInicio, horarioFinal, disponivel);
+	}
+
+	public String exibirRefeicao(int idRefeicao) {
+			return this.refeicaoController.exibirRefeicao(idRefeicao);
 	}
   
 }

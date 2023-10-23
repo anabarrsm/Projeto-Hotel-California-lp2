@@ -9,15 +9,15 @@ public class ReservaRestaurante {
     private String idCliente;
     private LocalDate dataInicio;
     private LocalDate dataFinal;
-    private String refeicao;
+    private Refeicao refeicao;
     private boolean pagamentoEfetuado;
     private int qtdPessoas;
     private int capacidadeRestaurante;
     private LocalTime horaInicial;
     private LocalTime horaFinal; 
-    private long idReserva;
+    private int idReserva;
     
-    public ReservaRestaurante(String idCliente, LocalDate dataInicio, LocalDate dataFinal, int qtdPessoas, String refeicao){
+    public ReservaRestaurante(String idCliente, LocalDate dataInicio, LocalDate dataFinal, int qtdPessoas, Refeicao refeicao){
         this.idCliente = idCliente;
         this.dataInicio = dataInicio;
         this.dataFinal = dataFinal;
@@ -38,11 +38,6 @@ public class ReservaRestaurante {
 
 	public long getIdReserva() {
 		return idReserva;
-	}
-
-
-	public void setIdReserva(long idReserva) {
-		this.idReserva = idReserva;
 	}
 
 
@@ -67,6 +62,9 @@ public class ReservaRestaurante {
 
     @Override
     public String toString(){
-        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicial + " ate " + dataFinal + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicial.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
-    } 
+        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicio + " ate " + dataFinal + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicial.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
+    }
+
+    public void setIdReserva(int idReserva) {
+    }
 }

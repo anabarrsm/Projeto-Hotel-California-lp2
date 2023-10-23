@@ -5,17 +5,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Reserva {
-
+		protected String idAutenticacao;
 		protected String idCliente;
 		protected int numQuarto;
 		protected LocalDateTime dataInicio;
 		protected LocalDateTime dataFim;
 		protected String[] idRefeicoes;
-		protected long idReserva;
+		protected int idReserva;
 		
 
 
-		public Reserva(String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim, String[] idRefeicoes) {
+		public Reserva(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim, String[] idRefeicoes) {
 			this.numQuarto = numQuarto;
 			this.dataInicio = dataInicio;
 			this.dataFim = dataFim;
@@ -29,7 +29,7 @@ public abstract class Reserva {
 			return idReserva;
 		}
 
-		public void setIdReserva(long idReserva) {
+		public void setIdReserva(int idReserva) {
 			this.idReserva = idReserva;
 		}
 
@@ -47,6 +47,7 @@ public abstract class Reserva {
 		public String getIdAutenticacao() {
 			return idAutenticacao;
 		}
+
 		
 		public String getIdCliente() {
 			return idCliente;

@@ -1,8 +1,6 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -11,12 +9,12 @@ import java.util.HashMap;
  */
 
 public class RefeicaoController {
-    private HashMap<Long, Refeicao> refeicoes;
+    private HashMap<Integer, Refeicao> refeicoes;
 	private UsuarioController usuarioController;
-	private long idRefeicao;
+	private int idRefeicao;
 	
 	public RefeicaoController(UsuarioController usuarioController) {
-		this.refeicoes = new HashMap<>();
+		this.refeicoes = new HashMap<Integer, Refeicao>();
     	this.usuarioController = usuarioController; 
     	this.idRefeicao = 0; 
     }
@@ -80,7 +78,7 @@ public class RefeicaoController {
     	}
     
 
-    public String exibirRefeicao(long idRefeicao) {
+    public String exibirRefeicao(int idRefeicao) {
     	
     	if(refeicoes.containsKey(idRefeicao)) {
     		

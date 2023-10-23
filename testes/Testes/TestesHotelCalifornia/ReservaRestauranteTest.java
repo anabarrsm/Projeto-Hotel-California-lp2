@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.RefeicaoController;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestaurante;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestauranteController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ public class ReservaRestauranteTest {
 
     @BeforeEach
     void setUp() {
-        restaurante1 = new ReservaRestaurante("Lucas", datainicial, dataFinal, 50, refeicao1, true);
+        restaurante1 = new ReservaRestaurante("Lucas", datainicial, dataFinal, 50, refeicao1);
     }
 
     @Test
