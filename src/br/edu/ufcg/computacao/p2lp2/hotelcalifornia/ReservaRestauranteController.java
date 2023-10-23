@@ -1,7 +1,6 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class ReservaRestauranteController {
@@ -10,7 +9,7 @@ public class ReservaRestauranteController {
 	private QuartoController quartoController;
 	private ReservaController reservaController;
 	private RefeicaoController refeicaoController;
-	private HashMap<Long, ReservaRestaurante> reservasRestaurante;
+	private HashMap<Integer, ReservaRestaurante> reservasRestaurante;
 	private int capacidadeRestaurante;
 	private int idReserva;
 
@@ -21,7 +20,7 @@ public class ReservaRestauranteController {
 		this.quartoController = quartoController;
 		this.reservaController = reservaController;
 		this.refeicaoController = refeicaoController;
-		this.reservasRestaurante = new HashMap<>();
+		this.reservasRestaurante = new HashMap<Integer, ReservaRestaurante>();
 		this.capacidadeRestaurante = 50;
 		this.idReserva = 1;
 
