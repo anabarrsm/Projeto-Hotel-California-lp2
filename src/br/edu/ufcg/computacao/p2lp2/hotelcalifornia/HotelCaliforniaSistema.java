@@ -5,6 +5,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.QuartoController;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.RefeicaoController;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaController;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestauranteController;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.UsuarioController;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
