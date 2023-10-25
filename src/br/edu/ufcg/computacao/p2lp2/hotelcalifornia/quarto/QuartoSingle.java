@@ -35,4 +35,13 @@ public class QuartoSingle extends Quarto {
 		return 1;
 	}
 
+	@Override
+	public String toString() {
+		return "QuartoSingle [idQuartoNum=" + idQuartoNum + "]";
+	}
+
+	
+	
+	
+
 }

@@ -146,7 +146,7 @@ public class UsuarioController {
 			return "APENAS UM ADMINISTRADOR PODE ATUALIZAR OS USUÁRIOS.";
 		}
 
-		else if (novoTipoUsuario.equals("GER")) {
+		else if (novoTipoUsuario.equals("GER")) { 
 			for (int i = 0; i < usuarios.size(); i++) {
 				if (usuarios.get(i).getTipo().equals("GER")) {
 					usuarios.get(i).setTipo("FUN");

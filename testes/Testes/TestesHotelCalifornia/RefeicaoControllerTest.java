@@ -9,94 +9,100 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.QuartoController;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RefeicaoControllerTest {
-	private RefeicaoController controller;
-	private UsuarioController usuario;
+	private RefeicaoController refeicaoController;
+	private UsuarioController usuarioController;
 	private LocalTime lt;
 	private LocalTime lt2;
 
 	@BeforeEach
 	void setUp() {
-		this.usuario = new UsuarioController(); 
-		this.controller = new RefeicaoController(usuario);
+		this.usuarioController = new UsuarioController(); 
+		this.refeicaoController = new RefeicaoController(usuarioController);
 		this.lt = LocalTime.parse("12:30");
 		this.lt2 = LocalTime.parse("13:30");
 		
-		usuario.cadastrarUsuario("GER1", "Lucas", "CLI", "123456");
-		controller.disponibilizarRefeicao("GER1", "Almoço", "lasanha", lt, lt2, 40.00, true); // idRefeicao = 1 ;
+		//cadastrando Usuarios
+		this.usuarioController.cadastrarUsuario("ADM1", "Lucas", "GER", 11111); //[GER2] Lucas
+		this.usuarioController.cadastrarUsuario("GER1", "Jesus", "FUN", 69850); // [FUN3] Jesus
+		this.usuarioController.cadastrarUsuario("ADM1", "Maria", "CLI", 4516); // [CLI4] Maria
+		
 	}
 
 	@Test
 	public void disponibilizaRefeicao() {
-		String retorno = controller.disponibilizarRefeicao("GER1", "Almoço", "Arroz", lt, lt2, 20.0, true);
-		assertEquals("Refeição adicionada!", retorno);
-
-		assertEquals("Refeição adicionada!",
-				controller.disponibilizarRefeicao("GER1", "Jantar", "macarrão", lt, lt2, 30.0, true));
-		assertEquals("Refeição adicionada!",
-				controller.disponibilizarRefeicao("GER1", "Café-da-manhã", "ovo", lt, lt2, 15.00, true));
+		assertEquals(this.refeicaoController.disponibilizarRefeicao("GER2", "Café-da-manhã", "Cafe completo reforcado", lt, lt2, 30.0, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO");
+		assertEquals(this.refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Lasanha", lt, lt2, 45.50, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO");
+		assertEquals(this.refeicaoController.disponibilizarRefeicao("FUN3", "Jantar", "Sopa", lt, lt2, 20.0, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO");
 	}
 	
 	@Test
 	public void disponibilizaRefeicaoUsuarioIndevido() {
-		assertEquals("Apenas gerentes e funcionários podem disponibilizar refeições", controller.disponibilizarRefeicao("ADM1", "Jantar", "sopa", lt2, lt, 0, true));
-		assertEquals("Apenas gerentes e funcionários podem disponibilizar refeições", controller.disponibilizarRefeicao("CLI10", "Jantar", "sopa", lt2, lt, 0, true));
+		assertEquals("APENAS GERENTES E FUNCIONÁRIOS PODEM DISPONIBILIZAR REFEIÇÕES", refeicaoController.disponibilizarRefeicao("ADM1", "Jantar", "sopa", lt, lt2, 20.0, true));
+		assertEquals("APENAS GERENTES E FUNCIONÁRIOS PODEM DISPONIBILIZAR REFEIÇÕES", refeicaoController.disponibilizarRefeicao("CLI4", "Jantar", "sopa", lt, lt2, 20.0, true));
 	}
 
-	// true but was false
 	@Test
-	public void adicionaTipoInexistente() {
-		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class,
-				() -> this.controller.disponibilizarRefeicao("GER1", "Lanche", "sorvete", lt, lt2, 15.00, true));
-		assertFalse(thrown.getMessage().contains("Não é um tipo possível"));
+	public void adicionaTipoRefeicaoInexistente() {
+		assertEquals("TIPO DE REFEIÇÃO INVÁLIDO", this.refeicaoController.disponibilizarRefeicao("GER2", "Lanhce", "Sorvete", lt, lt2, 5.00, true));
 	}
 
 	@Test
 	public void testeRepresentacaoTextual() {
-
-		controller.disponibilizarRefeicao("GER1", "Almoço", "Arroz", lt, lt2, 20.0, true);
-		String retorno = controller.exibirRefeicao(02);
-		assertEquals("[2] Almoço: Arroz (12:30 as 13:30). Valor por pessoa: R$20.0. VIGENTE.", retorno);
+		refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Arroz", lt, lt2, 20.0, true); // idRefeicao = 1
+		assertEquals("[1] Almoço: Arroz (12:30 as 13:30). Valor por pessoa: R$20.0. VIGENTE.", refeicaoController.exibirRefeicaoPorId(1));
 	}
 	
 	@Test
 	public void exibirRefeicaoInexistente() {
-		assertEquals("Refeição não disponível", controller.exibirRefeicao(5));
+		assertEquals("REFEIÇÃO NÃO DISPONÍVEL", refeicaoController.exibirRefeicaoPorId(1));
 	}
 
 	@Test
 	public void testeRepresentacaoTextualRefeicaoIndisponivel() {
-
-		controller.disponibilizarRefeicao("GER1", "Almoço", "Arroz", lt, lt2, 20.0, false);
-		String retorno = controller.exibirRefeicao(02);
-		assertEquals("[2] Almoço: Arroz (12:30 as 13:30). Valor por pessoa: R$20.0. INDISPONIVEL.", retorno);
+		refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Arroz", lt, lt2, 20.0, false);
+		assertEquals("[1] Almoço: Arroz (12:30 as 13:30). Valor por pessoa: R$20.0. INDISPONIVEL.", refeicaoController.exibirRefeicaoPorId(1));
 	}
 
-	@Test
+@Test
 	public void testeAlterarRefeicoes() {
-		assertEquals("Refeição alterada",
-				controller.alterarRefeicao(01, LocalTime.parse("13:00"), LocalTime.parse("14:00"), true));
-		String saidaAlterada = controller.exibirRefeicao(1);
-		assertEquals("[1] Almoço: lasanha (13:00 as 14:00). Valor por pessoa: R$40.0. VIGENTE.", saidaAlterada);
+		refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Lasanha", lt, lt2, 45.50, true); //idRefeicao = 1
+		LocalTime horaInicio = LocalTime.parse("13:50");
+		LocalTime horaFinal = LocalTime.parse("14:20");
+		assertEquals("REFEIÇÃO ALTERADA!", refeicaoController.alterarRefeicao(1, horaInicio, horaFinal, 50.0, true));
+		assertEquals("[1] Almoço: Lasanha (13:50 as 14:20). Valor por pessoa: R$50.0. VIGENTE.", refeicaoController.exibirRefeicaoPorId(1));
 
 	}
 
-    @Test 
-    public void testeAlterarRefeicaoInexistente() {
-    	assertEquals("Refeição não existe", controller.alterarRefeicao(10, LocalTime.parse("13:00"), LocalTime.parse("14:00"), true));
+  @Test 
+   public void testeAlterarRefeicaoInexistente() {
+	  
+    	assertEquals("REFEIÇÃO NÃO ENCONTRADA", refeicaoController.alterarRefeicao(2, lt, lt2, 30.0, true));
     }
+  
+  @Test
+  public void testeHorarioErrado() {
+	  assertEquals("O HORÁRIO DE FIM DEVE SER POSTERIOR AO HORÁRIO DE INÍCIO", refeicaoController.disponibilizarRefeicao("FUN3", "Almoço", "Carne", lt2, lt, 80.0, true));
+  }
 
 	@Test
 	public void listarRefeicoes() {
-		controller.disponibilizarRefeicao("GER", "Café-da-manhã", "Cafe completo reforcado", LocalTime.parse("06:00"), LocalTime.parse("10:00"), 30.00, true);
-		controller.disponibilizarRefeicao("GER", "Jantar", "Jantar a dois", LocalTime.parse("18:00"), LocalTime.parse("20:00"), 80.00, false);
-		//formado da hora 06h00, formado do dinheerio 33,xx;
-		String[] refeicoes = {"[1] Almoço: lasanha (12:30 as 13:30). Valor por pessoa: R$40.0. VIGENTE.", "[2] Café-da-manhã: Cafe completo reforcado (06:00 as 10:00). Valor por pessoa: R$30.0. VIGENTE.", "[3] Jantar: Jantar a dois (18:00 as 20:00). Valor por pessoa: R$80.0. INDISPONIVEL."};
-		assertEquals(Arrays.toString(refeicoes), Arrays.toString(controller.listarRefeicoes()));
+		LocalTime horaCafe = LocalTime.parse("08:00");
+		LocalTime horaFinalCafe = LocalTime.parse("09:20");
+		LocalTime horaJanta = LocalTime.parse("18:00");
+		LocalTime horaFinalJanta = LocalTime.parse("20:00");
+		assertEquals(this.refeicaoController.disponibilizarRefeicao("GER2", "Café-da-manhã", "Café completo reforcado", horaCafe, horaFinalCafe, 30.0, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO"); //idRefeicao =1
+		assertEquals(this.refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Lasanha", lt, lt2, 45.50, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO"); // idRefeicao = 2
+		assertEquals(this.refeicaoController.disponibilizarRefeicao("FUN3", "Jantar", "Sopa", horaJanta, horaFinalJanta, 20.0, false), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO"); // idRefeicao = 3
+		//formato da hora 06h00, formado do dinheerio 33,xx;
+		String[] refeicoes = {"[1] Café-da-manhã: Café completo reforcado (08:00 as 09:20). Valor por pessoa: R$30.0. VIGENTE.", "[2] Almoço: Lasanha (12:30 as 13:30). Valor por pessoa: R$45.5. VIGENTE.", "[3] Jantar: Sopa (18:00 as 20:00). Valor por pessoa: R$20.0. INDISPONIVEL."};
+		assertEquals(Arrays.toString(refeicoes), Arrays.toString(refeicaoController.listarRefeicoes()));
 	}
 
 	

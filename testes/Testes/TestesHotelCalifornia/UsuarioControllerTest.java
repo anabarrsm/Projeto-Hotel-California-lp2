@@ -21,7 +21,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public void testCadastrarUsuarioComSucesso() {
+	public void testCadastrarUsuarioComSucesso() { 
 		String resultado = controller.cadastrarUsuario("ADM1", "Ana Laura", "ADM", 145667); // [ADM2] Ana Laura
 		assertEquals("USUÁRIO CADASTRADO COM SUCESSO!", resultado);
 	}

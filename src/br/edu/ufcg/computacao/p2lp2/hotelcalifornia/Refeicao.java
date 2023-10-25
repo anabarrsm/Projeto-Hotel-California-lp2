@@ -4,62 +4,36 @@ import java.time.LocalTime;
 
 /**
  * Classe que cria uma refeição no sistema.
+ * 
  * @author José Lucas Silva Palmeira
  */
 
 public class Refeicao {
-    private long idRefeicao;
-    private String tipoRefeicao;
-    private String tituloRefeicao;
-    private LocalTime horaInicio;
-    private LocalTime horaFim;
-    private double valorPorPessoa;
-    private boolean refeicaoDisponivel; 
+	private long idRefeicao;
 
-    public Refeicao(String tipo, String titulo, LocalTime horaInicio, LocalTime horaFim, double valorPorPessoa, boolean disponivel){
-        switch (tipo){
-            case "Café-da-manhã":
-                tipoRefeicao = tipo;
-                break; 
-            case "Almoço": 
-                tipoRefeicao = tipo;
-                break;
-            case "Jantar":
-                tipoRefeicao = tipo;
-                break;
-            default:
-                throw new IllegalArgumentException("NÃO É UM TIPO POSSÍVEL");
-        }
-        //if(tipo == null) {
-        //    throw new NullPointerException("TIPO DE REFEIÇÃO NÃO PODE SER NULO");
-        //}
+	private String tipoRefeicao;
+	private String titulo;
 
-        if(titulo == null)  {
-            throw new NullPointerException("TITULO DA REFEIÇÃO NÃO PODE SER NULO");
-        }
+	private LocalTime horarioInicio;
+	private LocalTime horarioFinal;
 
-        if(horaInicio == null) {
-            throw new NullPointerException("HORÁRIO INICIAL NÃO DEVE SER NULO");
-        }
+	private double valor;
 
-        if(horaFim == null) {
-            throw new NullPointerException("HORÁRIO FINAL NÃO DEVE SER NULO");
-        }
+	private boolean refeicaoDisponivel;
 
-        if(horaFim.isBefore(horaInicio)){
-            throw new IllegalArgumentException("HORÁRIO FINAL DEVE SER POSTERIOR AO HORÁRIO INICIAL");
-        }
+	public Refeicao(String tipoRefeicao, String titulo, LocalTime horarioInicio, LocalTime horarioFinal, double valor,
+			boolean refeicaoDisponivel) {
+		this.idRefeicao = idRefeicao;
+		this.titulo = titulo;
+		this.tipoRefeicao = tipoRefeicao;
+		this.horarioInicio = horarioInicio;
+		this.horarioFinal = horarioFinal;
+		this.valor = valor;
+		this.refeicaoDisponivel = refeicaoDisponivel;
 
-        this.idRefeicao = 0;
-        //this.tipoRefeicao = tipo;
-        this.tituloRefeicao = titulo;
-        this.horaInicio = horaInicio;
-        this.horaFim = horaFim;
-        this.valorPorPessoa = valorPorPessoa;
-        this.refeicaoDisponivel = disponivel;
-    }
+	}
 
-    public long getIdRefeicao() {
+	public long getIdRefeicao() {
 		return idRefeicao;
 	}
 
@@ -67,48 +41,42 @@ public class Refeicao {
 		this.idRefeicao = idRefeicao;
 	}
 
+	public String isRefeicaoDisponivel() {
+		if (refeicaoDisponivel) {
+			return "VIGENTE";
+		}
+		return "INDISPONIVEL";
+	}
 
 
-    // sets para valores que podem ser alterados nos controllers, de acordo com o metódo alterarRefeição.
-    public void setValorPorPessoa(double valor){
-        valorPorPessoa = valor;
-    }
+	public void setRefeicaoDisponivel(boolean isDisponivel) {
+		refeicaoDisponivel = isDisponivel;
+	}
+	
+	public void setHorarioInicio(LocalTime horarioInicio) {
+		this.horarioInicio = horarioInicio;
+	}
+	public double getValor() {
+		return valor;
+	}
+	
+	public void setHorarioFinal(LocalTime horarioFinal) {
+		this.horarioFinal = horarioFinal;
+	}
 
-    public void setRefeicaoDisponivel(boolean isDisponivel){
-        refeicaoDisponivel = isDisponivel;
-    }
-    public void setHoraInicio(LocalTime horaInicio){
-        this.horaInicio = horaInicio;
-    }
+	public void setValorPorPessoa(double valor) {
+		this.valor = valor;
+}
+	
 
-    public void setHoraFim(LocalTime horaFim){
-        this.horaFim = horaFim;
-    }
-    public String isRefeicaoDisponivel(){
-        if(refeicaoDisponivel){
-            return "VIGENTE";
-        }
-        return "INDISPONIVEL";
-    }
-
-    public LocalTime getHoraInicio() {
-        return horaInicio;
-    }
-
-    public LocalTime getHoraFim() {
-        return horaFim;
-    }
-
-    public double getValorPorPessoa() {
-        return valorPorPessoa;
-    }
-
-    @Override
-    public String toString(){
-        //[<id>] <tipoRefeicao>: <titulo> (<inicio> as <fim>). Valor por pessoa: R$<valorPorPessoa>. <ativa?>
-        return "[" + idRefeicao + "] " + tipoRefeicao + ": " + tituloRefeicao + " (" + horaInicio + " as " + horaFim + "). Valor por pessoa: R$" + valorPorPessoa + ". " + isRefeicaoDisponivel() + ".";
-    }
+	@Override
+	public String toString() {
+		// [<id>] <tipoRefeicao>: <titulo> (<inicio> as <fim>). Valor por pessoa:
+		// R$<valorPorPessoa>. <ativa?>
+	        return "[" + idRefeicao + "] " + tipoRefeicao + ": " + titulo + " (" + horarioInicio + " as " + horarioFinal + "). Valor por pessoa: R$" + valor + ". " + (refeicaoDisponivel ? "VIGENTE." : "INDISPONIVEL.");
+	}
 
 
 
+ 
 }

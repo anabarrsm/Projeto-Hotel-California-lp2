@@ -41,7 +41,7 @@ public class ReservaRestauranteController {
 				this.idReserva ++; 
 				
 				reservaRestaurante.setIdReserva(idReserva);
-				reservasRestaurante.put(idReserva, reservaRestaurante);
+				reservasRestaurante.put(idReserva, reservaRestaurante); 
 				
 				
 				return "Reserva Restaurante Realizada!";		

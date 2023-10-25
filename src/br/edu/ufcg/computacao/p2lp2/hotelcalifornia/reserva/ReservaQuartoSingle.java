@@ -35,7 +35,7 @@ public class ReservaQuartoSingle extends Reserva {
 		return idReserva;
 	}
 
-	public void setIdReserva(long idReserva) {
+	public void setIdReserva(long idReserva) { 
 		this.idReserva = idReserva;
 	}
 
@@ -98,7 +98,7 @@ public class ReservaQuartoSingle extends Reserva {
 		long diferencaEmDias = Duration.between(dataInicio, dataFim).toDays();
 		double numeroDiarias = Math.ceil(diferencaEmDias);
 
-		
+		 
 		double total = quarto.getPrecoBase() + quarto.getPrecoPorPessoa() + somaRefeicoes + numeroDiarias;
 		
 		String saida = "[" + idReserva + "]" + "Reserva de quarto em favor de: "
@@ -114,5 +114,8 @@ public class ReservaQuartoSingle extends Reserva {
 
 		return saida;
 	}
-
+	
+	public String toString() {
+	  return "Reserva [id=" + idReserva + ", cliente=" + idCliente + ", quarto=" + numQuarto + ", dataInicio=" + dataInicio + ", dataFim=" + dataFim + "]";
+	}
 }

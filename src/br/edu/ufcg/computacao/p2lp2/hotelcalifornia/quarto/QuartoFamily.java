@@ -51,5 +51,11 @@ public class QuartoFamily extends Quarto {
 	public int getQtdMaxPessoas() {
 		return qtdMaxPessoas;
 	}
+	
+
+	@Override
+	public String toString() {
+		return "QuartoFamily [idQuartoNum=" + idQuartoNum + "]";
+	}
 
 }

@@ -48,4 +48,10 @@ public class QuartoDouble extends Quarto {
 	public int getQtdMaxPessoas() {
 		return 2;
 	}
+	
+
+	@Override
+	public String toString() {
+		return "QuartoDouble [idQuartoNum=" + idQuartoNum + "]";
+	}
 }
