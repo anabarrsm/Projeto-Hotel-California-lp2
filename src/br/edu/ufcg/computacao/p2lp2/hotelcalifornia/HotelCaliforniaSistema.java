@@ -10,25 +10,24 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
 
 public class HotelCaliforniaSistema {
-	
+
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
 	private ReservaController reservaController;
 	private RefeicaoController refeicaoController;
-	private ReservaRestauranteController restauranteController; 
- 
+	private ReservaRestauranteController restauranteController;
 
-		public HotelCaliforniaSistema() {  
+	public HotelCaliforniaSistema() {
 		this.usuarioController = new UsuarioController();
 		this.quartoController = new QuartoController(usuarioController);
 		this.reservaController = new ReservaController(usuarioController, quartoController);
 		this.refeicaoController = new RefeicaoController(usuarioController);
-		this.restauranteController = new ReservaRestauranteController(usuarioController, quartoController, reservaController, refeicaoController);
-
+		this.restauranteController = new ReservaRestauranteController(usuarioController, quartoController,
+				reservaController, refeicaoController);
 
 	}
 
-	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, String documento) {
+	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
 		return this.usuarioController.cadastrarUsuario(idAutenticacao, nome, tipoUsuario, documento);
 
 	}
@@ -39,7 +38,7 @@ public class HotelCaliforniaSistema {
 
 	public String exibirUsuario(String idUsuario) {
 		return this.usuarioController.exibirUsuario(idUsuario);
- 
+
 	}
 
 	public String[] listarUsuarios() {
@@ -63,22 +62,25 @@ public class HotelCaliforniaSistema {
 				pedidos, qtdMaxPessoas);
 	}
 
-	
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
-		return this.reservaController.reservarQuartoSingle(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes);
+		return this.reservaController.reservarQuartoSingle(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim,
+				idRefeicoes);
 	}
 
-	public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo, LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel){
-			return this.refeicaoController.disponibilizarRefeicao(idAutenticacao, tipoRefeicao, titulo, horarioInicio, horarioFinal, valor, disponivel);
+	public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo,
+			LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
+		return this.refeicaoController.disponibilizarRefeicao(idAutenticacao, tipoRefeicao, titulo, horarioInicio,
+				horarioFinal, valor, disponivel);
 	}
 
-	public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal, boolean disponivel) {
-			return this.refeicaoController.alterarRefeicao(idRefeicao, horarioInicio, horarioFinal, disponivel);
+	public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal,
+			boolean disponivel) {
+		return this.refeicaoController.alterarRefeicao(idRefeicao, horarioInicio, horarioFinal, disponivel);
 	}
 
 	public String exibirRefeicao(int idRefeicao) {
-			return this.refeicaoController.exibirRefeicao(idRefeicao);
+		return this.refeicaoController.exibirRefeicao(idRefeicao);
 	}
-  
+
 }

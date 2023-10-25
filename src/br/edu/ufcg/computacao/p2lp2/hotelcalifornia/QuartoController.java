@@ -12,10 +12,11 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoSingle;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 
 /**
- * Quarto Controller é a classe responsável por gerenciar as operações relacionadas aos quartos do hotel.
+ * Quarto Controller é a classe responsável por gerenciar as operações
+ * relacionadas aos quartos do hotel.
  * 
  * @author Maria Helena
- *        
+ * 
  */
 public class QuartoController {
 	private HashMap<Integer, Quarto> quartos;
@@ -58,7 +59,7 @@ public class QuartoController {
 
 			if (usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
 
-				QuartoSingle quartoSingle = new QuartoSingle(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase);
+				QuartoSingle quartoSingle = new QuartoSingle(idQuartoNum, precoPorPessoa, precoBase);
 				quartos.put(idQuartoNum, quartoSingle);
 				return "QUARTO SINGLE DISPONÍVEL";
 
@@ -156,8 +157,8 @@ public class QuartoController {
 
 			if (usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
 
-				QuartoFamily quartoFamily = new QuartoFamily(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase,
-						pedidos, qtdMaxPessoas);
+				QuartoFamily quartoFamily = new QuartoFamily(idQuartoNum, precoPorPessoa, precoBase, pedidos,
+						qtdMaxPessoas);
 				quartos.put(idQuartoNum, quartoFamily);
 				return "QUARTO FAMILY DISPONÍVEL";
 

@@ -5,9 +5,9 @@ import java.util.Arrays;
 /**
  * Classe que representa um Quarto Double, uma subclasse de Quarto.
  * 
- * Um Quarto Double é um tipo de quarto projetado para acomodar até duas pessoas.
- * Ele possui um custo base e um custo adicional por pessoa, bem como a capacidade
- * de incluir pedidos específicos relacionados ao quarto.
+ * Um Quarto Double é um tipo de quarto projetado para acomodar até duas
+ * pessoas. Ele possui um custo base e um custo adicional por pessoa, bem como a
+ * capacidade de incluir pedidos específicos relacionados ao quarto.
  * 
  * @author Maria Helena
  */
@@ -18,14 +18,14 @@ public class QuartoDouble extends Quarto {
 
 	public QuartoDouble(String idAutenticacao, int idQuartoNum, double precoPorPessoa, double precoBase,
 			String[] pedidos) {
-		super(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase);
+		super(idQuartoNum, precoPorPessoa, precoBase);
 		this.pedidos = pedidos;
 	}
 
 	@Override
 	public String exibirQuarto() {
 		return "[" + idQuartoNum + "]" + "Quarto Double (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
-				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária). Pedidos: " + representarPedidos(); 
+				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária). Pedidos: " + representarPedidos();
 	}
 
 	@Override
@@ -47,5 +47,5 @@ public class QuartoDouble extends Quarto {
 	@Override
 	public int getQtdMaxPessoas() {
 		return 2;
-	} 
-} 
+	}
+}
