@@ -74,13 +74,13 @@ public class HotelCaliforniaSistema {
 				horarioFinal, valor, disponivel);
 	}
 
-	public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal,
+	public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal, double valor,
 			boolean disponivel) {
-		return this.refeicaoController.alterarRefeicao(idRefeicao, horarioInicio, horarioFinal, disponivel);
+		return this.refeicaoController.alterarRefeicao(idRefeicao, horarioInicio, horarioFinal, valor, disponivel);
 	}
 
 	public String exibirRefeicao(int idRefeicao) {
-		return this.refeicaoController.exibirRefeicao(idRefeicao);
+		return this.refeicaoController.exibirRefeicaoPorId(idRefeicao);
 	}
-
+ 
 }

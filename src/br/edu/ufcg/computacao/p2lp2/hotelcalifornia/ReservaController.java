@@ -23,7 +23,7 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
  */
 public class ReservaController {
 	private ArrayList<Reserva> reservas;
-	private UsuarioController usuarioController;
+	private UsuarioController usuarioController; 
 	private QuartoController quartoController;
 	private long idReserva;
 
@@ -232,8 +232,8 @@ public class ReservaController {
 	}
 
 	
-	public String exibirReserva(String idAutenticacao, long idReserva) {
-	}
+//	public String exibirReserva(String idAutenticacao, long idReserva) {
+//	}
 
 //	public String exibirReserva(String idAutenticacao, long idReserva) {
 //		String saida = "";
@@ -278,29 +278,29 @@ public class ReservaController {
 		return reservas.size();
 	}
 
-	public double calcularVQR(int numQuarto, long idReserva) {
-
-		HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
-
-		Quarto quarto = quartos.get(numQuarto);
-		Reserva reserva = reservas.get(idReserva);
-
-		LocalDateTime dataInicio = reserva.getDataInicio();
-		LocalDateTime dataFim = reserva.getDataFim();
-
-		double VB = quarto.getPrecoBase();
-		double VP = quarto.getPrecoPorPessoa();
-		int QH = quarto.getQtdMaxPessoas();
-
-		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toDays();
-		double ND = Math.ceil(diferencaEmHoras);
-
-		double SRI = reserva.getValorTotalRefeicoes();
-
-		double VRQ = ND * (VB + QH * VP) + ND * QH * SRI;
-		return VRQ;
-
-	}
+//	public double calcularVQR(int numQuarto, long idReserva) {
+//
+//		HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
+//
+//		Quarto quarto = quartos.get(numQuarto);
+//		Reserva reserva = reservas.get(idReserva);
+//
+//		LocalDateTime dataInicio = reserva.getDataInicio();
+//		LocalDateTime dataFim = reserva.getDataFim();
+//
+//		double VB = quarto.getPrecoBase();
+//		double VP = quarto.getPrecoPorPessoa();
+//		int QH = quarto.getQtdMaxPessoas();
+//
+//		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toDays();
+//		double ND = Math.ceil(diferencaEmHoras);
+//
+//		double SRI = reserva.getValorTotalRefeicoes();
+//
+//		double VRQ = ND * (VB + QH * VP) + ND * QH * SRI;
+//		return VRQ;
+//
+//	}
 
 	public String[] listarReservaAtivasDoCliente(String idAutenticacao, String idCliente) {
 		return null;
