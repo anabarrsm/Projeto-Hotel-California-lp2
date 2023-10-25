@@ -47,7 +47,7 @@ public class QuartoController {
 			throw new IllegalArgumentException("ID DE AUTENTICAÇÃO INVÁLIDO");
 		}
 
-		if (idQuartoNum <= 0) {
+		if (idQuartoNum <= 0) { 
 			throw new IllegalArgumentException("ID DO QUARTO INVÁLIDO");
 		}
 

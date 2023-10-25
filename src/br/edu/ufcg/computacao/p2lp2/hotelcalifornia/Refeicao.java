@@ -14,14 +14,14 @@ public class Refeicao {
     private LocalTime horaInicio;
     private LocalTime horaFim;
     private double valorPorPessoa;
-    private boolean refeicaoDisponivel;
+    private boolean refeicaoDisponivel; 
 
     public Refeicao(String tipo, String titulo, LocalTime horaInicio, LocalTime horaFim, double valorPorPessoa, boolean disponivel){
         switch (tipo){
             case "Café-da-manhã":
                 tipoRefeicao = tipo;
                 break; 
-            case "Almoço":
+            case "Almoço": 
                 tipoRefeicao = tipo;
                 break;
             case "Jantar":

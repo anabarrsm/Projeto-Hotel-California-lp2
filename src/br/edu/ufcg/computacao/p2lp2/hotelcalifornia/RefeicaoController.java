@@ -12,6 +12,7 @@ public class RefeicaoController {
     private HashMap<Integer, Refeicao> refeicoes;
 	private UsuarioController usuarioController;
 	private int idRefeicao;
+	public double valorReservaQuarto;
 	
 	public RefeicaoController(UsuarioController usuarioController) {
 		this.refeicoes = new HashMap<Integer, Refeicao>();
@@ -53,7 +54,11 @@ public class RefeicaoController {
     
     
 
-    /**
+    public HashMap<Integer, Refeicao> getRefeicoes() {
+		return refeicoes;
+	}
+
+	/**
      * Altera os valores que podem ser alterados em uma refeição.
      * @param idRefeicao / id da refeição a ser alterada.
      * @param horarioInicio / novo horario de inicio.

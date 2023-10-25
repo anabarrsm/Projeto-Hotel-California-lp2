@@ -9,7 +9,7 @@ public class ReservaRestaurante {
     private String idCliente;
     private LocalDate dataInicio;
     private LocalDate dataFinal;
-    private Refeicao refeicao;
+    private String refeicao;
     private boolean pagamentoEfetuado;
     private int qtdPessoas;
     private int capacidadeRestaurante;
@@ -17,12 +17,12 @@ public class ReservaRestaurante {
     private LocalTime horaFinal; 
     private int idReserva;
     
-    public ReservaRestaurante(String idCliente, LocalDate dataInicio, LocalDate dataFinal, int qtdPessoas, Refeicao refeicao){
+    public ReservaRestaurante(String idCliente, LocalDate dataInicio, LocalDate dataFinal, int qtdPessoas, String refeicao){
         this.idCliente = idCliente;
         this.dataInicio = dataInicio;
         this.dataFinal = dataFinal;
         this.refeicao = refeicao;
-        this.idReserva = 0;
+        this.idReserva = 0; 
         // this.refeicao = refeicaoServida;
         //this.pagamentoEfetuado = pagamentoEfetuado;
        // this.horaInicial = refeicao.getHoraInicio(); 
@@ -30,7 +30,7 @@ public class ReservaRestaurante {
         
     	}
     	 
-    
+     
     //valorReservaRestaurante = qtdPessoas * refeicao.getValorPorPessoa();
 
 
@@ -62,7 +62,7 @@ public class ReservaRestaurante {
 
     @Override
     public String toString(){
-        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicio + " ate " + dataFinal + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicial.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
+        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicio + " ate " + dataFinal + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicio.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
     }
 
     public void setIdReserva(int idReserva) {

@@ -7,10 +7,10 @@ public class ReservaQuartoFamily extends Reserva {
 	private String[] pedidos;
 	private int numPessoas;
 
-	public ReservaQuartoFamily(String idAtutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
+	public ReservaQuartoFamily(String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] refeicoes, String[] pedidos, int numPessoas) {
 		
-		super(idAtutenticacao, idCliente, numQuarto, dataInicio, dataFim, refeicoes);
+		super(idCliente, numQuarto, dataInicio, dataFim, refeicoes);
 		this.pedidos = pedidos;
 		this.numPessoas = numPessoas;
 	}

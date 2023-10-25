@@ -29,7 +29,7 @@ public class ReservaRestauranteController {
 	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDate dataInicio,
 			LocalDate dataFim, int qtdPessoas, String refeicao) {
 
-		if (idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) {
+		if (idAutenticacao.contains("GER") || idAutenticacao.contains("FUN")) { 
 			
 			if(usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
 				if (qtdPessoas > capacidadeRestaurante) {
