@@ -34,7 +34,7 @@ public class ReservaRestauranteController {
         }
     	
     	if(!idCliente.contains("CLI")) {
-    		return "RESERVAs SÓ PODEM SER FEITAS PARA CLIENTES";
+    		return "RESERVAS SÓ PODEM SER FEITAS PARA CLIENTES";
     	}
 
         if(!usuarioController.encontrarUsuarioPorId(idAutenticacao) || !usuarioController.encontrarUsuarioPorId(idCliente)) {
