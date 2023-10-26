@@ -23,7 +23,7 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
  */
 public class ReservaController {
 	private ArrayList<Reserva> reservas;
-	private UsuarioController usuarioController; 
+	private UsuarioController usuarioController;
 	private QuartoController quartoController;
 	private long idReserva;
 
@@ -34,204 +34,190 @@ public class ReservaController {
 		this.idReserva = 1;
 
 	}
-	
+
 	public int quartosCadastrados() {
 		HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
 		return quartos.size();
 	}
-	
+
 	public String exibirQuartosCadastrados() {
-	    StringBuilder saida = new StringBuilder();
-	    HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
-	    
-	    for (Quarto quarto : quartos.values()) {
-	        saida.append(quarto.toString()).append("\n"); // Adiciona uma quebra de linha após cada quarto
-	    }
-	    
-	    return saida.toString();
+		StringBuilder saida = new StringBuilder();
+		HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
+
+		for (Quarto quarto : quartos.values()) {
+			saida.append(quarto.toString()).append("\n"); // Adiciona uma quebra de linha após cada quarto
+		}
+
+		return saida.toString();
 	}
 
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
 
-        if (!idAutenticacao.startsWith("GER") && !idAutenticacao.startsWith("FUN")) {
-            return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR RESERVAS DE QUARTO";
-        }
-        if (!usuarioController.encontrarUsuarioPorId(idCliente) || !usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
-            return "USUÁRIO NÃO CADASTRADO NO SISTEMA";
-        }
+		if (!idAutenticacao.startsWith("GER") && !idAutenticacao.startsWith("FUN")) {
+			return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR RESERVAS DE QUARTO";
+		}
+		if (!usuarioController.encontrarUsuarioPorId(idCliente)
+				|| !usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
+			return "USUÁRIO NÃO CADASTRADO NO SISTEMA";
+		}
 
-        HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
+		HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
 
-        if (!quartos.containsKey(numQuarto)) {
-            return "QUARTO NÃO EXISTE NO SISTEMA";
-        }
+		if (!quartos.containsKey(numQuarto)) {
+			return "QUARTO NÃO EXISTE NO SISTEMA";
+		}
 
-        Quarto quarto = quartos.get(numQuarto);
+		Quarto quarto = quartos.get(numQuarto);
 
-        if (quarto.isQuartoReservado()) {
-            return "O QUARTO JÁ ESTÁ RESERVADO NO PERÍODO DESEJADO!";
-        }
-        
-        if (!verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
-            return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO!";
-        }
+		if (quarto.isQuartoReservado()) {
+			return "O QUARTO JÁ ESTÁ RESERVADO NO PERÍODO DESEJADO!";
+		}
 
-        if (dataFim.isBefore(dataInicio)) {
-            return "A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO";
-        }
-        
-        long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
+		if (!verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
+			return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO!";
+		}
 
-        if (diferencaEmHoras < 24) {
-            return "O PERÍODO MÍNIMO DA RESERVA É DE 01 DIÁRIA (24 HORAS)";
-        }
+		if (dataFim.isBefore(dataInicio)) {
+			return "A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO";
+		}
 
-//        // Verifica a validade das refeições (pode adicionar outras validações aqui)
-//        if (!saoRefeicoesValidas(idRefeicoes)) {
-//            return "REFEIÇÕES INVÁLIDAS";
-//        }
+		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
 
-    
-        ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idCliente, numQuarto, dataInicio, dataFim, idRefeicoes);
-        
-        reservas.add(reservaQuartoSingle);
-        
-        this.idReserva = reservas.indexOf(reservaQuartoSingle) + 1;
-        
-        reservaQuartoSingle.setIdReserva(idReserva);
-        
-        quarto.setQuartoReservado(true);
+		if (diferencaEmHoras < 24) {
+			return "O PERÍODO MÍNIMO DA RESERVA É DE 01 DIÁRIA (24 HORAS)";
+		}
 
-        return "RESERVA QUARTO SINGLE REALIZADA";
-    }
+		ReservaQuartoSingle reservaQuartoSingle = new ReservaQuartoSingle(idCliente, numQuarto, dataInicio, dataFim,
+				idRefeicoes);
+
+		reservas.add(reservaQuartoSingle);
+
+		this.idReserva = reservas.indexOf(reservaQuartoSingle) + 1;
+
+		reservaQuartoSingle.setIdReserva(idReserva);
+
+		quarto.setQuartoReservado(true);
+
+		return "RESERVA QUARTO SINGLE REALIZADA";
+	}
 
 	public String reservarQuartoDouble(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos) {
-		
-		  if (!idAutenticacao.startsWith("GER") && !idAutenticacao.startsWith("FUN")) {
-	            return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR RESERVAS DE QUARTO";
-	        }
-	        if (!usuarioController.encontrarUsuarioPorId(idCliente) || !usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
-	            return "USUÁRIO NÃO CADASTRADO NO SISTEMA";
-	        }
 
-	        HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
+		if (!idAutenticacao.startsWith("GER") && !idAutenticacao.startsWith("FUN")) {
+			return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR RESERVAS DE QUARTO";
+		}
+		if (!usuarioController.encontrarUsuarioPorId(idCliente)
+				|| !usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
+			return "USUÁRIO NÃO CADASTRADO NO SISTEMA";
+		}
 
-	        if (!quartos.containsKey(numQuarto)) {
-	            return "QUARTO NÃO EXISTE NO SISTEMA";
-	        }
+		HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
 
-	        Quarto quarto = quartos.get(numQuarto);
+		if (!quartos.containsKey(numQuarto)) {
+			return "QUARTO NÃO EXISTE NO SISTEMA";
+		}
 
-	        if (quarto.isQuartoReservado()) {
-	            return "O QUARTO JÁ ESTÁ RESERVADO NO PERÍODO DESEJADO!";
-	        }
-	        
-	        if (!verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
-	            return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO!";
-	        }
+		Quarto quarto = quartos.get(numQuarto);
 
-	        if (dataFim.isBefore(dataInicio)) {
-	            return "A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO";
-	        }
-	        
-	        long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
+		if (quarto.isQuartoReservado()) {
+			return "O QUARTO JÁ ESTÁ RESERVADO NO PERÍODO DESEJADO!";
+		}
 
-	        if (diferencaEmHoras < 24) {
-	            return "O PERÍODO MÍNIMO DA RESERVA É DE 01 DIÁRIA (24 HORAS)";
-	        }
+		if (!verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
+			return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO!";
+		}
 
-//	        // Verifica a validade das refeições (pode adicionar outras validações aqui)
-//	        if (!saoRefeicoesValidas(idRefeicoes)) {
-//	            return "REFEIÇÕES INVÁLIDAS";
-//	        }
+		if (dataFim.isBefore(dataInicio)) {
+			return "A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO";
+		}
 
-	    
-	        ReservaQuartoDouble reservaQuartoDouble = new ReservaQuartoDouble(idCliente, numQuarto, dataInicio, dataFim, idRefeicoes, pedidos);
+		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
 
-	        reservas.add(reservaQuartoDouble);
-	        
-	        this.idReserva = reservas.indexOf(reservaQuartoDouble) + 1;
-	        
-	        reservaQuartoDouble.setIdReserva(idReserva);
-	        
-	        quarto.setQuartoReservado(true);
+		if (diferencaEmHoras < 24) {
+			return "O PERÍODO MÍNIMO DA RESERVA É DE 01 DIÁRIA (24 HORAS)";
+		}
 
-	        return "RESERVA QUARTO DOUBLE REALIZADA";
-	    }
+		ReservaQuartoDouble reservaQuartoDouble = new ReservaQuartoDouble(idCliente, numQuarto, dataInicio, dataFim,
+				idRefeicoes, pedidos);
+
+		reservas.add(reservaQuartoDouble);
+
+		this.idReserva = reservas.indexOf(reservaQuartoDouble) + 1;
+
+		reservaQuartoDouble.setIdReserva(idReserva);
+
+		quarto.setQuartoReservado(true);
+
+		return "RESERVA QUARTO DOUBLE REALIZADA";
+	}
 
 	public String reservarQuartoFamily(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos, int numPessoas) {
 
+		if (!idAutenticacao.startsWith("GER") && !idAutenticacao.startsWith("FUN")) {
+			return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR RESERVAS DE QUARTO";
+		}
+		if (!usuarioController.encontrarUsuarioPorId(idCliente)
+				|| !usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
+			return "USUÁRIO NÃO CADASTRADO NO SISTEMA";
+		}
 
-		  if (!idAutenticacao.startsWith("GER") && !idAutenticacao.startsWith("FUN")) {
-	            return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR RESERVAS DE QUARTO";
-	        }
-	        if (!usuarioController.encontrarUsuarioPorId(idCliente) || !usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
-	            return "USUÁRIO NÃO CADASTRADO NO SISTEMA";
-	        }
+		HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
 
-	        HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
+		if (!quartos.containsKey(numQuarto)) {
+			return "QUARTO NÃO EXISTE NO SISTEMA";
+		}
 
-	        if (!quartos.containsKey(numQuarto)) {
-	            return "QUARTO NÃO EXISTE NO SISTEMA"; 
-	        }
+		Quarto quarto = quartos.get(numQuarto);
 
-	        Quarto quarto = quartos.get(numQuarto);
+		if (numPessoas > quarto.getQtdMaxPessoas()) {
+			return "O NUMERO DE PESSOAS SUPERA A QUANTIDADE MÁXIMA DE PESSOAS PERMITIDA";
+		}
+		if (quarto.isQuartoReservado()) {
+			return "O QUARTO JÁ ESTÁ RESERVADO NO PERÍODO DESEJADO!";
+		}
 
-	        if(numPessoas > quarto.getQtdMaxPessoas()) {
-	        	return "O NUMERO DE PESSOAS SUPERA A QUANTIDADE MÁXIMA DE PESSOAS PERMITIDA";
-	        }
-	        if (quarto.isQuartoReservado()) {
-	            return "O QUARTO JÁ ESTÁ RESERVADO NO PERÍODO DESEJADO!";
-	        }
-	        
-	        if (!verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
-	            return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO!";
-	        }
+		if (!verificarDisponibilidade(numQuarto, dataInicio, dataFim)) {
+			return "O QUARTO NÃO ESTÁ DISPONÍVEL NO PERÍODO DESEJADO!";
+		}
 
-	        if (dataFim.isBefore(dataInicio)) {
-	            return "A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO";
-	        }
-	        
-	        long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
+		if (dataFim.isBefore(dataInicio)) {
+			return "A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO";
+		}
 
-	        if (diferencaEmHoras < 24) {
-	            return "O PERÍODO MÍNIMO DA RESERVA É DE 01 DIÁRIA (24 HORAS)";
-	        }
+		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
 
-//	        // Verifica a validade das refeições (pode adicionar outras validações aqui)
-//	        if (!saoRefeicoesValidas(idRefeicoes)) {
-//	            return "REFEIÇÕES INVÁLIDAS";
-//	        }
+		if (diferencaEmHoras < 24) {
+			return "O PERÍODO MÍNIMO DA RESERVA É DE 01 DIÁRIA (24 HORAS)";
+		}
 
-	    
-	        ReservaQuartoFamily reservaQuartoFamily = new ReservaQuartoFamily(idCliente, numQuarto, dataInicio, dataFim, idRefeicoes, pedidos, numPessoas);
+		ReservaQuartoFamily reservaQuartoFamily = new ReservaQuartoFamily(idCliente, numQuarto, dataInicio, dataFim,
+				idRefeicoes, pedidos, numPessoas);
 
-	        reservas.add(reservaQuartoFamily);
-	        
-	        this.idReserva = reservas.indexOf(reservaQuartoFamily) + 1;
-	        
-	        reservaQuartoFamily.setIdReserva(idReserva);
-	        
-	        quarto.setQuartoReservado(true);
+		reservas.add(reservaQuartoFamily);
 
-	        return "RESERVA QUARTO FAMILY REALIZADA";
-	    }
-	
-	public boolean verificarDisponibilidade(int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim) {
-	    for (Reserva reserva : reservas) {
-	        if (reserva.getNumQuarto() == numQuarto) {
-	            if (dataInicio.isBefore(reserva.getDataFim()) && dataFim.isAfter(reserva.getDataInicio())) {
-	                return false; // Há uma sobreposição de datas
-	            }
-	        }
-	    }
-	    return true;
+		this.idReserva = reservas.indexOf(reservaQuartoFamily) + 1;
+
+		reservaQuartoFamily.setIdReserva(idReserva);
+
+		quarto.setQuartoReservado(true);
+
+		return "RESERVA QUARTO FAMILY REALIZADA";
 	}
 
-	
+	public boolean verificarDisponibilidade(int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim) {
+		for (Reserva reserva : reservas) {
+			if (reserva.getNumQuarto() == numQuarto) {
+				if (dataInicio.isBefore(reserva.getDataFim()) && dataFim.isAfter(reserva.getDataInicio())) {
+					return false; // Há uma sobreposição de datas
+				}
+			}
+		}
+		return true;
+	}
+
 //	public String exibirReserva(String idAutenticacao, long idReserva) {
 //	}
 

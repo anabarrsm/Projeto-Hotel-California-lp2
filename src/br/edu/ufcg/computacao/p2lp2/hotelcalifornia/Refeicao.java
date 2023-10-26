@@ -48,35 +48,32 @@ public class Refeicao {
 		return "INDISPONIVEL";
 	}
 
-
 	public void setRefeicaoDisponivel(boolean isDisponivel) {
 		refeicaoDisponivel = isDisponivel;
 	}
-	
+
 	public void setHorarioInicio(LocalTime horarioInicio) {
 		this.horarioInicio = horarioInicio;
 	}
+
 	public double getValor() {
 		return valor;
 	}
-	
+
 	public void setHorarioFinal(LocalTime horarioFinal) {
 		this.horarioFinal = horarioFinal;
 	}
 
 	public void setValorPorPessoa(double valor) {
 		this.valor = valor;
-}
-	
+	}
 
 	@Override
 	public String toString() {
 		// [<id>] <tipoRefeicao>: <titulo> (<inicio> as <fim>). Valor por pessoa:
 		// R$<valorPorPessoa>. <ativa?>
-	        return "[" + idRefeicao + "] " + tipoRefeicao + ": " + titulo + " (" + horarioInicio + " as " + horarioFinal + "). Valor por pessoa: R$" + valor + ". " + (refeicaoDisponivel ? "VIGENTE." : "INDISPONIVEL.");
+		return "[" + idRefeicao + "] " + tipoRefeicao + ": " + titulo + " (" + horarioInicio + " as " + horarioFinal
+				+ "). Valor por pessoa: R$" + valor + ". " + (refeicaoDisponivel ? "VIGENTE." : "INDISPONIVEL.");
 	}
 
-
-
- 
 }

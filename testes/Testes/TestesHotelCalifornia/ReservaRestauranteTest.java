@@ -20,9 +20,9 @@ public class ReservaRestauranteTest {
     private LocalDate dataFinal = LocalDate.of(2023, 5, 14);
 
     @BeforeEach
-    void setUp() {
-        restaurante1 = new ReservaRestaurante("Lucas", datainicial, dataFinal, 50, refeicao1);
-    }
+//    void setUp() {
+//        restaurante1 = new ReservaRestaurante("Lucas", datainicial, dataFinal, 50, refeicao1);
+//    }
 
     @Test
     public void testaToString(){
