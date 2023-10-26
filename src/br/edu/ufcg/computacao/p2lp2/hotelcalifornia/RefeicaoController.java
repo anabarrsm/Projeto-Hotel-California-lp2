@@ -129,4 +129,18 @@ public class RefeicaoController {
 		return listaRefeicoes;
 	}
 
-}
+	public Refeicao obterRefeicaoPeloId(String refeicao) {
+	    Long idRefeicao = Long.parseLong(refeicao);
+	    
+	    for (Refeicao cadaRefeicao : refeicoes) {
+	        if (cadaRefeicao.getIdRefeicao() == idRefeicao) {
+	            return cadaRefeicao; // Use "cadaRefeicao" em vez de "refeicao"
+	        }
+	    }
+	    
+	    return null;
+	}
+	}
+
+
+

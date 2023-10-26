@@ -32,6 +32,14 @@ public class Refeicao {
 		this.refeicaoDisponivel = refeicaoDisponivel;
 
 	}
+	
+	public LocalTime getHorarioInicio() {
+		return horarioInicio;
+	}
+	
+	public LocalTime getHorarioFinal() {
+		return horarioFinal;
+	}
 
 	public long getIdRefeicao() {
 		return idRefeicao;

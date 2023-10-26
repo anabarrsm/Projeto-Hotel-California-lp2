@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ReservaRestaurante {
-	private String idRRefeicao;
+	private long idReservaRestaurante;
+	
 	private String idCliente;
 	private LocalDateTime dataInicio;
 	private LocalDateTime dataFim;
@@ -21,7 +22,9 @@ public class ReservaRestaurante {
 		this.qtdPessoas = qtdPessoas;
 		this.idRefeicao = idRefeicao;
 		this.situacaoPagamento = situacaoPagamento;
+		this.idReservaRestaurante = idReservaRestaurante;
 	}
+
 
 // 
 //	public long getIdReserva() {
@@ -48,6 +51,16 @@ public class ReservaRestaurante {
 //        return valorReservaRestaurante;
 //    }
 
+	public long getIdReservaRestaurante() {
+		return idReservaRestaurante;
+	}
+
+
+//	public void setIdReservaRestaurante(long idReservaRestaurante) {
+//		this.idReservaRestaurante = idReservaRestaurante;
+//	}
+
+
 	public LocalDateTime getDataInicio() {
 		return dataInicio;
 	}
@@ -55,6 +68,13 @@ public class ReservaRestaurante {
 	public LocalDateTime getDataFim() {
 		return dataFim;
 	}
+
+
+	public void setIdReservaRestaurante(long idReservaRestaurante) {
+		this.idReservaRestaurante = idReservaRestaurante;
+		
+	}
+
 
 //	@Override
 //    public String toString(){

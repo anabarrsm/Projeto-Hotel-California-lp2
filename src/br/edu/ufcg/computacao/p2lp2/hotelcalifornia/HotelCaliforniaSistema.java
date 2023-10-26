@@ -22,8 +22,7 @@ public class HotelCaliforniaSistema {
 		this.quartoController = new QuartoController(usuarioController);
 		this.reservaController = new ReservaController(usuarioController, quartoController);
 		this.refeicaoController = new RefeicaoController(usuarioController);
-		this.restauranteController = new ReservaRestauranteController(usuarioController, quartoController,
-				reservaController, refeicaoController);
+		this.restauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
 
 	}
 
