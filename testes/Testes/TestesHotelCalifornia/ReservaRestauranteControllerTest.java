@@ -20,14 +20,19 @@ import java.time.LocalDateTime;
 
 class ReservaRestauranteControllerTest {
 	private ReservaRestauranteController reservaRestauranteController;
+	private UsuarioController usuarioController;
+	private RefeicaoController refeicaoController;
+	private ReservaController reservaController;
+	private QuartoController quartoController;
 
 	@BeforeEach
 	public void setUp() {
-		 	UsuarioController usuarioController = new UsuarioController();
-	        QuartoController quartoController = new QuartoController(usuarioController);
-	        ReservaController reservaController = new ReservaController(usuarioController, quartoController);
-	        RefeicaoController refeicaoController = new RefeicaoController(usuarioController);
-	        reservaRestauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
+			this.usuarioController = new UsuarioController();
+	        this.quartoController = new QuartoController(usuarioController);
+	        this.reservaController = new ReservaController(usuarioController, quartoController);
+	        this.refeicaoController = new RefeicaoController(usuarioController);
+	        this.reservaRestauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
+	        this.usuarioController.cadastrarUsuario("ADM1", "Julia", "GER", 33333); //[GER5] Julia
 	}
 	
 	@Test
