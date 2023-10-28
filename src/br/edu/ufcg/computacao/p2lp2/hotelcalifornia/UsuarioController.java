@@ -228,4 +228,14 @@ public class UsuarioController {
 		return false;
 	}
 
+	public Usuario retornaUsuarioPorId(String id) {
+		for (Usuario usuario : usuarios) {
+
+			if (usuario.getId().equals(id)) {
+				return usuario;
+			}
+		}
+		throw new NullPointerException("USUARIO INEXISTENTE");
+	}
+
 }
