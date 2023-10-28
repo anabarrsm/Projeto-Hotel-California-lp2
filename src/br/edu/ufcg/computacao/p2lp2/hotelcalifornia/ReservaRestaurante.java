@@ -26,22 +26,18 @@ public class ReservaRestaurante {
 	}
 
 
-// 
-//	public long getIdReserva() {
-//		return idReserva;
-//	}
-//
-//
+
+
 //	public String situacaoPagamento(){
 //        if(this.pagamentoEfetuado){
 //            return "JÁ FOI PAGO.";
 //        }
 //        return "PENDENTE.";
 //    }
-//
-//    // valor reserva = num pessoas x quantidade de dias x refeicao.
+
+//    valor reserva = num pessoas x quantidade de dias x refeicao.
 //    public Double calculaPreco(){
-//        long diferencaEmDias = dataInicio.until(dataFinal).getDays();
+//       long diferencaEmDias = dataInicio.until(dataFinal).getDays();
 //        //double valorReserva = qtdPessoas * refeicao.getValorPorPessoa();
 //        double valorReserva = valorReservaRestaurante * diferencaEmDias;
 //        return valorReserva;
@@ -54,11 +50,6 @@ public class ReservaRestaurante {
 	public long getIdReservaRestaurante() {
 		return idReservaRestaurante;
 	}
-
-
-//	public void setIdReservaRestaurante(long idReservaRestaurante) {
-//		this.idReservaRestaurante = idReservaRestaurante;
-//	}
 
 
 	public LocalDateTime getDataInicio() {
@@ -76,11 +67,9 @@ public class ReservaRestaurante {
 	}
 
 
-//	@Override
-//    public String toString(){
-//        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicio + " ate " + dataFim + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + refeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicio.until(dataFinal).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
-//    }
-//
-//    public void setIdReserva(int idReserva) {
-//    }
+	@Override
+   public String toString(){
+        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicio + " ate " + dataFim + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + idRefeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicio.until(dataFim).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
+    }
+
 }

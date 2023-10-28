@@ -24,7 +24,7 @@ public class HotelCaliforniaSistema {
 		this.refeicaoController = new RefeicaoController(usuarioController);
 		this.restauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
 
-	}
+	} 
 
 	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
 		return this.usuarioController.cadastrarUsuario(idAutenticacao, nome, tipoUsuario, documento);

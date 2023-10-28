@@ -41,9 +41,10 @@ public class ReservaRestauranteController {
         	return "USUÁRIO NÃO CADASTRADO";
         }
 
-//        if (!verificarDisponibilidadeRestaurante(dataInicio, dataFim, idRefeicao)) {
-//           return "O RESTAURANTE NÃO ESTÁ DISPONÍVEL PARA RESERVA NO PERÍODO DESEJADO";
-//       }
+      if (!verificarDisponibilidadeRestaurante(dataInicio, dataFim, idRefeicao)) {
+    	  return "O RESTAURANTE JÁ ESTÁ RESERVADO NESTE PERÍODO";
+      }
+    
         
         if(qtdPessoas > capacidadeRestaurante) {
         	return "A QUANTIDADE DE PESSOAS EXCEDE A CAPACIDADE DO RESTAURANTE";
@@ -67,6 +68,16 @@ public class ReservaRestauranteController {
         
      
 	
+	private boolean verificarDisponibilidadeRestaurante(LocalDateTime dataInicio, LocalDateTime dataFim, String idRefeicao) {
+	    for (ReservaRestaurante reserva : reservasRestaurante) {
+	        if (!dataInicio.isAfter(reserva.getDataFim()) && !dataFim.isBefore(reserva.getDataInicio())) {
+	            return false;
+	        }
+	    }
+	    
+	    return true;
+	}
+
 private LocalTime obterInicioRefeicao(String idRefeicao) {
 		
 	    

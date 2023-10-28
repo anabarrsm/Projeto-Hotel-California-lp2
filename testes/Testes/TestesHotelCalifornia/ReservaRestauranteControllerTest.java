@@ -32,16 +32,24 @@ class ReservaRestauranteControllerTest {
 	        this.reservaController = new ReservaController(usuarioController, quartoController);
 	        this.refeicaoController = new RefeicaoController(usuarioController);
 	        this.reservaRestauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
-	        this.usuarioController.cadastrarUsuario("ADM1", "Julia", "GER", 33333); //[GER5] Julia
+	        
+	        
+	      //cadastrando Usuarios
+			this.usuarioController.cadastrarUsuario("ADM1", "Laura", "CLI", 5696); // [CLI2] Laura
+			this.usuarioController.cadastrarUsuario("ADM1", "Joao", "FUN", 7899); // [FUN3] Joao
+			this.usuarioController.cadastrarUsuario("ADM1", "Maria", "GER", 1111); // [GER4] Maria
+	        this.usuarioController.cadastrarUsuario("FUN3", "Julia", "CLI", 33333); //[CLI5] Julia
 	}
 	
 	@Test
 	public void testReservarRestauranteComCapacidadeAdequada() {
-		LocalDateTime dataInicio = LocalDateTime.now();
-		LocalDateTime dataFim = LocalDateTime.now().plusDays(2);
+		
+		LocalDateTime dataAtual = LocalDateTime.now().plusDays(10);
+		LocalDateTime dataInicioValida= dataAtual.plusDays(4);
+
 		String refeicao = "Almoço";
-		String resultado = reservaRestauranteController.reservarRestaurante("GER1", "CLI1", dataInicio, dataFim, 2, refeicao);
-        assertEquals("Reserva Restaurante Realizada!", resultado);
+		String resultado = reservaRestauranteController.reservarRestaurante("GER4", "CLI2", dataInicioValida, dataAtual, 2, refeicao);
+        assertEquals("RESERVA RESTAURANTE REALIZADA", resultado);
 	}
 	
 	@Test
@@ -49,7 +57,7 @@ class ReservaRestauranteControllerTest {
         LocalDateTime dataInicial = LocalDateTime.now();
         LocalDateTime dataFinal = LocalDateTime.now().plusDays(1); // Reserva com 1 dia de antecedência
         String refeicao = "Almoço"; 
-        String resultado = reservaRestauranteController.reservarRestaurante("CLI1", "CLI1", dataInicial, dataFinal, 3, refeicao);
+        String resultado = reservaRestauranteController.reservarRestaurante("CLI2", "CLI2", dataInicial, dataFinal, 3, refeicao);
         assertEquals("APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR A RESERVA DO RESTAURANTE", resultado);
     }
 	
@@ -58,18 +66,18 @@ class ReservaRestauranteControllerTest {
         LocalDateTime dataInicio = LocalDateTime.now();
         LocalDateTime dataFim = LocalDateTime.now().plusDays(1); 
         String refeicao = "Jantar";
-        String resultado = reservaRestauranteController.reservarRestaurante("ADMIN1", "CLI2", dataInicio, dataFim, 4, refeicao);
+        String resultado = reservaRestauranteController.reservarRestaurante("ADM1", "CLI2", dataInicio, dataFim, 4, refeicao);
         assertEquals("APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR A RESERVA DO RESTAURANTE", resultado);
     }
 	
 	@Test
     public void testNaoEPossivelReservarRestauranteJaExisteReserva() {
-        LocalDateTime dataInicio = LocalDateTime.now();
-        LocalDateTime dataFim = LocalDateTime.now().plusDays(1);
+        LocalDateTime dataAtual= LocalDateTime.now();
+        LocalDateTime dataInicioValida= dataAtual.plusDays(2);
         String refeicao = "Almoço"; 
-        reservaRestauranteController.reservarRestaurante("GER1", "CLI1", dataInicio, dataFim, 3, refeicao);
-        String resultado = reservaRestauranteController.reservarRestaurante("GER1", "CLI2", dataInicio, dataFim, 4, refeicao);
-        assertEquals("O restaurante já está reservado neste período.", resultado);
+        reservaRestauranteController.reservarRestaurante("GER4", "CLI2", dataInicioValida, dataAtual, 3, refeicao);
+        String resultado = reservaRestauranteController.reservarRestaurante("GER4", "CLI5", dataInicioValida, dataAtual, 4, refeicao);
+        assertEquals("O RESTAURANTE JÁ ESTÁ RESERVADO NESTE PERÍODO", resultado);
     }
 
 }
