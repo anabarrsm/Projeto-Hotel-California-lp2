@@ -26,8 +26,8 @@ public class ReservaRestauranteController {
 
 	}
 
-	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDateTime dataInicio,
-			LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
+	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDate dataInicio,
+			LocalDate dataFim, int qtdPessoas, String idRefeicao) {
 	 	
     	if ((!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN"))) {
             return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR A RESERVA DO RESTAURANTE";
@@ -50,12 +50,14 @@ public class ReservaRestauranteController {
         	return "A QUANTIDADE DE PESSOAS EXCEDE A CAPACIDADE DO RESTAURANTE";
         }
         
-        LocalDateTime dataMinimaReserva = LocalDateTime.now().plusDays(1); 
+        LocalDate dataMinimaReserva = LocalDate.now().plusDays(1);
         if (!dataInicio.isAfter(dataMinimaReserva)) {
             return "A reserva do restaurante deve ser feita com pelo menos um dia de antecedência.";
         }
+		LocalTime horaInicio = obterInicioRefeicao(idRefeicao);
+		LocalTime horaFim = obterFimRefeicao(idRefeicao);
 
-        ReservaRestaurante reservaRestaurante = new ReservaRestaurante(idCliente, dataInicio, dataFim, qtdPessoas, idRefeicao);
+        ReservaRestaurante reservaRestaurante = new ReservaRestaurante(idCliente, dataInicio, dataFim, qtdPessoas, idRefeicao, horaInicio, horaFim);
         
         reservasRestaurante.add(reservaRestaurante);
 
@@ -68,7 +70,7 @@ public class ReservaRestauranteController {
         
      
 	
-	private boolean verificarDisponibilidadeRestaurante(LocalDateTime dataInicio, LocalDateTime dataFim, String idRefeicao) {
+	private boolean verificarDisponibilidadeRestaurante(LocalDate dataInicio, LocalDate dataFim, String idRefeicao) {
 	    for (ReservaRestaurante reserva : reservasRestaurante) {
 	        if (!dataInicio.isAfter(reserva.getDataFim()) && !dataFim.isBefore(reserva.getDataInicio())) {
 	            return false;
@@ -78,9 +80,19 @@ public class ReservaRestauranteController {
 	    return true;
 	}
 
-private LocalTime obterInicioRefeicao(String idRefeicao) {
-		
-	    
+	private LocalTime obterFimRefeicao(String idRefeicao) {
+		Refeicao refeicao = refeicaoController.obterRefeicaoPeloId(idRefeicao);
+
+		if (refeicao != null) {
+
+			LocalTime fimRefeicao = refeicao.getHorarioFinal();
+			return fimRefeicao;
+		} else {
+			return null;
+		}
+	}
+
+	private LocalTime obterInicioRefeicao(String idRefeicao) {
 	    Refeicao refeicao = refeicaoController.obterRefeicaoPeloId(idRefeicao); 
 
 	    if (refeicao != null) {
