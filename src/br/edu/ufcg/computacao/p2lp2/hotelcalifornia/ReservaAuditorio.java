@@ -9,24 +9,19 @@ public class ReservaAuditorio {
     private long idAuditorio;
     private LocalDateTime dataInicial;
     private LocalDateTime dataFinal;
-    private boolean jaFoiPago;
+    private String jaFoiPago;
     private int qtdConvidados;
-    private int capacidadeAuditorio;
 
     // + reservarAuditorio(idAutenticacao: String, idCliente: String, idAuditorio: long, dataInicio: LocalDateTime, dataFim: LocalDateTime, qtdMaxPessoas: int): String
 
     public ReservaAuditorio(String idAutenticacao, String idUsuario, long idAuditorio,  LocalDateTime dataInicial, LocalDateTime dataFinal, int qtdConvidados){
-        capacidadeAuditorio = 150;
-        if(qtdConvidados <= capacidadeAuditorio){
-            this.qtdConvidados = qtdConvidados;
-        }else{
-            throw new IllegalArgumentException("A CAPACIDADE MAXIMA É 150!");
-        }
+        this.qtdConvidados = qtdConvidados;
         this.idAutenticacao = idAutenticacao;
         this.idUsuario = idUsuario;
         this.idAuditorio = idAuditorio;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
+        jaFoiPago = "SITUACAO DO PAGAMENTO: REALIZADO.";
     }
 
     public String getIdUsuario() {
@@ -45,5 +40,7 @@ public class ReservaAuditorio {
         return dataFinal;
     }
 
-
+    public void setIdAuditorio(long idAuditorio) {
+        this.idAuditorio = idAuditorio;
+    }
 }
