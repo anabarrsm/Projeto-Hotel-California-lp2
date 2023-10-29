@@ -4,51 +4,46 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ReservaAuditorio {
-    private Usuario usuario;
-    private LocalDate dataInicial;
-    private LocalDate dataFinal;
-    private LocalDateTime horaInicio;
-    private LocalDateTime horaFim;
-    private double valorPessoa;
+    private String idAutenticacao;
+    private String idUsuario;
+    private long idAuditorio;
+    private LocalDateTime dataInicial;
+    private LocalDateTime dataFinal;
     private boolean jaFoiPago;
     private int qtdConvidados;
     private int capacidadeAuditorio;
 
-    public ReservaAuditorio(Usuario usuario, LocalDate dataInicial, LocalDate dataFinal, double valorPessoa, int qtdConvidados){
+    // + reservarAuditorio(idAutenticacao: String, idCliente: String, idAuditorio: long, dataInicio: LocalDateTime, dataFim: LocalDateTime, qtdMaxPessoas: int): String
+
+    public ReservaAuditorio(String idAutenticacao, String idUsuario, long idAuditorio,  LocalDateTime dataInicial, LocalDateTime dataFinal, int qtdConvidados){
         capacidadeAuditorio = 150;
-        if(valorPessoa <= capacidadeAuditorio){
+        if(qtdConvidados <= capacidadeAuditorio){
             this.qtdConvidados = qtdConvidados;
         }else{
             throw new IllegalArgumentException("A CAPACIDADE MAXIMA É 150!");
         }
-        this.usuario = usuario;
+        this.idAutenticacao = idAutenticacao;
+        this.idUsuario = idUsuario;
+        this.idAuditorio = idAuditorio;
         this.dataInicial = dataInicial;
         this.dataFinal = dataFinal;
-        this.valorPessoa = valorPessoa;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
     public int getQtdConvidados(){
         return this.qtdConvidados;
     }
 
-    public LocalDate getDataInicial() {
+    public LocalDateTime getDataInicial() {
         return dataInicial;
     }
 
-    public LocalDate getDataFinal() {
+    public LocalDateTime getDataFinal() {
         return dataFinal;
     }
 
-    public LocalDateTime getHoraInicio() {
-        return horaInicio;
-    }
-
-    public LocalDateTime getHoraFim() {
-        return horaFim;
-    }
 
 }

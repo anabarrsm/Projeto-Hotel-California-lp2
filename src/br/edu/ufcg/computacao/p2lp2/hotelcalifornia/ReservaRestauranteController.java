@@ -3,6 +3,7 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,8 +27,8 @@ public class ReservaRestauranteController {
 
 	}
 
-	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDate dataInicio,
-			LocalDate dataFim, int qtdPessoas, String idRefeicao) {
+	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDateTime dataInicio,
+			LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
 	 	
     	if ((!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN"))) {
             return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR A RESERVA DO RESTAURANTE";
@@ -50,14 +51,13 @@ public class ReservaRestauranteController {
         	return "A QUANTIDADE DE PESSOAS EXCEDE A CAPACIDADE DO RESTAURANTE";
         }
         
-        LocalDate dataMinimaReserva = LocalDate.now().plusDays(1);
+        LocalDateTime dataMinimaReserva = LocalDateTime.now().plusDays(1);
         if (!dataInicio.isAfter(dataMinimaReserva)) {
             return "A reserva do restaurante deve ser feita com pelo menos um dia de antecedência.";
         }
-		LocalTime horaInicio = obterInicioRefeicao(idRefeicao);
-		LocalTime horaFim = obterFimRefeicao(idRefeicao);
 
-        ReservaRestaurante reservaRestaurante = new ReservaRestaurante(idCliente, dataInicio, dataFim, qtdPessoas, idRefeicao, horaInicio, horaFim);
+		obterFimRefeicao(idRefeicao);
+        ReservaRestaurante reservaRestaurante = new ReservaRestaurante(idCliente, dataInicio, dataFim, qtdPessoas, idRefeicao);
         
         reservasRestaurante.add(reservaRestaurante);
 
@@ -70,7 +70,7 @@ public class ReservaRestauranteController {
         
      
 	
-	private boolean verificarDisponibilidadeRestaurante(LocalDate dataInicio, LocalDate dataFim, String idRefeicao) {
+	private boolean verificarDisponibilidadeRestaurante(LocalDateTime dataInicio, LocalDateTime dataFim, String idRefeicao) {
 	    for (ReservaRestaurante reserva : reservasRestaurante) {
 	        if (!dataInicio.isAfter(reserva.getDataFim()) && !dataFim.isBefore(reserva.getDataInicio())) {
 	            return false;

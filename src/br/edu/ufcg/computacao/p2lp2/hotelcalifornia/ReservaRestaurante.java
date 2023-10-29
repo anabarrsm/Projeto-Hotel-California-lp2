@@ -8,16 +8,14 @@ public class ReservaRestaurante {
 	private long idReservaRestaurante;
 	
 	private String idCliente;
-	private LocalDate dataInicio;
-	private LocalDate dataFim;
+	private LocalDateTime dataInicio;
+	private LocalDateTime dataFim;
 	private int qtdPessoas;
 	private String idRefeicao;
 	private String situacaoPagamento;
-	private LocalTime horaInicio;
-	private LocalTime horaFim;
 
 
-	public ReservaRestaurante(String idCliente, LocalDate dataIncio, LocalDate dataFim, int qtdPessoas, String idRefeicao, LocalTime horaInicio, LocalTime horaFim) {
+	public ReservaRestaurante(String idCliente, LocalDateTime dataIncio, LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
 		this.idCliente = idCliente;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
@@ -25,8 +23,6 @@ public class ReservaRestaurante {
 		this.idRefeicao = idRefeicao;
 		this.situacaoPagamento = situacaoPagamento;
 		this.idReservaRestaurante = idReservaRestaurante;
-		this.horaInicio = horaInicio;
-		this.horaFim = horaFim;
 	}
 
 
@@ -54,11 +50,11 @@ public class ReservaRestaurante {
 	}
 
 
-	public LocalDate getDataInicio() {
+	public LocalDateTime getDataInicio() {
 		return dataInicio;
 	}
 
-	public LocalDate getDataFim() {
+	public LocalDateTime getDataFim() {
 		return dataFim;
 	}
 
@@ -66,14 +62,6 @@ public class ReservaRestaurante {
 	public void setIdReservaRestaurante(long idReservaRestaurante) {
 		this.idReservaRestaurante = idReservaRestaurante;
 		
-	}
-
-	public void setHoraInicio(LocalTime horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-
-	public void setHoraFim(LocalTime horaFim) {
-		this.horaFim = horaFim;
 	}
 
 	@Override
