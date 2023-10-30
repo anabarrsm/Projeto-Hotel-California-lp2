@@ -19,6 +19,10 @@ public class FormaDePagamento {
 		return tipoDePagamento;
 	}
 	
+	public void setTipo(String tipoDePagamento) {
+		this.tipoDePagamento = tipoDePagamento;
+	}
+	
 	public double getPercentual() {
 		return percentualDesconto;
 	}
