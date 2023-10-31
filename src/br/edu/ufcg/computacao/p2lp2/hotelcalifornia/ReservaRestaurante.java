@@ -1,5 +1,6 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -13,7 +14,7 @@ public class ReservaRestaurante {
 	private int qtdPessoas;
 	private String idRefeicao;
 	private String situacaoPagamento;
-
+	Duration diff;
 
 	public ReservaRestaurante(String idCliente, LocalDateTime dataIncio, LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
 		this.idCliente = idCliente;
@@ -23,15 +24,16 @@ public class ReservaRestaurante {
 		this.idRefeicao = idRefeicao;
 		this.situacaoPagamento = situacaoPagamento;
 		this.idReservaRestaurante = idReservaRestaurante;
+		Duration diff = Duration.between(dataIncio, dataFim);
 	}
 
 
-//	public String situacaoPagamento(){
-//        if(this.pagamentoEfetuado){
-//            return "JÁ FOI PAGO.";
-//        }
-//        return "PENDENTE.";
-//    }
+	public String situacaoPagamento(){
+        if(this.pagamentoEfetuado){
+            return "JÁ FOI PAGO.";
+        }
+        return "PENDENTE.";
+    }
 
 //    valor reserva = num pessoas x quantidade de dias x refeicao.
 //    public Double calculaPreco(){
@@ -66,7 +68,7 @@ public class ReservaRestaurante {
 
 	@Override
    public String toString(){
-        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicio + " ate " + dataFim + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + idRefeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + dataInicio.until(dataFim).getDays() + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
+        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicio + " ate " + dataFim + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + idRefeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + diff + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
     }
 
 }
