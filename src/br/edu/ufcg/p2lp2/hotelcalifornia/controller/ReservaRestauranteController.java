@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
+package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,6 +6,9 @@ import java.time.LocalTime;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestaurante;
 
 public class ReservaRestauranteController {
 

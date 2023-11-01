@@ -4,8 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.UsuarioController;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Usuario;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
+
 import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
@@ -104,6 +105,15 @@ public class UsuarioControllerTest {
 		String usuario = controller.atualizarUsuario("ADM1", "GER4", "FUN");
 		assertEquals("USUÁRIO ATUALIZADO!", usuario);
 	}
+	
+	@Test
+	public void testAtualizarUsuario() {
+		controller.cadastrarUsuario("ADM1", "Novo Funcionário", "FUN", 123456L); //[FUN2]
+		String resultado = controller.atualizarUsuario("ADM1", "FUN2", "CLI");
+		assertEquals("CLI", resultado);
+		assertEquals("[FUN2] Novo Funcionário ", controller.exibirUsuario("CLI2"));
+	}
+
 
 	@Test
 	public void testAtualizarUsuarioTipoInvalido() {
@@ -143,7 +153,7 @@ public class UsuarioControllerTest {
 		assertEquals("USUÁRIO ATUALIZADO!", this.controller.atualizarUsuario("ADM1", "CLI2", "ADM"));
 	}
 
-	@Test
+	@Test 
 	public void testListarUsuarios() {
 		controller.cadastrarUsuario("ADM1", "Maria Administradora", "ADM", 7896); // ADM2
 		controller.cadastrarUsuario("ADM2", "Ana Gerente", "GER", 12345666); // GER3

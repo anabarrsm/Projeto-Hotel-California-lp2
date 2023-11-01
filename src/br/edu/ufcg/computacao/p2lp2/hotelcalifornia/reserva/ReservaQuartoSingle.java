@@ -7,11 +7,11 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.QuartoController;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.RefeicaoController;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Usuario;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.UsuarioController;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
 
 public class ReservaQuartoSingle extends Reserva {
 

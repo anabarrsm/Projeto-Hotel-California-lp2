@@ -1,4 +1,4 @@
-package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
+package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
 
 import java.time.Duration;
 import java.time.LocalDate;

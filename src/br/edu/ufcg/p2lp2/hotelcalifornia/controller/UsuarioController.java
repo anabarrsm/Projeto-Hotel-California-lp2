@@ -1,9 +1,11 @@
-package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
+package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Usuario;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
+import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
 /**
  * 
@@ -69,12 +71,12 @@ public class UsuarioController {
 		if (tipoUsuario.equals("GER")) {
 			for (Usuario usuario : usuarios) {
 				if (usuario.getTipo().contains("GER")) {
-					return "JÁ EXISTE UM GERENTE CADASTRADO!";
+					throw new HotelCaliforniaException("SO DEVE HAVER UM GERENTE NO HOTEL");
 				}
 			}
 
 		}
-		if ((nome == null)) {
+		if ((nome == null)) { 
 			return "PARÂMETRO INVÁLIDO";
 			// throw new NullPointerException("PARÂMETRO INVÁLIDO!");
 
@@ -85,12 +87,6 @@ public class UsuarioController {
 		// concatenando o numero a string passada como parametro do metodo.
 		String usuarioComNumero = tipoUsuario + numeroAtual;
 
-		// verificando se o id com o numero ja existe no array.
-		if (verificaDocumentoRepetido(documento)) {
-			// return "ID INVÁLIDO!";
-			return "USUÁRIO JÁ CADASTRADO!";
-			// throw new NullPointerException("ID INVÁLIDO!");
-		}
 
 		if (validaTipo(tipoUsuario) == false) {
 			return "TIPO INVÁLIDO!";
@@ -113,12 +109,13 @@ public class UsuarioController {
 			return "ADMINISTRADOR SÓ PODE SER CADASTRADO POR OUTRO ADMINISTRADOR";
 
 		} else {
+			
 			Usuario usuario = new Usuario(nome, usuarioComNumero, documento);
 			this.usuarios.add(usuario);
 
 			usuario.setId(usuarioComNumero);
 
-			return "USUÁRIO CADASTRADO COM SUCESSO!";
+			return usuario.toString() + "CADASTRADO COM SUCESSO!";
 		}
 
 	}
@@ -134,6 +131,7 @@ public class UsuarioController {
 	 */
 
 	public String atualizarUsuario(String idAutenticacao, String idUsuario, String novoTipoUsuario) {
+		String saida = "";
 		if ((encontrarUsuarioPorId(idAutenticacao) == false) && ((encontrarUsuarioPorId(idUsuario) == false))) {
 			throw new IllegalArgumentException("ID NÃO CADASTRADO!");
 
@@ -151,10 +149,12 @@ public class UsuarioController {
 				if (usuarios.get(i).getTipo().equals("GER")) {
 					usuarios.get(i).setTipo("FUN");
 					usuarios.get(i).setTipo("FUN" + (i + 1));
+					saida = usuarios.get(i).getId();
 
 				} else if (usuarios.get(i).getId().equals(novoTipoUsuario)) {
 					usuarios.get(i).setTipo("GER");
 					usuarios.get(i).setId("GER" + (i + 1));
+					saida = usuarios.get(i).getId();
 				}
 			}
 
@@ -163,11 +163,12 @@ public class UsuarioController {
 				if (usuarios.get(i).getId().equals(novoTipoUsuario)) {
 					usuarios.get(i).setTipo("GER");
 					usuarios.get(i).setId("GER" + (i + 1));
+					saida = usuarios.get(i).getId();
 				}
 			}
 		}
-		return "USUÁRIO ATUALIZADO!";
-
+		return novoTipoUsuario;
+ 
 	}
 
 	/**
@@ -204,29 +205,21 @@ public class UsuarioController {
 			usuariosExistentes[i] = usuarios.get(i).toString();
 		}
 		return usuariosExistentes;
-
+ 
 	}
 
 	public ArrayList<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-	/**
-	 * Método para verificar se existem dois usuários iguais, ou seja, com o mesmo
-	 * número de documento
-	 * 
-	 * @param documento Numero do documento do usuário
-	 * @return True se já existir um usuário cadastrado com o número de documento
-	 *         passado como parâmetro. False caso contrário.
-	 */
-	public boolean verificaDocumentoRepetido(long documento) {
-		for (Usuario usuario : usuarios) {
-			if (usuario.getDocumento() == documento) {
-				return true;
-			}
-		}
-		return false;
-	}
+//	public boolean verificaDocumentoRepetido(long documento) {
+//		for (Usuario usuario : usuarios) {
+//			if (usuario.getDocumento() == documento) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 
 	public Usuario retornaUsuarioPorId(String id) {
 		for (Usuario usuario : usuarios) {
@@ -237,5 +230,5 @@ public class UsuarioController {
 		}
 		throw new NullPointerException("USUARIO INEXISTENTE");
 	}
-
+	
 }

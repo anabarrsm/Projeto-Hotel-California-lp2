@@ -1,8 +1,10 @@
-package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
+package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
 
 /**
  * Classe controller de refeição.

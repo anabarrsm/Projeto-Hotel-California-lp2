@@ -1,15 +1,27 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaRestauranteController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
 public class HotelCaliforniaSistema {
+	
+	private List<Usuario> usuarios;
 
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
@@ -23,13 +35,18 @@ public class HotelCaliforniaSistema {
 		this.reservaController = new ReservaController(usuarioController, quartoController);
 		this.refeicaoController = new RefeicaoController(usuarioController);
 		this.restauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
+		
+		this.usuarios= new ArrayList<>();
 
 	} 
+
+	
 
 	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
 		return this.usuarioController.cadastrarUsuario(idAutenticacao, nome, tipoUsuario, documento);
 
 	}
+
 
 	public String atualizarUsuario(String idAutenticacao, String idUsuario, String novoTipoUsuario) {
 		return this.usuarioController.atualizarUsuario(idAutenticacao, idUsuario, novoTipoUsuario);

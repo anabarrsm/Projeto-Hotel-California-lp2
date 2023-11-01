@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.QuartoController;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaController;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.UsuarioController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
 
 class ReservaQuartoTest {
 

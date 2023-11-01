@@ -1,5 +1,8 @@
-package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
+package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
 import java.util.List;
+
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.FormaDePagamento;
+
 import java.util.ArrayList;
 
 public class FormaDePagamentoController {
