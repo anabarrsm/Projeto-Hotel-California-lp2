@@ -16,18 +16,26 @@ public class QuartoDouble extends Quarto {
 
 	private String[] pedidos;
 
-	public QuartoDouble(String idAutenticacao, int idQuartoNum, double precoPorPessoa, double precoBase,
+	public QuartoDouble(String idAutenticacao, int idQuartoNum, double precoBase, double precoPorPessoa,
 			String[] pedidos) {
-		super(idQuartoNum, precoPorPessoa, precoBase);
+		super(idQuartoNum, precoBase, precoPorPessoa);
 		this.pedidos = pedidos;
 	}
 
 	@Override
-	public String exibirQuarto() {
-		return "[" + idQuartoNum + "]" + "Quarto Double (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
-				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária). Pedidos: " + representarPedidos();
+	public String exibirQuarto() { 
+		
+	    String formattedString;
+	    if (pedidos.length == 0) {
+	        formattedString = String.format("[%d] Quarto Double (custo básico: R$%.2f; adicional por pessoa: R$%.2f >>> R$%.2f diária). Pedidos: (nenhum)",
+	            idQuartoNum, precoBase, precoPorPessoa, calcularDiaria());
+	    } else {
+	        formattedString = String.format("[%d] Quarto Double (custo básico: R$%.2f; adicional por pessoa: R$%.2f >>> R$%.2f diária). Pedidos: %s",
+	            idQuartoNum, precoBase, precoPorPessoa, calcularDiaria(), representarPedidos());
+	    }
+	    return formattedString;
 	}
-
+	
 	@Override
 	public double calcularDiaria() {
 		double diaria = precoBase + (getQtdMaxPessoas() * precoPorPessoa);

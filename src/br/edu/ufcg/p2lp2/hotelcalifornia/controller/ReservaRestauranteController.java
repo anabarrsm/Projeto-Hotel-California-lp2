@@ -9,13 +9,14 @@ import java.util.HashMap;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestaurante;
+import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
 public class ReservaRestauranteController {
 
 	private UsuarioController usuarioController;
 	private ReservaController reservaController;
 	private RefeicaoController refeicaoController;
-	private ArrayList<ReservaRestaurante> reservasRestaurante;
+	private ArrayList<ReservaRestaurante> reservasRestaurante; 
 	private int capacidadeRestaurante;
 	private long idReservaRestaurante;
 
@@ -26,9 +27,9 @@ public class ReservaRestauranteController {
 		this.refeicaoController = refeicaoController;
 		this.reservasRestaurante = new ArrayList<>();
 		this.capacidadeRestaurante = 50;
-		this.idReservaRestaurante = 1;
+		this.idReservaRestaurante = 1; 
 
-	}
+	} 
 
 	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDateTime dataInicio,
 			LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
@@ -42,7 +43,7 @@ public class ReservaRestauranteController {
     	}
 
         if(!usuarioController.encontrarUsuarioPorId(idAutenticacao) || !usuarioController.encontrarUsuarioPorId(idCliente)) {
-        	return "USUÁRIO NÃO CADASTRADO";
+        	throw new HotelCaliforniaException("USUARIO NAO EXISTE");
         }
 
       if (!verificarDisponibilidadeRestaurante(dataInicio, dataFim, idRefeicao)) {
@@ -68,7 +69,7 @@ public class ReservaRestauranteController {
 
 		reservaRestaurante.setIdReservaRestaurante(idReservaRestaurante);
 
-		return "RESERVA RESTAURANTE REALIZADA";
+		return reservaRestaurante.toString();
 	}
         
      

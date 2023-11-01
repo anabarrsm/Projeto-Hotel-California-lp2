@@ -12,7 +12,7 @@ public abstract class Quarto {
 	protected double precoBase;
 	protected boolean quartoReservado;
 
-	public Quarto(int idQuartoNum, double precoPorPessoa, double precoBase) {
+	public Quarto(int idQuartoNum, double precoBase, double precoPorPessoa) {
 		this.idQuartoNum = idQuartoNum;
 		this.precoPorPessoa = precoPorPessoa;
 		this.precoBase = precoBase;

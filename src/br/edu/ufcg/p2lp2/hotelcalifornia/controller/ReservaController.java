@@ -48,7 +48,7 @@ public class ReservaController {
 			saida.append(quarto.toString()).append("\n"); // Adiciona uma quebra de linha após cada quarto
 		}
 
-		return saida.toString();
+		return saida.toString(); 
 	}
 
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
@@ -103,7 +103,7 @@ public class ReservaController {
 	}
 
 	public String reservarQuartoDouble(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
-			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos) {
+			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos) { 
 
 		if (!idAutenticacao.startsWith("GER") && !idAutenticacao.startsWith("FUN")) {
 			return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR RESERVAS DE QUARTO";

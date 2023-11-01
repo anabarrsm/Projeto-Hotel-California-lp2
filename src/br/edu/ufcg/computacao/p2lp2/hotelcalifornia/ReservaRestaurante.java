@@ -25,7 +25,7 @@ public class ReservaRestaurante {
 		this.situacaoPagamento = situacaoPagamento;
 		this.idReservaRestaurante = idReservaRestaurante;
 		Duration diff = Duration.between(dataIncio, dataFim);
-	}
+	} 
 
 
 	public String situacaoPagamento(){

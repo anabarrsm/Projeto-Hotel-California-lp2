@@ -150,7 +150,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 					() -> assertNotEquals(adm4, adm2)
 			);
 		}
- 
+
 		@Test
 		@DisplayName("CA.01.4: Atualizar Usuario")
 		void testAtualizarUsuario() {
@@ -365,7 +365,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			String quartoSingle = driver.disponibilizarQuartoSingle("ADM1", 101, 80.0, 20.0);
 			String quartoDouble = driver.disponibilizarQuartoDouble("ADM1", 201, 80.0, 20.0, new String[]{"cama extra infantil", "agua quente"});
 			String quartoFamily = driver.disponibilizarQuartoFamily("ADM1", 301, 80.0, 20.0, new String[]{"cama extra infantil", "agua quente"}, 10);
-			String[] resultado = driver.listarQuartos();
+			String[] resultado = driver.listaQUarto();
 			assertAll(
 					()-> assertEquals(3, resultado.length),
 					()-> assertTrue(resultado[0].contains(quartoSingle)),
@@ -382,7 +382,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 
 		@BeforeEach
 		public void setUp() {
-			reservationsPreProcessor();
+			reservationsPreProcessor();  
 		}
 
 		@Test
@@ -457,7 +457,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			);
 		}
 
-		@Test
+		@Test 
 		@DisplayName("CA.03.1: Cliente nao pode cadastrar reserva quarto")
 		void testClienteNaoPodeCadastrarReservaQuarto() {
 			dataInicio = LocalDateTime.of(2024, Month.JANUARY, 6, 14, 0);
@@ -472,9 +472,9 @@ class HotelCaliforniaSistemaS1S2MinTest {
 
 		@Test
 		@DisplayName("CA.03.1: Administrador nao pode cadastrar reserva quarto")
-		void testAdmNaoPodeCadastrarReservaQuarto() {
+		void testAdmNaoPodeCadastrarReservaQuarto() { 
 			dataInicio = LocalDateTime.of(2024, Month.JANUARY, 6, 14, 0);
-			dataFim = LocalDateTime.of(2024, Month.JANUARY, 8, 12, 0);
+			dataFim = LocalDateTime.of(2024, Month.JANUARY, 8, 12, 0); 
 			HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
 				driver.reservarQuartoDouble("ADM1", idClienteA, Integer.valueOf(numQuartoFamily),
 						dataInicio, dataFim, new String[]{idRefCafeMatinal}, new String[]{"frigoba"});

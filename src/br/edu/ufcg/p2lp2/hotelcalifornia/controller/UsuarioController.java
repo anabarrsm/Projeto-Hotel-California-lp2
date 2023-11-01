@@ -68,6 +68,10 @@ public class UsuarioController {
 	 */
 
 	public String cadastrarUsuario(String idAutenticacao, String nome, String tipoUsuario, long documento) {
+		if (!encontrarUsuarioPorId(idAutenticacao)) {
+			throw new HotelCaliforniaException("USUARIO NAO EXISTE");
+		}
+
 		if (tipoUsuario.equals("GER")) {
 			for (Usuario usuario : usuarios) {
 				if (usuario.getTipo().contains("GER")) {
@@ -76,9 +80,9 @@ public class UsuarioController {
 			}
 
 		}
-		if ((nome == null)) { 
+		if ((nome == null)) {
 			return "PARÂMETRO INVÁLIDO";
-			// throw new NullPointerException("PARÂMETRO INVÁLIDO!");
+			// throw new NullPointerException("PARÂMETRO INVÁLIDO!"); 
 
 		}
 		// atribuindo um novo numero ao usuario novo.
@@ -87,14 +91,12 @@ public class UsuarioController {
 		// concatenando o numero a string passada como parametro do metodo.
 		String usuarioComNumero = tipoUsuario + numeroAtual;
 
-
 		if (validaTipo(tipoUsuario) == false) {
 			return "TIPO INVÁLIDO!";
-			// throw new IllegalArgumentException("TIPO INVÁLIDO!");
 
 		}
 		if (idAutenticacao.contains("CLI")) {
-			return "CLIENTE NÃO PODE CADASTRAR USUÁRIO!";
+			throw new HotelCaliforniaException("NAO E POSSIVEL PARA USUARIO CADASTRAR UM NOVO USUARIO DO TIPO");
 
 		}
 		if (tipoUsuario.equals("FUN") && !idAutenticacao.contains("ADM") && !idAutenticacao.contains("GER")) {
@@ -102,20 +104,20 @@ public class UsuarioController {
 
 		}
 		if (tipoUsuario.equals("GER") && !idAutenticacao.contains("ADM")) {
-			return "GERENTE SÓ PODE SER CADASTRADO POR ADMINISTRADOR";
+			throw new HotelCaliforniaException("NAO E POSSIVEL PARA USUARIO CADASTRAR UM NOVO USUARIO DO TIPO");
 
 		}
 		if (tipoUsuario.equals("ADM") && !idAutenticacao.contains("ADM")) {
-			return "ADMINISTRADOR SÓ PODE SER CADASTRADO POR OUTRO ADMINISTRADOR";
+			throw new HotelCaliforniaException("NAO E POSSIVEL PARA USUARIO CADASTRAR UM NOVO USUARIO DO TIPO");
 
 		} else {
-			
+
 			Usuario usuario = new Usuario(nome, usuarioComNumero, documento);
 			this.usuarios.add(usuario);
 
 			usuario.setId(usuarioComNumero);
 
-			return usuario.toString() + "CADASTRADO COM SUCESSO!";
+			return usuario.toString();
 		}
 
 	}
@@ -131,9 +133,9 @@ public class UsuarioController {
 	 */
 
 	public String atualizarUsuario(String idAutenticacao, String idUsuario, String novoTipoUsuario) {
-		String saida = "";
-		if ((encontrarUsuarioPorId(idAutenticacao) == false) && ((encontrarUsuarioPorId(idUsuario) == false))) {
-			throw new IllegalArgumentException("ID NÃO CADASTRADO!");
+	
+		if ((encontrarUsuarioPorId(idAutenticacao) == false) || ((encontrarUsuarioPorId(idUsuario) == false))) {
+			throw new HotelCaliforniaException("USUARIO NAO EXISTE");
 
 		} else if (validaTipo(novoTipoUsuario) == false) {
 			throw new IllegalArgumentException("TIPO INVÁLIDO!");
@@ -141,20 +143,20 @@ public class UsuarioController {
 		}
 
 		else if (!idAutenticacao.contains("ADM")) {
-			return "APENAS UM ADMINISTRADOR PODE ATUALIZAR OS USUÁRIOS.";
+			throw new HotelCaliforniaException("APENAS O ADMINISTRADOR PODE ATUALIZAR OS USUARIOS");
 		}
 
 		else if (novoTipoUsuario.equals("GER")) {
 			for (int i = 0; i < usuarios.size(); i++) {
 				if (usuarios.get(i).getTipo().equals("GER")) {
 					usuarios.get(i).setTipo("FUN");
-					usuarios.get(i).setTipo("FUN" + (i + 1));
-					saida = usuarios.get(i).getId();
+					usuarios.get(i).setTipo("FUN" + (i + 1)); 
+	
 
 				} else if (usuarios.get(i).getId().equals(novoTipoUsuario)) {
 					usuarios.get(i).setTipo("GER");
 					usuarios.get(i).setId("GER" + (i + 1));
-					saida = usuarios.get(i).getId();
+					
 				}
 			}
 
@@ -163,12 +165,11 @@ public class UsuarioController {
 				if (usuarios.get(i).getId().equals(novoTipoUsuario)) {
 					usuarios.get(i).setTipo("GER");
 					usuarios.get(i).setId("GER" + (i + 1));
-					saida = usuarios.get(i).getId();
 				}
 			}
 		}
-		return novoTipoUsuario;
- 
+		return novoTipoUsuario; 
+
 	}
 
 	/**
@@ -205,21 +206,13 @@ public class UsuarioController {
 			usuariosExistentes[i] = usuarios.get(i).toString();
 		}
 		return usuariosExistentes;
- 
+
 	}
 
 	public ArrayList<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-//	public boolean verificaDocumentoRepetido(long documento) {
-//		for (Usuario usuario : usuarios) {
-//			if (usuario.getDocumento() == documento) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
 
 	public Usuario retornaUsuarioPorId(String id) {
 		for (Usuario usuario : usuarios) {
@@ -230,5 +223,5 @@ public class UsuarioController {
 		}
 		throw new NullPointerException("USUARIO INEXISTENTE");
 	}
-	
+
 }

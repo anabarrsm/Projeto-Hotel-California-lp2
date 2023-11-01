@@ -10,6 +10,7 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoDouble;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoFamily;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoSingle;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
+import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
 /**
  * Quarto Controller é a classe responsável por gerenciar as operações
@@ -41,8 +42,8 @@ public class QuartoController {
 	 *         usuário tente realizar essa operação "QUARTO SINGLE DISPONÍVEL" caso
 	 *         contrário.
 	 */
-	public String disponibilizarQuartoSingle(String idAutenticacao, int idQuartoNum, double precoPorPessoa,
-			double precoBase) {
+	public String disponibilizarQuartoSingle(String idAutenticacao, int idQuartoNum, double precoBase,
+			double precoPorPessoa) {
 		if (idAutenticacao == null || idAutenticacao.isEmpty()) {
 			throw new IllegalArgumentException("ID DE AUTENTICAÇÃO INVÁLIDO");
 		}
@@ -58,22 +59,23 @@ public class QuartoController {
 		if (idAutenticacao.contains("ADM")) {
 
 			if (usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
-
-				QuartoSingle quartoSingle = new QuartoSingle(idQuartoNum, precoPorPessoa, precoBase);
+				
+				QuartoSingle quartoSingle = new QuartoSingle(idQuartoNum, precoBase, precoPorPessoa);
 				quartos.put(idQuartoNum, quartoSingle);
-				return "QUARTO SINGLE DISPONÍVEL";
+				
+				return quartoSingle.exibirQuarto();
 
 			}
-			return "ESSE ADMINISTRADOR NÃO ESTÁ CADASTRADO NO SISTEMA";
+			throw new HotelCaliforniaException("USUARIO NAO EXISTE");
 		}
 
-		return "APENAS ADMINISTRADORES PODEM GERENCIAR OS QUARTOS";
+		throw new HotelCaliforniaException("USUARIO NAO E ADMINISTRADOR");
 
 	}
 
 	/**
 	 * Método que faz o cadastro (torna disponível) de um Quarto do Tipo Double.
-	 * 
+	 *
 	 * @param idAutenticacao identificador do Usuario
 	 * @param idQuartoNum    numero do quarto a ser disponibilizado
 	 * @param precoPorPessoa preço por pessoa
@@ -87,8 +89,8 @@ public class QuartoController {
 	 *         usuário tente realizar essa operação "QUARTO DOUBLE DISPONÍVEL" caso
 	 *         contrário.
 	 */
-	public String disponibilizarQuartoDouble(String idAutenticacao, int idQuartoNum, double precoPorPessoa,
-			double precoBase, String[] pedidos) {
+	public String disponibilizarQuartoDouble(String idAutenticacao, int idQuartoNum, double precoBase,
+			double precoPorPessoa, String[] pedidos) {
 		if (idAutenticacao == null || idAutenticacao.isEmpty()) {
 			throw new IllegalArgumentException("ID DE AUTENTICAÇÃO INVÁLIDO");
 		}
@@ -104,17 +106,21 @@ public class QuartoController {
 		if (idAutenticacao.contains("ADM")) {
 
 			if (usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
+				
+				if(quartos.containsKey(idQuartoNum)) {
+					throw new HotelCaliforniaException("QUARTO JA EXISTE");
+				}
 
-				QuartoDouble quartoDouble = new QuartoDouble(idAutenticacao, idQuartoNum, precoPorPessoa, precoBase,
+				QuartoDouble quartoDouble = new QuartoDouble(idAutenticacao, idQuartoNum, precoBase, precoPorPessoa,
 						pedidos);
 				quartos.put(idQuartoNum, quartoDouble);
-				return "QUARTO DOUBLE DISPONÍVEL";
+				return quartoDouble.exibirQuarto();
 
 			}
-			return "ESSE ADMINISTRADOR NÃO ESTÁ CADASTRADO NO SISTEMA";
+			throw new HotelCaliforniaException("USUARIO NAO EXISTE");
 		}
 
-		return "APENAS ADMINISTRADORES PODEM GERENCIAR OS QUARTOS";
+		throw new HotelCaliforniaException("USUARIO NAO E ADMINISTRADOR");
 	}
 
 	/**
@@ -135,8 +141,8 @@ public class QuartoController {
 	 *         contrário.
 	 */
 
-	public String disponibilizarQuartoFamily(String idAutenticacao, int idQuartoNum, double precoPorPessoa,
-			double precoBase, String[] pedidos, int qtdMaxPessoas) {
+	public String disponibilizarQuartoFamily(String idAutenticacao, int idQuartoNum, double precoBase,
+			double precoPorPessoa, String[] pedidos, int qtdMaxPessoas) {
 		if (idAutenticacao == null || idAutenticacao.isEmpty()) {
 			throw new IllegalArgumentException("ID DE AUTENTICAÇÃO INVÁLIDO");
 		}
@@ -156,17 +162,22 @@ public class QuartoController {
 		if (idAutenticacao.contains("ADM")) {
 
 			if (usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
+	
+				
+				if(quartos.containsKey(idQuartoNum)) {
+					throw new HotelCaliforniaException("QUARTO JA EXISTE");
+				}
 
-				QuartoFamily quartoFamily = new QuartoFamily(idQuartoNum, precoPorPessoa, precoBase, pedidos,
+				QuartoFamily quartoFamily = new QuartoFamily(idQuartoNum, precoBase, precoPorPessoa, pedidos,
 						qtdMaxPessoas);
 				quartos.put(idQuartoNum, quartoFamily);
-				return "QUARTO FAMILY DISPONÍVEL";
+				return quartoFamily.exibirQuarto();
 
 			}
-			return "ESSE ADMINISTRADOR NÃO ESTÁ CADASTRADO NO SISTEMA";
+			throw new HotelCaliforniaException("USUARIO NAO EXISTE");
 		}
 
-		return "APENAS ADMINISTRADORES PODEM GERENCIAR OS QUARTOS";
+		throw new HotelCaliforniaException("USUARIO NAO E ADMINISTRADOR");
 	}
 
 	/**
@@ -193,7 +204,7 @@ public class QuartoController {
 	 * @returnr Array de String dos quartos cadastrados
 	 */
 
-	public String[] listarQuartos() {
+	public String[] listaQuartos() {
 		int tamanhoArray = quartos.size();
 		String[] quartosArray = new String[tamanhoArray];
 

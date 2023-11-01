@@ -18,19 +18,25 @@ public class QuartoFamily extends Quarto {
 	private String[] pedidos;
 	private int qtdMaxPessoas;
 
-	public QuartoFamily(int idQuartoNum, double precoPorPessoa, double precoBase, String[] pedidos, int qtdMaxPessoas) {
-		super(idQuartoNum, precoPorPessoa, precoBase);
+	public QuartoFamily(int idQuartoNum, double precoBase, double precoPorPessoa, String[] pedidos, int qtdMaxPessoas) {
+		super(idQuartoNum, precoBase, precoPorPessoa);
 		this.pedidos = pedidos;
 		this.qtdMaxPessoas = qtdMaxPessoas;
 	}
 
 	@Override
 	public String exibirQuarto() {
-		return "[" + idQuartoNum + "]" + "Quarto Family (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
-				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária). Capacidade: " + this.qtdMaxPessoas
-				+ " pessoa(s)" + ". Pedidos: " + representarPedidos();
+	    String formattedString;
+	    if (pedidos.length == 0) {
+	        formattedString = String.format("[%d] Quarto Family (custo básico: R$%.2f; adicional por pessoa: R$%.2f >>> R$%.2f diária). Capacidade: %02d pessoa(s). Pedidos: (nenhum)",
+	            idQuartoNum, precoBase, precoPorPessoa, calcularDiaria(), qtdMaxPessoas);
+	    } else {
+	        formattedString = String.format("[%d] Quarto Family (custo básico: R$%.2f; adicional por pessoa: R$%.2f >>> R$%.2f diária). Capacidade: %02d pessoa(s). Pedidos: %s",
+	            idQuartoNum, precoBase, precoPorPessoa, calcularDiaria(), qtdMaxPessoas, representarPedidos());
+	    }
+	    return formattedString;
 	}
-
+	
 	@Override
 	public double calcularDiaria() {
 		double diaria = precoBase + (precoPorPessoa * qtdMaxPessoas);

@@ -1,5 +1,7 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto;
 
+import java.text.DecimalFormat;
+
 /**
  * Classe que representa um Quarto Single, uma subclasse de Quarto.
  * 
@@ -13,20 +15,23 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto;
 
 public class QuartoSingle extends Quarto {
 
-	public QuartoSingle(int idQuartoNum, double precoPorPessoa, double precoBase) {
-		super(idQuartoNum, precoPorPessoa, precoBase);
+	public QuartoSingle(int idQuartoNum, double precoBase, double precoPorPessoa) {
+		super(idQuartoNum, precoBase, precoPorPessoa);
 
 	}
 
 	@Override
 	public String exibirQuarto() {
-		return "[" + idQuartoNum + "]" + " Quarto Single (custo basico: R$" + precoBase + "; adicional por pessoa: R$"
-				+ precoPorPessoa + " >>> R$" + calcularDiaria() + " diária)";
+
+		String saida = String.format("[%d] Quarto Single (custo básico: R$%.2f; por pessoa R$%.2f >>> R$%.2f diária)",
+				idQuartoNum, precoBase, precoPorPessoa, calcularDiaria());
+
+		return saida;
 	}
 
 	@Override
 	public double calcularDiaria() {
-		double diaria = precoBase + (getQtdMaxPessoas() * precoPorPessoa);
+		double diaria = (precoBase + (getQtdMaxPessoas() * precoPorPessoa));
 		return diaria;
 	}
 
@@ -39,9 +44,5 @@ public class QuartoSingle extends Quarto {
 	public String toString() {
 		return "QuartoSingle [idQuartoNum=" + idQuartoNum + "]";
 	}
-
-	
-	
-	
 
 }
