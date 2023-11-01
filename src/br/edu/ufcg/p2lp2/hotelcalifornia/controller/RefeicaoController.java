@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
+import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
 /**
  * Classe controller de refeição.
@@ -40,21 +41,20 @@ public class RefeicaoController {
 	public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo,
 			LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
 
-		if (idAutenticacao == null || idAutenticacao.isEmpty()
-				|| (!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN"))) {
-			return "APENAS GERENTES E FUNCIONÁRIOS PODEM DISPONIBILIZAR REFEIÇÕES";
+		if ((!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN"))) {
+			throw new HotelCaliforniaException("NAO E POSSIVEL PARA USUARIO CADASTRAR UMA REFEICAO");
 		}
 
 		if (!tipoRefeicao.equals("Café-da-manhã") && !tipoRefeicao.equals("Almoço") && !tipoRefeicao.equals("Jantar")) {
-			return "TIPO DE REFEIÇÃO INVÁLIDO";
+			throw new HotelCaliforniaException("REFEICAO NAO EXISTE");
 		}
 
 		if (horarioFinal.isBefore(horarioInicio)) {
-			return "O HORÁRIO DE FIM DEVE SER POSTERIOR AO HORÁRIO DE INÍCIO";
+			throw new HotelCaliforniaException("HORARIO DE FIM DEVE SER POSTERIOR AO HORARIO DE INICIO");
 		}
 
 		if (!usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
-			return "USUÁRIO NÃO CADASTRADO";
+			throw new HotelCaliforniaException("USUARIO NAO EXISTE");
 		}
 
 		Refeicao refeicao = new Refeicao(tipoRefeicao, titulo, horarioInicio, horarioFinal, valor, disponivel);
@@ -67,7 +67,7 @@ public class RefeicaoController {
 
 		refeicao.setRefeicaoDisponivel(disponivel);
 
-		return "REFEIÇÃO DISPONIBILIZADA COM SUCESSO";
+		return refeicao.toString();
 
 	}
 

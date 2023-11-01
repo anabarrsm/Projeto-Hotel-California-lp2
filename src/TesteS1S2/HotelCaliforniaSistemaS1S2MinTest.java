@@ -615,7 +615,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 						80.0, false);
 			});
 			assertTrue(hce.getMessage().toUpperCase().contains("USUARIO NAO EXISTE"));
-		}
+		} 
 
 		@Test
 		@DisplayName("CA.04.1: Refeicao ja existe")
