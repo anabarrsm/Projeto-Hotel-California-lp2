@@ -17,19 +17,7 @@ public class FormaDePagamento {
 	public int getId() { 
 		return id;
 	}
-	
-	@Override
-	public boolean equals(Object o) {
-	    if (this == o) return true;
-	    if (o == null || getClass() != o.getClass()) return false;
-	    FormaDePagamento that = (FormaDePagamento) o;
-	    return id == that.id && Objects.equals(tipoDePagamento, that.tipoDePagamento);
-	}
 
-	@Override
-	public int hashCode() {
-	    return Objects.hash(id, tipoDePagamento);
-	}
 
 	public String getTipo() {
 		return tipoDePagamento;
