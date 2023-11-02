@@ -88,8 +88,8 @@ public class HotelCaliforniaSistema {
 		
 	}
 	 
-	public String[] listaQUarto() {
-		return this.quartoController.listaQuartos();
+	public String[] listarQuartos() {
+		return this.quartoController.listarQuartos();
 	}
 	
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,

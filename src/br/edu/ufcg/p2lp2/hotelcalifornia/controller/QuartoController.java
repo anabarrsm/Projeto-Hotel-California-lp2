@@ -204,7 +204,7 @@ public class QuartoController {
 	 * @returnr Array de String dos quartos cadastrados
 	 */
 
-	public String[] listaQuartos() {
+	public String[] listarQuartos() {
 		int tamanhoArray = quartos.size();
 		String[] quartosArray = new String[tamanhoArray];
 
@@ -221,5 +221,6 @@ public class QuartoController {
 	public HashMap<Integer, Quarto> getQuartos() {
 		return quartos;
 	}
+
 
 }

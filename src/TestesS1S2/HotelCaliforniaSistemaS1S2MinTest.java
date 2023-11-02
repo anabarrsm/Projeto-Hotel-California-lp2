@@ -1,4 +1,4 @@
-package TesteS1S2;
+package TestesS1S2;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.HotelCaliforniaSistema;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservasSessionController;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern; 
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -301,7 +301,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			);
 		}
 
-		@Test 
+		@Test
 		@DisplayName("CA.02.4: Exibir quarto Single")
 		public void exibirQuartoSingle() {
 			String quartoIdStr = extrairId(driver.disponibilizarQuartoSingle("ADM1", 101, 80.0, 20.0));
@@ -337,7 +337,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 		void testValorDiaraQuartoSingle() {
 			String resultado = driver.disponibilizarQuartoSingle("ADM1", 101, 80.0, 20.0);
 			assertAll(
-					()-> assertTrue(resultado.contains("R$100,00")) 
+					()-> assertTrue(resultado.contains("R$100,00"))
 			);
 		}
 
@@ -365,7 +365,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			String quartoSingle = driver.disponibilizarQuartoSingle("ADM1", 101, 80.0, 20.0);
 			String quartoDouble = driver.disponibilizarQuartoDouble("ADM1", 201, 80.0, 20.0, new String[]{"cama extra infantil", "agua quente"});
 			String quartoFamily = driver.disponibilizarQuartoFamily("ADM1", 301, 80.0, 20.0, new String[]{"cama extra infantil", "agua quente"}, 10);
-			String[] resultado = driver.listaQUarto();
+			String[] resultado = driver.listarQuartos();
 			assertAll(
 					()-> assertEquals(3, resultado.length),
 					()-> assertTrue(resultado[0].contains(quartoSingle)),
@@ -382,7 +382,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 
 		@BeforeEach
 		public void setUp() {
-			reservationsPreProcessor();  
+			reservationsPreProcessor();
 		}
 
 		@Test
@@ -457,7 +457,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			);
 		}
 
-		@Test 
+		@Test
 		@DisplayName("CA.03.1: Cliente nao pode cadastrar reserva quarto")
 		void testClienteNaoPodeCadastrarReservaQuarto() {
 			dataInicio = LocalDateTime.of(2024, Month.JANUARY, 6, 14, 0);
@@ -470,13 +470,13 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			assertTrue(hce.getMessage().toUpperCase().contains("CADASTRAR UMA RESERVA"));
 		}
 
-		@Test 
+		@Test
 		@DisplayName("CA.03.1: Administrador nao pode cadastrar reserva quarto")
-		void testAdmNaoPodeCadastrarReservaQuarto() { 
+		void testAdmNaoPodeCadastrarReservaQuarto() {
 			dataInicio = LocalDateTime.of(2024, Month.JANUARY, 6, 14, 0);
-			dataFim = LocalDateTime.of(2024, Month.JANUARY, 8, 12, 0); 
+			dataFim = LocalDateTime.of(2024, Month.JANUARY, 8, 12, 0);
 			HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
-				driver.reservarQuartoDouble("ADM1", idClienteA, Integer.valueOf(numQuartoFamily),
+				driver.reservarQuartoDouble("ADM1", idClienteA, Integer.valueOf(numQuartoDouble),
 						dataInicio, dataFim, new String[]{idRefCafeMatinal}, new String[]{"frigoba"});
 			});
 			assertTrue(hce.getMessage().toUpperCase().contains("NAO E POSSIVEL PARA USUARIO"));
@@ -514,7 +514,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			String idResultado = extrairId(resultado);
 			assertAll(
 					() -> assertTrue(Integer.parseInt(idResultado)>0),
-					() -> assertTrue(resultado.contains("06/01/2024 15:00:00 ate 08/01/2024 11:00:00"))
+					() -> assertTrue(resultado.contains("06/01/2024 14:00:00 ate 08/01/2024 12:00:00"))
 			);
 		}
 
@@ -573,8 +573,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 		@Test
 		@DisplayName("CA.04.1/2/5: Tipos de Refeicao - Almoco")
 		void testCadastrarRefeicaoAlmoco() {
-			String resultado = driver.disponibilizarRefeicao(idGerente, "ALMOC"
-					+ "O",
+			String resultado = driver.disponibilizarRefeicao(idGerente, "ALMOCO",
 					"Almoco de Comida Regional", LocalTime.of(11, 0), LocalTime.of(14, 0),
 					80.0, false);
 			String idResultado = extrairId(resultado);
@@ -616,7 +615,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 						80.0, false);
 			});
 			assertTrue(hce.getMessage().toUpperCase().contains("USUARIO NAO EXISTE"));
-		} 
+		}
 
 		@Test
 		@DisplayName("CA.04.1: Refeicao ja existe")
@@ -856,7 +855,6 @@ class HotelCaliforniaSistemaS1S2MinTest {
 		@DisplayName("CA.06.1: Exibir Reserva: o proprio cliente")
 		public void testExibirReservaProprioCliente() {
 			String resultado = driver.exibirReserva(idClienteA, Long.parseLong(idReservaQuartoSingle));
-			System.out.println(resultado);
 			assertAll(
 					() -> assertTrue(resultado.contains("Reserva de quarto")),
 					() -> assertTrue(resultado.contains("Quarto Single")),
