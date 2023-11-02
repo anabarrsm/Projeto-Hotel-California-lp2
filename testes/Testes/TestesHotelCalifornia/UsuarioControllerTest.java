@@ -163,9 +163,5 @@ public class UsuarioControllerTest {
 		String saida = "[[ADM1] João Costa (No. Doc. 123456), [ADM2] Maria Administradora (No. Doc. 7896), [GER3] Ana Gerente (No. Doc. 12345666), [FUN4] Lucas Funcionário (No. Doc. 4569), [FUN5] Helena Funcionária (No. Doc. 5697)]";
 
 		assertEquals(Arrays.toString(controller.listarUsuarios()), saida);
-	}
-	
-	@Test
-	
-
+	}	
 }
