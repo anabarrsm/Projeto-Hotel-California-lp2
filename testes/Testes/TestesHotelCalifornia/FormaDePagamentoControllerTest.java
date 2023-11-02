@@ -12,9 +12,9 @@ public class FormaDePagamentoControllerTest {
 	private FormaDePagamentoController controller;
 	private UsuarioController usuarioController;
 	
-	@BeforeEach
+	@BeforeEach 
 	public void setUp() {
-		this.controller = new FormaDePagamentoController();
+		this.controller = new FormaDePagamentoController(usuarioController);
 		this.usuarioController = new UsuarioController();
 		this.usuarioController.cadastrarUsuario("ADM1", "Aninha", "ADM", 9876);
 		this.usuarioController.cadastrarUsuario("ADM1", "Isaac", "FUN", 9123);
@@ -22,7 +22,7 @@ public class FormaDePagamentoControllerTest {
 
 	 @Test
 	 public void testDisponibilizarFormaDePagamentoAdmin() {
-		 String resultado = controller.disponibilizarFormaDePagamento("ADM1", "Cartão", 5.0);
+		 String resultado = controller.disponibilizarFormaDePagamento("ADM1", "DINHEIRO", 0.1);
 	     assertEquals("Forma de pagamento disponibilizada com sucesso!", resultado);
 	 }
 	 

@@ -13,6 +13,7 @@ import java.util.Map;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.FormaDePagamentoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaController;
@@ -31,12 +32,14 @@ public class HotelCaliforniaSistema {
 	private QuartoController quartoController;
 	private ReservaController reservaController;
 	private RefeicaoController refeicaoController; 
+	private FormaDePagamentoController formaDePagamentoController;
 
 	public HotelCaliforniaSistema() {
 		this.usuarioController = new UsuarioController();
 		this.quartoController = new QuartoController(usuarioController);
 		this.reservaController = new ReservaController(usuarioController, quartoController);
 		this.refeicaoController = new RefeicaoController(usuarioController);
+		this.formaDePagamentoController = new FormaDePagamentoController(usuarioController);
 		//this.restauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
 		
 		this.usuarios= new ArrayList<>();
@@ -128,6 +131,23 @@ public class HotelCaliforniaSistema {
 		return this.refeicaoController.exibirRefeicaoPorId(idRefeicao);
 	}
 	 public String[] listarRefeicoes() {
-		 return this.refeicaoController.listarRefeicoes();	 }
-
+		 return this.refeicaoController.listarRefeicoes();	
+		 
+	 }
+	 public String disponibilizarFormaDePagamento(String idAutenticacao, String formaPagamento, double percentualDesconto ) {
+		return this.formaDePagamentoController.disponibilizarFormaDePagamento(idAutenticacao, formaPagamento, percentualDesconto);
+	 }
+	 
+	 public String alterarFormaDePagamento(String idAutenticacao, int idFormaPagamento, String formaPagamento, double percentualDesconto) {
+		return  this.formaDePagamentoController.alterarFormaDePagamento(idAutenticacao, idFormaPagamento, formaPagamento, percentualDesconto);
+	 }
+	 
+	 public String exibirFormaPagamento(int idFormaPagamento) {
+		return this.formaDePagamentoController.exibirFormaDePagamento(idFormaPagamento);
+	 }
+	 
+	 public String[] listarFormasPagamentos() {
+		return this.formaDePagamentoController.listarFormasDePagamentos();
+	 }
+	
 }
