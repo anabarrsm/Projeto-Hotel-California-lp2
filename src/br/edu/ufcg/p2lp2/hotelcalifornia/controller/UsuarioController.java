@@ -82,7 +82,6 @@ public class UsuarioController {
 		}
 		if ((nome == null)) {
 			return "PARÂMETRO INVÁLIDO";
-			// throw new NullPointerException("PARÂMETRO INVÁLIDO!"); 
 
 		}
 		// atribuindo um novo numero ao usuario novo.
