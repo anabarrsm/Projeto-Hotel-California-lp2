@@ -1,6 +1,7 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Classe que cria uma refeição no sistema.
@@ -21,22 +22,22 @@ public class Refeicao {
 
 	private boolean refeicaoDisponivel;
 
-	public Refeicao(String tipoRefeicao, String titulo, LocalTime horarioInicio, LocalTime horarioFinal, double valor,
-			boolean refeicaoDisponivel) {
+	public Refeicao(String tipoRefeicaoFormatado, String titulo, LocalTime horarioInicio, LocalTime horarioFinal,
+			double valor, boolean refeicaoDisponivel) {
 		this.idRefeicao = idRefeicao;
 		this.titulo = titulo;
-		this.tipoRefeicao = tipoRefeicao;
+		this.tipoRefeicao = tipoRefeicaoFormatado;
 		this.horarioInicio = horarioInicio;
 		this.horarioFinal = horarioFinal;
 		this.valor = valor;
 		this.refeicaoDisponivel = refeicaoDisponivel;
 
 	}
-	
+
 	public LocalTime getHorarioInicio() {
 		return horarioInicio;
 	}
-	
+
 	public LocalTime getHorarioFinal() {
 		return horarioFinal;
 	}
@@ -60,6 +61,10 @@ public class Refeicao {
 		refeicaoDisponivel = isDisponivel;
 	}
 
+	public String getTitulo() {
+		return titulo;
+	}
+
 	public void setHorarioInicio(LocalTime horarioInicio) {
 		this.horarioInicio = horarioInicio;
 	}
@@ -78,10 +83,9 @@ public class Refeicao {
 
 	@Override
 	public String toString() {
-		// [<id>] <tipoRefeicao>: <titulo> (<inicio> as <fim>). Valor por pessoa:
-		// R$<valorPorPessoa>. <ativa?>
-		return "[" + idRefeicao + "] " + tipoRefeicao + ": " + titulo + " (" + horarioInicio + " as " + horarioFinal
-				+ "). Valor por pessoa: R$" + valor + ". " + (refeicaoDisponivel ? "VIGENTE." : "INDISPONIVEL.");
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH'h'mm");
+		        String horario = horarioInicio.format(formatter) + " as " + horarioFinal.format(formatter);
+		        return String.format("[%d] %s: %s (%s). Valor por pessoa: R$%.2f. %s",
+		                idRefeicao, tipoRefeicao, titulo, horario, valor, refeicaoDisponivel ? "VIGENTE" : "INDISPONIVEL");
 	}
-
 }

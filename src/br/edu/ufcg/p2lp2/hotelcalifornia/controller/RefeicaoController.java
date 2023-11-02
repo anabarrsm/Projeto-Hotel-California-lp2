@@ -39,25 +39,32 @@ public class RefeicaoController {
 	 * @return
 	 */
 	public String disponibilizarRefeicao(String idAutenticacao, String tipoRefeicao, String titulo,
-			LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) {
+			LocalTime horarioInicio, LocalTime horarioFinal, double valor, boolean disponivel) { 
+		
+		
+		String tipoRefeicaoFormatado = formatarTipoRefeicao(tipoRefeicao);
 
+		if(temRefeicao(titulo)) {
+			throw new HotelCaliforniaException("REFEICAO JA EXISTE");
+		}
+
+		if (!usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
+			throw new HotelCaliforniaException("USUARIO NAO EXISTE");
+		}
+		 
 		if ((!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN"))) {
 			throw new HotelCaliforniaException("NAO E POSSIVEL PARA USUARIO CADASTRAR UMA REFEICAO");
 		}
 
-		if (!tipoRefeicao.equals("Café-da-manhã") && !tipoRefeicao.equals("Almoço") && !tipoRefeicao.equals("Jantar")) {
-			throw new HotelCaliforniaException("REFEICAO NAO EXISTE");
+		if (!tipoRefeicao.equals("CAFE_DA_MANHA") && !tipoRefeicao.equals("ALMOCO") && !tipoRefeicao.equals("JANTAR")) {
+			throw new HotelCaliforniaException("TIPO INVÁLIDO");
 		}
 
 		if (horarioFinal.isBefore(horarioInicio)) {
 			throw new HotelCaliforniaException("HORARIO DE FIM DEVE SER POSTERIOR AO HORARIO DE INICIO");
 		}
 
-		if (!usuarioController.encontrarUsuarioPorId(idAutenticacao)) {
-			throw new HotelCaliforniaException("USUARIO NAO EXISTE");
-		}
-
-		Refeicao refeicao = new Refeicao(tipoRefeicao, titulo, horarioInicio, horarioFinal, valor, disponivel);
+		Refeicao refeicao = new Refeicao(tipoRefeicaoFormatado, titulo, horarioInicio, horarioFinal, valor, disponivel);
 
 		refeicoes.add(refeicao);
 
@@ -74,6 +81,17 @@ public class RefeicaoController {
 	public ArrayList<Refeicao> getRefeicoes() {
 		return refeicoes;
 	}
+	
+	
+	public boolean temRefeicao(String titulo) {
+		for(int i = 0; i < refeicoes.size(); i++) {
+			if(refeicoes.get(i).getTitulo().equals(titulo)) {
+				return true;
+			}
+		}
+			
+		return false;
+	}
 
 	/**
 	 * Altera os valores que podem ser alterados em uma refeição.
@@ -89,11 +107,11 @@ public class RefeicaoController {
 			double valorPorPessoa, boolean disponivel) {
 		Refeicao refeicao = encontrarRefeicaoPorId(idRefeicao);
 		if (refeicao == null) {
-			return "REFEIÇÃO NÃO ENCONTRADA";
+			throw new HotelCaliforniaException("REFEICAO NAO EXISTE");
 		}
 
 		if (horarioFinal.isBefore(horarioInicio)) {
-			return "O HORÁRIO DE FIM DEVE SER POSTERIOR AO HORÁRIO DE INÍCIO";
+			throw new HotelCaliforniaException("HORARIO DE FIM DEVE SER POSTERIOR AO HORARIO DE INICIO");
 		}
 
 		refeicao.setHorarioInicio(horarioInicio);
@@ -101,7 +119,7 @@ public class RefeicaoController {
 		refeicao.setValorPorPessoa(valorPorPessoa);
 		refeicao.setRefeicaoDisponivel(disponivel);
 
-		return "REFEIÇÃO ALTERADA!";
+		return refeicao.toString();
 	}
 
 	private Refeicao encontrarRefeicaoPorId(long idRefeicao) {
@@ -113,7 +131,7 @@ public class RefeicaoController {
 		return null;
 	}
 
-	public String exibirRefeicaoPorId(long idRefeicao) {
+	public String exibirRefeicaoPorId(long idRefeicao) { 
 		for (Refeicao refeicao : refeicoes) {
 			if (refeicao.getIdRefeicao() == idRefeicao) {
 				return refeicao.toString();
@@ -142,7 +160,17 @@ public class RefeicaoController {
 	    
 	    return null;
 	}
+	
+	
+	public String formatarTipoRefeicao(String tipoRefeicao) {
+	    if(tipoRefeicao.equals("CAFE_DA_MANHA")) {
+	    	return "Cafe-da-manha" ;
+	    } else if (tipoRefeicao.equals("ALMOCO")) {
+	    	return "Almoco";
+	    } else if (tipoRefeicao.equals("JANTAR")) {
+	    	return "Jantar";
+	    }
+	    return "TIPO INEXISTENTE";
 	}
-
-
+}
 

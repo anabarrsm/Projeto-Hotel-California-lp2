@@ -24,6 +24,7 @@ public class HotelCaliforniaSistema {
 	
 	private List<Usuario> usuarios;
 	private Map<Integer, Quarto> quartos;
+	private List < Refeicao> refeicoes;
 	private List<Reserva> reservas;
 
 	private UsuarioController usuarioController;
@@ -40,6 +41,7 @@ public class HotelCaliforniaSistema {
 		
 		this.usuarios= new ArrayList<>();
 		this.quartos = new HashMap <>();
+		this.refeicoes = new ArrayList<>();
 		this.reservas = new ArrayList<>();
 	} 
 
@@ -117,14 +119,15 @@ public class HotelCaliforniaSistema {
 		}
 	
 	
-	
 	public String alterarRefeicao(long idRefeicao, LocalTime horarioInicio, LocalTime horarioFinal, double valor,
 			boolean disponivel) {
 		return this.refeicaoController.alterarRefeicao(idRefeicao, horarioInicio, horarioFinal, valor, disponivel);
 	}
 
-	public String exibirRefeicao(int idRefeicao) {
+	public String exibirRefeicao(long idRefeicao) {
 		return this.refeicaoController.exibirRefeicaoPorId(idRefeicao);
 	}
+	 public String[] listarRefeicoes() {
+		 return this.refeicaoController.listarRefeicoes();	 }
 
 }

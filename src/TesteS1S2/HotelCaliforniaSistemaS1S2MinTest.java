@@ -301,7 +301,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			);
 		}
 
-		@Test
+		@Test 
 		@DisplayName("CA.02.4: Exibir quarto Single")
 		public void exibirQuartoSingle() {
 			String quartoIdStr = extrairId(driver.disponibilizarQuartoSingle("ADM1", 101, 80.0, 20.0));
@@ -337,7 +337,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 		void testValorDiaraQuartoSingle() {
 			String resultado = driver.disponibilizarQuartoSingle("ADM1", 101, 80.0, 20.0);
 			assertAll(
-					()-> assertTrue(resultado.contains("R$100,00"))
+					()-> assertTrue(resultado.contains("R$100,00")) 
 			);
 		}
 
@@ -470,7 +470,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			assertTrue(hce.getMessage().toUpperCase().contains("CADASTRAR UMA RESERVA"));
 		}
 
-		@Test
+		@Test 
 		@DisplayName("CA.03.1: Administrador nao pode cadastrar reserva quarto")
 		void testAdmNaoPodeCadastrarReservaQuarto() { 
 			dataInicio = LocalDateTime.of(2024, Month.JANUARY, 6, 14, 0);
@@ -573,7 +573,8 @@ class HotelCaliforniaSistemaS1S2MinTest {
 		@Test
 		@DisplayName("CA.04.1/2/5: Tipos de Refeicao - Almoco")
 		void testCadastrarRefeicaoAlmoco() {
-			String resultado = driver.disponibilizarRefeicao(idGerente, "ALMOCO",
+			String resultado = driver.disponibilizarRefeicao(idGerente, "ALMOC"
+					+ "O",
 					"Almoco de Comida Regional", LocalTime.of(11, 0), LocalTime.of(14, 0),
 					80.0, false);
 			String idResultado = extrairId(resultado);
