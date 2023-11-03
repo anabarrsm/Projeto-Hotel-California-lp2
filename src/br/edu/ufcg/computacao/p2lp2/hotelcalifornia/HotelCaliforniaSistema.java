@@ -17,6 +17,7 @@ import br.edu.ufcg.p2lp2.hotelcalifornia.controller.AreaComumController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.FormaDePagamentoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaAuditorioController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaQuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaRestauranteController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
@@ -35,6 +36,7 @@ public class HotelCaliforniaSistema {
 	private RefeicaoController refeicaoController; 
 	private FormaDePagamentoController formaDePagamentoController;
 	private AreaComumController areaComumController;
+	private ReservaAuditorioController auditorioController;
 
 	public HotelCaliforniaSistema() {
 		this.usuarioController = new UsuarioController();
@@ -183,6 +185,12 @@ public class HotelCaliforniaSistema {
 	 
 	 public String[] listarAreasComuns() {
 		  return this.areaComumController.listarAreasComuns();
+	 }
+	 
+	 //US011
+	 
+	 public String reservarAuditorio(String idAutenticacao, String idCliente, long idAuditorio, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdMaxPessoas) {
+		 return this.reservarAuditorio(idAutenticacao, idCliente, idAuditorio, dataInicio, dataFim, qtdMaxPessoas);
 	 }
 	 
 }

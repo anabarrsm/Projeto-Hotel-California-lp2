@@ -11,9 +11,9 @@ public class ReservaAuditorioController {
     private int capacidadeAuditorio;
     private int idReservaAuditorio;
 
-    public ReservaAuditorioController(){
+    public ReservaAuditorioController(UsuarioController usuarioController) {
         reservaAuditorios = new ArrayList<>();
-        usuarioController = new UsuarioController();
+        usuarioController = usuarioController;
         capacidadeAuditorio = 150;
         this.idReservaAuditorio = 1;
     }

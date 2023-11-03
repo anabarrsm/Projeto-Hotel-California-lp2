@@ -37,7 +37,7 @@ public class FormaDePagamentoController {
 		}
 
 		formasDePagamento.add(novaForma);
-
+ 
 		return novaForma.toString();
 	}
 
