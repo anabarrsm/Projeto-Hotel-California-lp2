@@ -1323,7 +1323,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 
 	@Nested
 	@DisplayName("US09: Cancelar Reserva")
-	class US09Validations {
+	class US09Validations { 
 
 		@BeforeEach
 		public void setUp() {
@@ -1336,7 +1336,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			String resultado = driver.cancelarReserva(idClienteA, idReservaQuartoDouble);
 			assertAll(
 					()-> assertTrue(resultado.contains("[CANCELADA]"))
-			);
+			); 
 		}
 
 		@Test

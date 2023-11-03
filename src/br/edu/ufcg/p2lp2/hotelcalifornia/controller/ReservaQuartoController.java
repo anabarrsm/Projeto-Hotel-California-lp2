@@ -10,10 +10,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuarto;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoDouble;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoFamily;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
+import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
 /**
  * Classe ReservaController responsável por fazer o controle das operações
@@ -21,13 +22,13 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
  * 
  * @author Maria Helena
  */
-public class ReservaController {
-	private ArrayList<Reserva> reservas;
+public class ReservaQuartoController {
+	private ArrayList <ReservaQuarto> reservas;
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
 	private long idReserva;
 
-	public ReservaController(UsuarioController usuarioController, QuartoController quartoController) {
+	public ReservaQuartoController(UsuarioController usuarioController, QuartoController quartoController) {
 		this.reservas = new ArrayList<>();
 		this.usuarioController = usuarioController;
 		this.quartoController = quartoController;
@@ -208,7 +209,7 @@ public class ReservaController {
 	}
 
 	public boolean verificarDisponibilidade(int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim) {
-		for (Reserva reserva : reservas) {
+		for (ReservaQuarto reserva : reservas) {
 			if (reserva.getNumQuarto() == numQuarto) {
 				if (dataInicio.isBefore(reserva.getDataFim()) && dataFim.isAfter(reserva.getDataInicio())) {
 					return false; // Há uma sobreposição de datas
@@ -218,42 +219,14 @@ public class ReservaController {
 		return true;
 	}
 
-//	public String exibirReserva(String idAutenticacao, long idReserva) {
-//	}
-
-//	public String exibirReserva(String idAutenticacao, long idReserva) {
-//		String saida = "";
-//		ArrayList<Usuario> usuarios = usuarioController.getUsuarios();
-//		boolean usuarioEncontrado = false;
-//
-//		for (int i = 0; i < usuarios.size(); i++) {
-//			if (usuarios.get(i).getId().equals(idAutenticacao)) {
-//				usuarioEncontrado = true;
-//				if (reservas.containsKey(idReserva)) {
-//					Reserva reserva = reservas.get(idReserva);
-//					saida = reserva.exibirReserva();
-//					break; // Se encontramos a reserva, podemos sair do loop
-//				}
-//			}
-//		}
-//
-//		if (!usuarioEncontrado) {
-//			return "USUÁRIO NÃO ENCONTRADO";
-//		} else if (saida.isEmpty()) {
-//			return "RESERVA NÃO ENCONTRADA";
-//		}
-//
-//		return saida;
-//	}
-
-	public ArrayList<Reserva> getReservas() {
+	public ArrayList<ReservaQuarto> getReservas() {
 		return reservas;
 	}
 
 	public String exibeReservas() {
 		StringBuilder saida = new StringBuilder();
 
-		for (Reserva reserva : reservas) {
+		for (ReservaQuarto reserva : reservas) {
 			saida.append(reserva.toString()).append("\n");
 		}
 
@@ -264,29 +237,7 @@ public class ReservaController {
 		return reservas.size();
 	}
 
-//	public double calcularVQR(int numQuarto, long idReserva) {
-//
-//		HashMap<Integer, Quarto> quartos = quartoController.getQuartos();
-//
-//		Quarto quarto = quartos.get(numQuarto);
-//		Reserva reserva = reservas.get(idReserva);
-//
-//		LocalDateTime dataInicio = reserva.getDataInicio();
-//		LocalDateTime dataFim = reserva.getDataFim();
-//
-//		double VB = quarto.getPrecoBase();
-//		double VP = quarto.getPrecoPorPessoa();
-//		int QH = quarto.getQtdMaxPessoas();
-//
-//		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toDays();
-//		double ND = Math.ceil(diferencaEmHoras);
-//
-//		double SRI = reserva.getValorTotalRefeicoes();
-//
-//		double VRQ = ND * (VB + QH * VP) + ND * QH * SRI;
-//		return VRQ;
-//
-//	}
+
 
 	public String[] listarReservaAtivasDoCliente(String idAutenticacao, String idCliente) {
 		return null;
@@ -313,7 +264,12 @@ public class ReservaController {
 
 	}
 
-//	public HashMap<Integer, Quarto> getQuartos() {
-//		return quartos;
-//	}
+	public String cancelarReserva(String idCliente, String idReserva) {
+		if(!idCliente.contains("CLI")) {
+			throw new HotelCaliforniaException ("SOMENTE O PROPRIO CLIENTE PODERA CANCELAR A SUA RESERVA");
+		}
+		reservas.remove(idReserva);
+		return "[CANCELADA]";
+	}
+
 }

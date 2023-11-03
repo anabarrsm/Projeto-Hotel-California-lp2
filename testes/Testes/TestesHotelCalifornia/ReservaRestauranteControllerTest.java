@@ -6,7 +6,7 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestaurante;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
-import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaQuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaRestauranteController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
 
@@ -22,14 +22,14 @@ class ReservaRestauranteControllerTest {
 	private ReservaRestauranteController reservaRestauranteController;
 	private UsuarioController usuarioController;
 	private RefeicaoController refeicaoController;
-	private ReservaController reservaController;
+	private ReservaQuartoController reservaController;
 	private QuartoController quartoController;
 
 	@BeforeEach
 	public void setUp() {
 			this.usuarioController = new UsuarioController();
 	        this.quartoController = new QuartoController(usuarioController);
-	        this.reservaController = new ReservaController(usuarioController, quartoController);
+	        this.reservaController = new ReservaQuartoController(usuarioController, quartoController);
 	        this.refeicaoController = new RefeicaoController(usuarioController);
 	        this.reservaRestauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
 	        

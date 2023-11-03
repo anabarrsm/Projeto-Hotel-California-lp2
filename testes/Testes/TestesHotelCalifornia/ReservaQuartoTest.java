@@ -8,14 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
-import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaQuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
 
 class ReservaQuartoTest {
 
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
-	private ReservaController reservaController;
+	private ReservaQuartoController reservaController;
 	private String[] pedidos = { " 01 (uma) cama infantil", "01 (uma) roupa de cama adicional" };
 	private String[] refeicoes = {
 			"[12] Cafe-da-manha: Cafe completo reforcado (06h00 as 10h00). Valor por pessoa: R$30,00. VIGENTE." };
@@ -24,7 +24,7 @@ class ReservaQuartoTest {
 	void setUp() {
 		this.usuarioController = new UsuarioController();
 		this.quartoController = new QuartoController(usuarioController);
-		this.reservaController = new ReservaController(usuarioController, quartoController);
+		this.reservaController = new ReservaQuartoController(usuarioController, quartoController);
 
 		// cadastrando Usuarios
 		this.usuarioController.cadastrarUsuario("ADM1", "Lucas", "ADM", 00111); // [ADM2] Lucas

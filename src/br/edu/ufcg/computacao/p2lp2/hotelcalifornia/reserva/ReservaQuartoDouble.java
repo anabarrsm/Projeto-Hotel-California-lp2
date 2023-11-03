@@ -3,7 +3,7 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-public class ReservaQuartoDouble extends Reserva {
+public class ReservaQuartoDouble extends ReservaQuarto {
 	private String[] pedidos;
 	private long idReserva;
 

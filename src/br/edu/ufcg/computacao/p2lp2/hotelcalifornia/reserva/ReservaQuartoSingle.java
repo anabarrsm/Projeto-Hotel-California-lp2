@@ -13,7 +13,7 @@ import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
 
-public class ReservaQuartoSingle extends Reserva {
+public class ReservaQuartoSingle extends ReservaQuarto {
 
 	private long idReserva;
 	private UsuarioController usuarioController;

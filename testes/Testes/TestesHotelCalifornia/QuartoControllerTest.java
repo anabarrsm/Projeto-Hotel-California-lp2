@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
-import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaQuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
  
 class QuartoControllerTest {

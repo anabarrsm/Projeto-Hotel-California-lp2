@@ -2,16 +2,16 @@ package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
 
 import java.util.ArrayList;
 
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuarto;
 
 public class ReservasSessionController {
-	private ReservaController reservaController;
+	private ReservaQuartoController reservaController;
 	private ReservaRestauranteController reservaRestauranteController;
 	private ReservaAuditorioController reservaAuditorioController;
 	//private ArrayList<> reservas;
 	
 	
-	ReservasSessionController(ReservaController reservaController, ReservaRestauranteController reservaRestauranteController, ReservaAuditorioController reservaAuditorioController){
+	ReservasSessionController(ReservaQuartoController reservaController, ReservaRestauranteController reservaRestauranteController, ReservaAuditorioController reservaAuditorioController){
 		this.reservaController = reservaController;
 		this.reservaRestauranteController = reservaRestauranteController;
 		this.reservaAuditorioController = reservaAuditorioController;
@@ -19,4 +19,6 @@ public class ReservasSessionController {
 		
 	}
 
+	
+	
 }

@@ -14,7 +14,7 @@ import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 public class ReservaRestauranteController {
 
 	private UsuarioController usuarioController;
-	private ReservaController reservaController;
+	private ReservaQuartoController reservaController;
 	private RefeicaoController refeicaoController;
 	private ArrayList<ReservaRestaurante> reservasRestaurante; 
 	private int capacidadeRestaurante;

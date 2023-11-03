@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class Reserva {
+public abstract class ReservaQuarto {
 	protected String idCliente;
 	protected int numQuarto;
 	protected LocalDateTime dataInicio;
@@ -13,7 +13,7 @@ public abstract class Reserva {
 	protected int idReserva;
 	protected String situacaDoPagamento;
 
-	public Reserva(String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim,
+	public ReservaQuarto(String idCliente, int numQuarto, LocalDateTime dataInicio, LocalDateTime dataFim,
 			String[] idRefeicoes) {
 		this.idCliente = idCliente;
 		this.numQuarto = numQuarto;
