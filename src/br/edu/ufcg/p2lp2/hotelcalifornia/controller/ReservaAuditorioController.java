@@ -12,10 +12,10 @@ public class ReservaAuditorioController {
     private int idReservaAuditorio;
 
     public ReservaAuditorioController(UsuarioController usuarioController) {
-        reservaAuditorios = new ArrayList<>();
-        usuarioController = usuarioController;
-        capacidadeAuditorio = 150;
-        this.idReservaAuditorio = 1;
+    	this.usuarioController = usuarioController;
+       this. reservaAuditorios = new ArrayList<>();
+        this.capacidadeAuditorio = 150;
+        this.idReservaAuditorio = 1; 
     }
 
     public String reservarAuditorio(String idAutenticacao, String idCliente, long idAuditorio, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdPessoas) {

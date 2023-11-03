@@ -11,15 +11,14 @@ import java.util.List;
 import java.util.Map;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuarto;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.AreaComumController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.FormaDePagamentoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaAuditorioController;
-import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaQuartoController;
-import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaRestauranteController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservasSessionController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
@@ -28,30 +27,32 @@ public class HotelCaliforniaSistema {
 	private List<Usuario> usuarios;
 	private Map<Integer, Quarto> quartos;
 	private List < Refeicao> refeicoes;
-	private List<ReservaQuarto> reservas;
+	private List<Reserva> reservas;
 
+	private ReservasSessionController reservaSessionController;
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
-	private ReservaQuartoController reservaController;
 	private RefeicaoController refeicaoController; 
 	private FormaDePagamentoController formaDePagamentoController;
 	private AreaComumController areaComumController;
 	private ReservaAuditorioController auditorioController;
 
-	public HotelCaliforniaSistema() {
+
+	public HotelCaliforniaSistema() { 
 		this.usuarioController = new UsuarioController();
 		this.quartoController = new QuartoController(usuarioController);
-		this.reservaController = new ReservaQuartoController(usuarioController, quartoController);
+		this.reservaSessionController = new ReservasSessionController(usuarioController, quartoController, refeicaoController);
 		this.refeicaoController = new RefeicaoController(usuarioController);
 		this.formaDePagamentoController = new FormaDePagamentoController(usuarioController);
 		this.areaComumController = new AreaComumController(usuarioController);
+		this.auditorioController = new ReservaAuditorioController(usuarioController);
 		//this.restauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
 		
 		this.usuarios= new ArrayList<>();
 		this.quartos = new HashMap <>();
 		this.refeicoes = new ArrayList<>();
-		this.reservas = new ArrayList<>();
-	} 
+		this.reservas = new ArrayList<>(); 
+	}  
 
 	
 	// US01
@@ -107,17 +108,17 @@ public class HotelCaliforniaSistema {
 	
 	public String reservarQuartoSingle(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes) {
-		return this.reservaController.reservarQuartoSingle(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes);
+		return this.reservaSessionController.reservarQuartoSingle(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes);
 	}
 	
 	public String reservarQuartoDouble(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos) {
-		return this.reservaController.reservarQuartoDouble(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes, pedidos);
+		return this.reservaSessionController.reservarQuartoDouble(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes, pedidos);
 	}
 	
 	public String reservarQuartoFamily(String idAutenticacao, String idCliente, int numQuarto, LocalDateTime dataInicio,
 			LocalDateTime dataFim, String[] idRefeicoes, String[] pedidos, int numPessoas) {
-		return this.reservaController.reservarQuartoFamily(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes, pedidos, numPessoas);
+		return this.reservaSessionController.reservarQuartoFamily(idAutenticacao, idCliente, numQuarto, dataInicio, dataFim, idRefeicoes, pedidos, numPessoas);
 	}
 
 	//US04
@@ -130,7 +131,7 @@ public class HotelCaliforniaSistema {
 	//US05
 	public String reservarRestaurante(String idAutenticacao, String idCliente, LocalDateTime dataInicio,
 			LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
-		return this.reservarRestaurante(idAutenticacao, idCliente, dataInicio, dataFim, qtdPessoas, idRefeicao);
+		return this.reservaSessionController.reservarRestaurante(idAutenticacao, idCliente, dataInicio, dataFim, qtdPessoas, idRefeicao);
 		}
 	
 	
@@ -167,7 +168,7 @@ public class HotelCaliforniaSistema {
 	 //US09
 	 
 	 public String cancelarReserva(String idCliente, String idReserva) {
-		 return this.reservaController.cancelarReserva(idCliente, idReserva);
+		 return this.cancelarReserva(idCliente, idReserva);
 	 }
 	//US10
 	 
@@ -190,7 +191,7 @@ public class HotelCaliforniaSistema {
 	 //US011
 	 
 	 public String reservarAuditorio(String idAutenticacao, String idCliente, long idAuditorio, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdMaxPessoas) {
-		 return this.reservarAuditorio(idAutenticacao, idCliente, idAuditorio, dataInicio, dataFim, qtdMaxPessoas);
+		 return this.auditorioController.reservarAuditorio(idAutenticacao, idCliente, idAuditorio, dataInicio, dataFim, qtdMaxPessoas);
 	 }
 	 
 }

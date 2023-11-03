@@ -378,7 +378,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 
 	@Nested
 	@DisplayName("US03: Reservar Quarto")
-	class US03Validations {
+	class US03Validations { 
 
 		@BeforeEach
 		public void setUp() {

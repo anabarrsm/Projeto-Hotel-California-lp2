@@ -9,7 +9,7 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoDouble;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoFamily;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.QuartoSingle;
-import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuarto;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
 /**
@@ -24,8 +24,8 @@ public class QuartoController {
 	private UsuarioController usuarioController;
 
 	public QuartoController(UsuarioController usuarioController) {
-		this.quartos = new HashMap<>();
 		this.usuarioController = usuarioController;
+		this.quartos = new HashMap<>();
 
 	}
 

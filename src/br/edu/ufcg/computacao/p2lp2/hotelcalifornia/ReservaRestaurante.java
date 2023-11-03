@@ -5,35 +5,35 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class ReservaRestaurante {
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
+
+public class ReservaRestaurante extends Reserva {
 	private long idReservaRestaurante;
 	
 	private String idCliente;
-	private LocalDateTime dataInicio;
-	private LocalDateTime dataFim;
 	private int qtdPessoas;
 	private String idRefeicao;
 	private String situacaoPagamento;
 	Duration diff;
 
-	public ReservaRestaurante(String idCliente, LocalDateTime dataIncio, LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
+	public ReservaRestaurante(String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
+		super(dataInicio, dataFim);
+		
 		this.idCliente = idCliente;
-		this.dataInicio = dataInicio;
-		this.dataFim = dataFim;
 		this.qtdPessoas = qtdPessoas;
 		this.idRefeicao = idRefeicao;
 		this.situacaoPagamento = situacaoPagamento;
 		this.idReservaRestaurante = idReservaRestaurante;
-		Duration diff = Duration.between(dataIncio, dataFim);
+		Duration diff = Duration.between(dataInicio, dataFim);
 	} 
 
 
-	public String situacaoPagamento(){
-        if(this.pagamentoEfetuado){
-            return "JÁ FOI PAGO.";
-        }
-        return "PENDENTE.";
-    }
+//	public String situacaoPagamento(){
+//        if(this.pagamentoEfetuado){
+//            return "JÁ FOI PAGO."; 
+//        }
+//        return "PENDENTE.";
+//    }
 
 //    valor reserva = num pessoas x quantidade de dias x refeicao.
 //    public Double calculaPreco(){
@@ -64,11 +64,21 @@ public class ReservaRestaurante {
 	public void setIdReservaRestaurante(long idReservaRestaurante) {
 		this.idReservaRestaurante = idReservaRestaurante;
 		
+	
 	}
 
+
 	@Override
-   public String toString(){
-        return "[<id>]  Reserva de RESTAURANTE em favor de:\n " + idCliente + "\n" + "Detalhes da reserva: \n - Periodo: " + dataInicio + " ate " + dataFim + "\n - Qtde. de Convidados: " + qtdPessoas + " pessoa(s) \n Refeicao incluida: " + idRefeicao + "VALOR TOTAL DA RESERVA: R$" + valorReservaRestaurante + " x" + diff + " (diarias)  => R$ " + calculaPreco() + "\n +  SITUACAO DO PAGAMENTO: " + situacaoPagamento() + "\n " ;
-    }
+	public int calculaValor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

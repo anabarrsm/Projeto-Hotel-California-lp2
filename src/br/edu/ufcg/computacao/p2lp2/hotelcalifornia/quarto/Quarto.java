@@ -56,4 +56,5 @@ public abstract class Quarto {
 
 	public abstract int getQtdMaxPessoas();
 
+
 }
