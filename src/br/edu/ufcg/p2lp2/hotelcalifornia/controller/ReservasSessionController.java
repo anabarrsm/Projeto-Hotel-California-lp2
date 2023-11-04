@@ -502,7 +502,7 @@ public class ReservasSessionController {
 		return "RESERVA DE AUDITORIO REALIZADA";
 	}
 
-	private boolean verificarDisponibilidadeAuditorio(LocalDateTime dataInicio, LocalDateTime dataFim) {
+	private boolean verificarDisponibilidadeAuditorio(LocalDateTime dataInicio, LocalDateTime dataFim, ReservaAuditorio[] reservaAuditorios) {
 		for (ReservaAuditorio reservas : reservaAuditorios) {
 			if (!dataInicio.isAfter(reservas.getDataFinal()) && !dataFim.isBefore(reservas.getDataInicial())) {
 				return false;

@@ -15,6 +15,7 @@ public class ReservaRestaurante extends Reserva {
 	private int qtdPessoas;
 	private Refeicao refeicao;
 	private String situacaoPagamento;
+	private boolean isPago;
 	Duration diff;
 
 	public ReservaRestaurante(String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdPessoas, Refeicao refeicao) {
@@ -24,6 +25,7 @@ public class ReservaRestaurante extends Reserva {
 		this.qtdPessoas = qtdPessoas;
 		this.refeicao = refeicao;
 		this.situacaoPagamento = "PENDENTE";
+		this.isPago = false;
 		//this.idReservaRestaurante = idReservaRestaurante;
 		Duration diff = Duration.between(dataInicio, dataFim);
 	} 
@@ -32,6 +34,15 @@ public class ReservaRestaurante extends Reserva {
 	public String situacaoPagamento(){
         return situacaoPagamento;
     }
+	
+	public void marcarComoPaga() {
+        this.situacaoPagamento = "PAGA";
+        this.isPago = true;
+    }
+	
+	public boolean getIsPago() {
+		return isPago;
+	}
 
 //    valor reserva = num pessoas x quantidade de dias x refeicao.
 //    public Double calculaPreco(){
