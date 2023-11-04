@@ -1112,7 +1112,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 			String resultado = driver.disponibilizarFormaDePagamento("ADM1",
 					"CARTAO_DE_CREDITO", 0.0);
 			String idResultado = extrairId(resultado);
-			assert idResultado != null;
+			assert idResultado != null; 
 			assertAll(
 					()-> assertTrue(resultado.contains(idResultado)),
 					()-> assertTrue(resultado.contains("Forma de pagamento: CARTAO DE CREDITO (0% de desconto em pagamentos)"))
@@ -1134,7 +1134,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 		@Test
 		@DisplayName("CA.07.1/3: Tipos de Pagamento - Dinheiro")
 		void testCadastrarFormaDePagamentoDinheiro() {
-			String resultado = driver.disponibilizarFormaDePagamento("ADM1",
+			String resultado = driver.disponibilizarFormaDePagamento("ADM1", 
 					"DINHEIRO", 0.1);
 			String idResultado = extrairId(resultado);
 			assert idResultado != null;assertAll(
