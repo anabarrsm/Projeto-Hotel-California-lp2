@@ -1,4 +1,9 @@
 package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
+
+/**
+ * Classe que implementa o controller dos pagamentos das reservas
+ * @author Ana Laura Barros de Melo
+ */
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +25,14 @@ public class PagamentoController {
 	public PagamentoController() {
 		pagamentos = new ArrayList<>();
 	}
+	
+	/**
+	 * Paga Reserva com dinheiro
+	 * @param idCliente
+	 * @param idReserva
+	 * @param nomeTitular
+	 * @return pagamento realizado
+	 */
 			
 	public String pagarReservaComDinheiro(String idCliente, long idReserva, String nomeTitular) {
 		if (!idCliente.contains("CLI")) {
@@ -41,6 +54,16 @@ public class PagamentoController {
 		return "SITUACAO DO PAGAMENTO: REALIZADO";
 	}
 	
+	/**
+	 * Paga reserva com pix
+	 * @param idCliente
+	 * @param idReserva
+	 * @param nomeTitular
+	 * @param cpf
+	 * @param banco
+	 * @return pagamento realizado
+	 */
+	
 	public String pagarReservaComPix(String idCliente, long idReserva, String nomeTitular, String cpf, String banco) {
 		if (!idCliente.contains("CLI")) {
 			throw new HotelCaliforniaException("SOMENTE O PROPRIO CLIENTE PODERA PAGAR A SUA RESERVA");
@@ -61,6 +84,18 @@ public class PagamentoController {
 		
 		return "SITUACAO DO PAGAMENTO: REALIZADO";
 	}
+	
+	/**
+	 * Paga reserva com cartão
+	 * @param idCliente
+	 * @param idReserva
+	 * @param nomeTitular
+	 * @param numCartao
+	 * @param validade
+	 * @param codigoDeSeguranca
+	 * @param qtdeParcelas
+	 * @return pagamento realizado
+	 */
 	
 	public String pagarReservaComCartao(String idCliente, long idReserva, String nomeTitular, String numCartao, String validade, String codigoDeSeguranca, int qtdeParcelas) {
 		if (!idCliente.contains("CLI")) {
