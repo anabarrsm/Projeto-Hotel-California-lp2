@@ -1,9 +1,11 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class ReservaAuditorio {
+public class ReservaAuditorio extends Reserva {
     private String idAutenticacao;
     private String idUsuario;
     private long idAuditorio;
@@ -42,5 +44,15 @@ public class ReservaAuditorio {
 
     public void setIdAuditorio(long idAuditorio) {
         this.idAuditorio = idAuditorio;
+    }
+
+    @Override
+    public int calculaValor() {
+        return 0;
+    }
+
+    @Override
+    public String toString() {
+        return null;
     }
 }

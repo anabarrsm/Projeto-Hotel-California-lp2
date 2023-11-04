@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaAuditorio;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestaurante;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.quarto.Quarto;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
@@ -19,11 +20,10 @@ public class ReservasSessionController {
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
 	private RefeicaoController refeicaoController;
-
 	private ArrayList<Reserva> reservas;
 	private long idReserva;
-	
-	private int capacidadeRestaurante;
+	private final int capacidadeRestaurante;
+	private final int capacidadeAuditorio;
 
 	public ReservasSessionController(UsuarioController usuarioController, QuartoController quartoController, RefeicaoController refeicaoController) {
 	    this.usuarioController = usuarioController;
@@ -32,6 +32,7 @@ public class ReservasSessionController {
 	    this.reservas = new ArrayList<>();
 	    this.idReserva = 1;
 	    this.capacidadeRestaurante = 50;
+		this.capacidadeAuditorio = 150;
 	}
 
 
@@ -350,5 +351,52 @@ public class ReservasSessionController {
 	    } else {
 	        return null;
 	    }
+	}
+
+	public String reservarAuditorio(String idAutenticacao, String idCliente, long idAuditorio, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdPessoas) {
+		if ((!idAutenticacao.contains("GER") && !idAutenticacao.contains("FUN"))) {
+			return "APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR A RESERVA DO AUDITORIO";
+		}
+
+		if (!idCliente.contains("CLI")) {
+			return "RESERVAS SÓ PODEM SER FEITAS PARA CLIENTES";
+		}
+
+		if (!usuarioController.encontrarUsuarioPorId(idAutenticacao) || !usuarioController.encontrarUsuarioPorId(idCliente)) {
+			return "USUÁRIO NÃO CADASTRADO";
+		}
+
+		if (!verificarDisponibilidadeAuditorio(dataInicio, dataFim)) {
+			return "O RESTAURANTE JÁ ESTÁ RESERVADO NESTE PERÍODO";
+		}
+
+
+		if (qtdPessoas > capacidadeAuditorio) {
+			return "A QUANTIDADE DE PESSOAS EXCEDE A CAPACIDADE DO AUDITORIO";
+		}
+
+		LocalDateTime dataMinimaReserva = LocalDateTime.now().plusDays(1);
+		if (!dataInicio.isAfter(dataMinimaReserva)) {
+			return "A RESERVA DO AUDITORIO DEVE TER PELO MENOS UM DIA DE ANTECEDENCIA.";
+		}
+
+		ReservaAuditorio reservaAuditorio = new ReservaAuditorio(idAutenticacao, idCliente, idAuditorio, dataInicio, dataFim, qtdPessoas);
+		reservas.add(reservaAuditorio);
+
+		this.idReserva = reservas.indexOf(reservaAuditorio) + 1;
+
+		reservaAuditorio.setIdAuditorio(idReserva);
+
+		return "RESERVA DE AUDITORIO REALIZADA";
+	}
+
+	private boolean verificarDisponibilidadeAuditorio(LocalDateTime dataInicio, LocalDateTime dataFim) {
+		for (ReservaAuditorio reservas : reservaAuditorios) {
+			if (!dataInicio.isAfter(reservas.getDataFinal()) && !dataFim.isBefore(reservas.getDataInicial())) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
