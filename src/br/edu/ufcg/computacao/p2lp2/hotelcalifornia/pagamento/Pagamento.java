@@ -7,14 +7,12 @@ public class Pagamento {
 	protected String idCliente;
 	protected String tipoDePagamento;
 	protected double valorEfetivamentePago;
-	protected String nomeTitular;
 	
-	public Pagamento(long idReserva, String idCliente, String tipoDePagamento, double valorEfetivamentePago, String nomeTitular) {
+	public Pagamento(long idReserva, String idCliente, String tipoDePagamento, double valorEfetivamentePago) {
 		this.idReserva = idReserva;
 		this.idCliente = idCliente;
 		this.tipoDePagamento = tipoDePagamento;
 		this.valorEfetivamentePago = valorEfetivamentePago;
-		this.nomeTitular = nomeTitular;
 	}
 	
 	public long getIdReserva() {
@@ -31,9 +29,6 @@ public class Pagamento {
 
     public double getValorEfetivamentePago() {
         return valorEfetivamentePago;
-    }
-    public String getNome() {
-    	return nomeTitular;
     }
 
 }

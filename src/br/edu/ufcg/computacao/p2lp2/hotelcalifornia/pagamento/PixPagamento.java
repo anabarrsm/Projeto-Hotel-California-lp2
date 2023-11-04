@@ -6,7 +6,8 @@ public class PixPagamento extends Pagamento {
 	private String banco;
 	
 	public PixPagamento(long idReserva, String idCliente, double valorEfetivamentePago, String nomeTitular, String cpf, String banco) {
-		super(idReserva, idCliente, "Pix", valorEfetivamentePago, nomeTitular);
+		super(idReserva, idCliente, "Pix", valorEfetivamentePago);
+		this.nomeTitular = nomeTitular;
 		this.cpf = cpf;
 		this.banco = banco;
 	}
@@ -17,5 +18,9 @@ public class PixPagamento extends Pagamento {
 
     public String getBanco() {
         return banco;
+    }
+    
+    public String getNome() {
+    	return nomeTitular;
     }
 }

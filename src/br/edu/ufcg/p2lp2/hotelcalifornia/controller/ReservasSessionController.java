@@ -14,12 +14,16 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoDouble;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoFamily;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.ReservaQuartoSingle;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservasSessionController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.FormaDePagamentoController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.PagamentoController;
 
 public class ReservasSessionController {
 	private UsuarioController usuarioController;
 	private QuartoController quartoController;
 	private RefeicaoController refeicaoController;
+	private ReservaAuditorio reservaAuditorio;
 	private ArrayList<Reserva> reservas;
 	private long idReserva;
 	private final int capacidadeRestaurante;
@@ -279,7 +283,7 @@ public class ReservasSessionController {
 	 * 
 	 * @return representação textual das reservas
 	 */
-	public String exibeReservas() {
+	public String exibeReserva() {
 		StringBuilder saida = new StringBuilder();
 
 		for (Reserva reserva : reservas) {
@@ -300,7 +304,7 @@ public class ReservasSessionController {
 	 * @return
 	 */
 
-	public String[] exibirReservas(String idAutenticacao, long idReserva) {
+	public String[] exibirReserva(String idAutenticacao, long idReserva) {
 		if (idAutenticacao.contains("ADM")) {
 			throw new HotelCaliforniaException("NAO E POSSIVEL PARA USUARIO EXIBIR/LISTAR RESERVA(S) DO CLIENTE");
 		}
@@ -478,7 +482,7 @@ public class ReservasSessionController {
 			return "USUÁRIO NÃO CADASTRADO";
 		}
 
-		if (!verificarDisponibilidadeAuditorio(dataInicio, dataFim)) {
+		if (!verificarDisponibilidadeAuditorio(dataInicio, dataFim) {
 			return "O RESTAURANTE JÁ ESTÁ RESERVADO NESTE PERÍODO";
 		}
 

@@ -21,7 +21,7 @@ public class PagamentoController {
 		pagamentos = new ArrayList<>();
 	}
 			
-	public String pagarReservaComDinheiro(String idCliente, long idReserva, String nomeTitular, ReservaRestaurante reservaRestaurante) {
+	public String pagarReservaComDinheiro(String idCliente, long idReserva, String nomeTitular) {
 		if (!idCliente.contains("CLI")) {
 			throw new HotelCaliforniaException("SOMENTE O PROPRIO CLIENTE PODERA PAGAR A SUA RESERVA");
 		}
