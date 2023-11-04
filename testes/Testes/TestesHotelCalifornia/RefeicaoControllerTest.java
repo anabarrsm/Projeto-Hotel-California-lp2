@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,12 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+
+/**
+ * @author maria helena
+ * testes unitários da classe RefeicaoController
+ */
 
 public class RefeicaoControllerTest {
 	private RefeicaoController refeicaoController;
@@ -25,85 +32,133 @@ public class RefeicaoControllerTest {
 	void setUp() {
 		this.usuarioController = new UsuarioController(); 
 		this.refeicaoController = new RefeicaoController(usuarioController);
-		this.lt = LocalTime.parse("12:30");
-		this.lt2 = LocalTime.parse("13:30");
-		
-		//cadastrando Usuarios
-		this.usuarioController.cadastrarUsuario("ADM1", "Lucas", "GER", 11111); //[GER2] Lucas
-		this.usuarioController.cadastrarUsuario("GER2", "Jesus", "FUN", 69850); // [FUN3] Jesus
-		this.usuarioController.cadastrarUsuario("ADM1", "Maria", "CLI", 4516); // [CLI4] Maria
-		
-	}
-
-	@Test
-	public void disponibilizaRefeicao() {
-		assertEquals(this.refeicaoController.disponibilizarRefeicao("GER2", "CAFE-DA-MANHA", "Cafe completo reforcado", lt, lt2, 30.0, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO");
-	//	assertEquals(this.refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Lasanha", lt, lt2, 45.50, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO");
-	//assertEquals(this.refeicaoController.disponibilizarRefeicao("FUN3", "Jantar", "Sopa", lt, lt2, 20.0, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO");
-	}
-	
-//	@Test
-//	public void disponibilizaRefeicaoUsuarioIndevido() {
-//		assertEquals("APENAS GERENTES E FUNCIONÁRIOS PODEM DISPONIBILIZAR REFEIÇÕES", refeicaoController.disponibilizarRefeicao("ADM1", "Jantar", "sopa", lt, lt2, 20.0, true));
-//		assertEquals("APENAS GERENTES E FUNCIONÁRIOS PODEM DISPONIBILIZAR REFEIÇÕES", refeicaoController.disponibilizarRefeicao("CLI4", "Jantar", "sopa", lt, lt2, 20.0, true));
-//	}
-
-//	@Test
-//	public void adicionaTipoRefeicaoInexistente() {
-//		assertEquals("TIPO DE REFEIÇÃO INVÁLIDO", this.refeicaoController.disponibilizarRefeicao("GER2", "Lanhce", "Sorvete", lt, lt2, 5.00, true));
-//	}
-//
-//	@Test
-//	public void testeRepresentacaoTextual() {
-//		refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Arroz", lt, lt2, 20.0, true); // idRefeicao = 1
-//		assertEquals("[1] Almoço: Arroz (12:30 as 13:30). Valor por pessoa: R$20.0. VIGENTE.", refeicaoController.exibirRefeicaoPorId(1));
-//	}
-//	
-//	@Test
-//	public void exibirRefeicaoInexistente() {
-//		assertEquals("REFEIÇÃO NÃO DISPONÍVEL", refeicaoController.exibirRefeicaoPorId(1));
-//	}
-//
-//	@Test
-//	public void testeRepresentacaoTextualRefeicaoIndisponivel() {
-//		refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Arroz", lt, lt2, 20.0, false);
-//		assertEquals("[1] Almoço: Arroz (12:30 as 13:30). Valor por pessoa: R$20.0. INDISPONIVEL.", refeicaoController.exibirRefeicaoPorId(1));
-//	}
-//
-//@Test
-//	public void testeAlterarRefeicoes() {
-//		refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Lasanha", lt, lt2, 45.50, true); //idRefeicao = 1
-//		LocalTime horaInicio = LocalTime.parse("13:50");
-//		LocalTime horaFinal = LocalTime.parse("14:20");
-//		assertEquals("REFEIÇÃO ALTERADA!", refeicaoController.alterarRefeicao(1, horaInicio, horaFinal, 50.0, true));
-//		assertEquals("[1] Almoço: Lasanha (13:50 as 14:20). Valor por pessoa: R$50.0. VIGENTE.", refeicaoController.exibirRefeicaoPorId(1));
-//
-//	}
-//
-//  @Test 
-//   public void testeAlterarRefeicaoInexistente() {
-//	  
-//    	assertEquals("REFEIÇÃO NÃO ENCONTRADA", refeicaoController.alterarRefeicao(2, lt, lt2, 30.0, true));
-//    }
-//  
-//  @Test
-//  public void testeHorarioErrado() {
-//	  assertEquals("O HORÁRIO DE FIM DEVE SER POSTERIOR AO HORÁRIO DE INÍCIO", refeicaoController.disponibilizarRefeicao("FUN3", "Almoço", "Carne", lt2, lt, 80.0, true));
-//  }
-
-	@Test
-	public void listarRefeicoes() {
-		LocalTime horaCafe = LocalTime.parse("08:00");
-		LocalTime horaFinalCafe = LocalTime.parse("09:20");
-		LocalTime horaJanta = LocalTime.parse("18:00");
-		LocalTime horaFinalJanta = LocalTime.parse("20:00");
-		assertEquals(this.refeicaoController.disponibilizarRefeicao("GER2", "Café-da-manhã", "Café completo reforcado", horaCafe, horaFinalCafe, 30.0, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO"); //idRefeicao =1
-		assertEquals(this.refeicaoController.disponibilizarRefeicao("GER2", "Almoço", "Lasanha", lt, lt2, 45.50, true), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO"); // idRefeicao = 2
-		assertEquals(this.refeicaoController.disponibilizarRefeicao("FUN3", "Jantar", "Sopa", horaJanta, horaFinalJanta, 20.0, false), "REFEIÇÃO DISPONIBILIZADA COM SUCESSO"); // idRefeicao = 3
-		//formato da hora 06h00, formado do dinheerio 33,xx;
-		String[] refeicoes = {"[1] Café-da-manhã: Café completo reforcado (08:00 as 09:20). Valor por pessoa: R$30.0. VIGENTE.", "[2] Almoço: Lasanha (12:30 as 13:30). Valor por pessoa: R$45.5. VIGENTE.", "[3] Jantar: Sopa (18:00 as 20:00). Valor por pessoa: R$20.0. INDISPONIVEL."};
-		assertEquals(Arrays.toString(refeicoes), Arrays.toString(refeicaoController.listarRefeicoes()));
-	}
-
 	
 }
+	
+	@Test
+	void testCadastrarRefeicao() {
+		usuarioController.cadastrarUsuario("ADM1", "alala", "GER" , 7856);
+		String resultado = refeicaoController.disponibilizarRefeicao("GER2", "CAFE_DA_MANHA",
+				"Cafe Matinal Completo", LocalTime.of(6, 0), LocalTime.of(10, 0),
+				20.0, true);
+		assertAll(
+				()-> assertTrue(resultado.contains("Cafe-da-manha: Cafe Matinal Completo (06h00 as 10h00)")),
+				()-> assertTrue(resultado.contains("Valor por pessoa: R$20,00")),
+				()-> assertTrue(resultado.contains("VIGENTE"))
+		);
+		
+		String cadastroAlmoco = refeicaoController.disponibilizarRefeicao("GER2", "ALMOCO",
+				"Almoco de Comida Regional", LocalTime.of(11, 0), LocalTime.of(14, 0),
+				80.0, false);
+	
+		assertAll(
+				()-> assertTrue(cadastroAlmoco.contains("Almoco: Almoco de Comida Regional (11h00 as 14h00)")),
+				()-> assertTrue(cadastroAlmoco.contains("Valor por pessoa: R$80,00")),
+				()-> assertTrue(cadastroAlmoco.contains("INDISPONIVEL"))
+		);
+		
+		
+		String cadastroJanta = refeicaoController.disponibilizarRefeicao("GER2", "JANTAR",
+				"Comida Italiana", LocalTime.of(18, 0), LocalTime.of(22, 30),
+				60.0, true);
+		assertAll(
+				()-> assertTrue(cadastroJanta.contains("Jantar: Comida Italiana (18h00 as 22h30)")),
+				()-> assertTrue(cadastroJanta.contains("Valor por pessoa: R$60,00")),
+				()-> assertTrue(cadastroJanta.contains("VIGENTE"))
+		);
+		
+	}
+
+
+	@Test
+	void cadatrarRefeicaoComUsuarioInexistente() {
+		HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+			refeicaoController.disponibilizarRefeicao("ADM2", "ALMOCO",
+					"Almoco de Comida Regional", LocalTime.of(11, 0), LocalTime.of(14, 0),
+					80.0, false);
+		});
+		assertTrue(hce.getMessage().toUpperCase().contains("USUARIO NAO EXISTE"));
+	}
+	
+	
+	@Test
+	void refeicaoJahCadastrada() {
+		usuarioController.cadastrarUsuario("ADM1", "alala", "GER" , 7856);
+		usuarioController.cadastrarUsuario("ADM1", "ALSDSLA", "FUN", 6546);
+		refeicaoController.disponibilizarRefeicao("GER2", "JANTAR",
+				"Comida Italiana", LocalTime.of(18, 0), LocalTime.of(22, 30),
+				60.0, true);
+		HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+			refeicaoController.disponibilizarRefeicao("FUN3", "JANTAR",
+					"Comida Italiana", LocalTime.of(18, 0), LocalTime.of(22, 30),
+					60.0, true);
+		});
+		assertTrue(hce.getMessage().toUpperCase().contains("REFEICAO JA EXISTE"));
+	}
+
+	@Test
+	void alterarRefeicaoNaoExiste() {
+		HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+			refeicaoController.alterarRefeicao(123456789L, LocalTime.of(10,0),
+					LocalTime.of(12, 0), 0.0, false);
+		});
+		assertTrue(hce.getMessage().toUpperCase().contains("REFEICAO NAO EXISTE"));
+	}
+	
+		@Test
+		void clienteCadastraRefeicao() {
+			usuarioController.cadastrarUsuario("ADM1", "alala", "CLI" , 7856);
+			HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+				refeicaoController.disponibilizarRefeicao("CLI2", "JANTAR",
+						"Comida Italiana", LocalTime.of(18, 0), LocalTime.of(22, 30),
+						60.0, true);
+			});
+			assertTrue(hce.getMessage().toUpperCase().contains("NAO E POSSIVEL PARA USUARIO"));
+			assertTrue(hce.getMessage().toUpperCase().contains("CADASTRAR UMA REFEICAO"));
+		}
+		
+		@Test
+		void admCadastraRefeicao() {
+			HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+				refeicaoController.disponibilizarRefeicao("ADM1", "JANTAR",
+						"Comida Italiana", LocalTime.of(18, 0), LocalTime.of(22, 30),
+						60.0, true);
+			});
+			assertTrue(hce.getMessage().toUpperCase().contains("NAO E POSSIVEL PARA USUARIO"));
+			assertTrue(hce.getMessage().toUpperCase().contains("CADASTRAR UMA REFEICAO"));
+		}
+		
+		
+		@Test
+		void horaFimDepoisHoraInicio() {
+			usuarioController.cadastrarUsuario("ADM1", "alala", "FUN" , 7856);
+			HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+				refeicaoController.disponibilizarRefeicao("FUN2", "JANTAR",
+						"Comida Italiana", LocalTime.of(22, 30), LocalTime.of(18, 0),
+						60.0, true);
+			});
+			assertTrue(hce.getMessage().toUpperCase().contains("HORARIO DE FIM DEVE SER POSTERIOR AO HORARIO DE INICIO"));
+		}
+		
+		
+		@Test
+		void listarRefeicoes() {
+			usuarioController.cadastrarUsuario("ADM1", "alala", "GER" , 7856);
+			usuarioController.cadastrarUsuario("ADM1", "alala", "FUN" , 7856);
+			refeicaoController.disponibilizarRefeicao("GER2", "JANTAR",
+					"Comida Italiana", LocalTime.of(18, 0), LocalTime.of(22, 30),
+					60.0, true);
+			refeicaoController.disponibilizarRefeicao("FUN3", "ALMOCO",
+					"Comida Brasileira", LocalTime.of(11, 0), LocalTime.of(15, 0),
+					100.0, true);
+			String[] resultado = refeicaoController.listarRefeicoes();
+			assertAll(
+					() -> assertEquals(2, resultado.length)
+			);
+		}
+		
+		
+		}
+		
+
+
