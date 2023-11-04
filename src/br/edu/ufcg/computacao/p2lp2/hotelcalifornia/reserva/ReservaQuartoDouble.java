@@ -41,7 +41,7 @@ public class ReservaQuartoDouble extends Reserva {
 	Usuario usuario = usuarioController.retornaUsuarioPorId(idAutenticacao);
 
 	@Override
-	public int calculaValor() {
+	public double calculaValor() {
 		double precoRefeicao = 0;
 		for (Refeicao r : this.refeicoes) {
 			precoRefeicao += r.getValor();

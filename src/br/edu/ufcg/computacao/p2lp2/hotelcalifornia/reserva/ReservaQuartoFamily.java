@@ -39,7 +39,7 @@ public class ReservaQuartoFamily extends Reserva {
 	Usuario usuario = usuarioController.retornaUsuarioPorId(idAutenticacao);
 
 	@Override
-	public int calculaValor() {
+	public double calculaValor() {
 		return numPessoas;
 //		double precoRefeicao = 0;
 //		for (Refeicao r : this.refeicoes) {

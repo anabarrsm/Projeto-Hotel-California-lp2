@@ -54,7 +54,7 @@ public abstract class Reserva {
 		}
 	
 
-		public abstract int calculaValor();
+		public abstract double calculaValor();
 		
 		public abstract String toString();
 

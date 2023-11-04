@@ -45,7 +45,7 @@ public class ReservaQuartoSingle extends Reserva {
 
 	
 	@Override
-	public int calculaValor() {
+	public double calculaValor() {
 		return numPessoas;
 
 //		double precoRefeicao = 0;

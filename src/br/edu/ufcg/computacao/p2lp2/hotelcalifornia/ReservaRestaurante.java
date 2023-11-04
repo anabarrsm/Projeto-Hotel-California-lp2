@@ -4,36 +4,34 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.reserva.Reserva;
 
 public class ReservaRestaurante extends Reserva {
 	private long idReservaRestaurante;
-	
+	private long diferencaEmDias;
 	private String idCliente;
 	private int qtdPessoas;
-	private String idRefeicao;
+	private Refeicao refeicao;
 	private String situacaoPagamento;
 	Duration diff;
 
-	public ReservaRestaurante(String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdPessoas, String idRefeicao) {
+	public ReservaRestaurante(String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdPessoas, Refeicao refeicao) {
 		super(dataInicio, dataFim);
-		
+		diferencaEmDias = dataInicio.until(dataFim, ChronoUnit.DAYS);//.getDays();
 		this.idCliente = idCliente;
 		this.qtdPessoas = qtdPessoas;
-		this.idRefeicao = idRefeicao;
-		this.situacaoPagamento = situacaoPagamento;
-		this.idReservaRestaurante = idReservaRestaurante;
+		this.refeicao = refeicao;
+		this.situacaoPagamento = "PENDENTE";
+		//this.idReservaRestaurante = idReservaRestaurante;
 		Duration diff = Duration.between(dataInicio, dataFim);
 	} 
 
 
-//	public String situacaoPagamento(){
-//        if(this.pagamentoEfetuado){
-//            return "JÁ FOI PAGO."; 
-//        }
-//        return "PENDENTE.";
-//    }
+	public String situacaoPagamento(){
+        return situacaoPagamento;
+    }
 
 //    valor reserva = num pessoas x quantidade de dias x refeicao.
 //    public Double calculaPreco(){
@@ -69,10 +67,11 @@ public class ReservaRestaurante extends Reserva {
 
 
 	@Override
-	public int calculaValor() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public double calculaValor() {
+		//valor reserva = num pessoas x quantidade de dias x refeicao.
+        double valorReserva = qtdPessoas * refeicao.getValor() * diferencaEmDias;
+        return valorReserva;
+    }
 
 
 	@Override
