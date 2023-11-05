@@ -4,10 +4,10 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class FormaDePagamento {
-	protected String tipoDePagamento;
-	protected double percentualDesconto;
-	protected int id;
-	protected static int idcont = 1;
+	private String tipoDePagamento;
+	private double percentualDesconto;
+	private int id;
+	private static int idcont = 1;
 	
 	public FormaDePagamento(int id, String tipoDePagamento, double percentualDesconto) {
 		this.id = idcont++;
