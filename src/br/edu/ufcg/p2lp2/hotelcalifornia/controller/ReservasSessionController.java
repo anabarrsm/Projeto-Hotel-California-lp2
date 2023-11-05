@@ -482,7 +482,7 @@ public class ReservasSessionController {
 			return "USUÁRIO NÃO CADASTRADO";
 		}
 
-		if (!verificarDisponibilidadeAuditorio(dataInicio, dataFim) {
+		if (!verificarDisponibilidadeAuditorio(dataInicio, dataFim, null)) {
 			return "O RESTAURANTE JÁ ESTÁ RESERVADO NESTE PERÍODO";
 		}
 

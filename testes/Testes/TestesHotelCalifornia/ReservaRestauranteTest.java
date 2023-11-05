@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestaurante;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
-import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaRestauranteController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservasSessionController;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import java.time.LocalTime;
 public class ReservaRestauranteTest {
 	private UsuarioController usuarioController;
 	private RefeicaoController refeicaoController;
-	private ReservaRestauranteController reservaRestauranteController;
+	private ReservasSessionController reservaSessionController;
 	private LocalTime lt;
 	private LocalTime lt2;
 
@@ -24,7 +24,7 @@ public class ReservaRestauranteTest {
 	void setUp() {
 		this.usuarioController = new UsuarioController();
 		this.refeicaoController = new RefeicaoController(usuarioController);
-		this.reservaRestauranteController = new ReservaRestauranteController(usuarioController, refeicaoController );
+		this.reservaSessionController = new ReservasSessionController(usuarioController, null, refeicaoController);
 		
 		//cadastrando Usuarios
 		this.usuarioController.cadastrarUsuario("ADM1", "Lara", "CLI", 5696); // [CLI2] Lara

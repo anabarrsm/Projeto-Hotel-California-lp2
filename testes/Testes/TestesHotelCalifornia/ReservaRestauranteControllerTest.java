@@ -6,8 +6,7 @@ import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.Refeicao;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestaurante;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.RefeicaoController;
-import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaQuartoController;
-import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservaRestauranteController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.controller.ReservasSessionController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,19 +18,16 @@ import java.time.LocalDateTime;
 
 
 class ReservaRestauranteControllerTest {
-	private ReservaRestauranteController reservaRestauranteController;
 	private UsuarioController usuarioController;
 	private RefeicaoController refeicaoController;
-	private ReservaQuartoController reservaController;
 	private QuartoController quartoController;
+	private ReservasSessionController reservaSessionController;
 
 	@BeforeEach
 	public void setUp() {
 			this.usuarioController = new UsuarioController();
 	        this.quartoController = new QuartoController(usuarioController);
-	        this.reservaController = new ReservaQuartoController(usuarioController, quartoController);
 	        this.refeicaoController = new RefeicaoController(usuarioController);
-	        this.reservaRestauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
 	        
 	        
 	      //cadastrando Usuarios
@@ -48,7 +44,7 @@ class ReservaRestauranteControllerTest {
 		LocalDateTime dataInicioValida= dataAtual.plusDays(4);
 
 		String refeicao = "Almoço";
-		String resultado = reservaRestauranteController.reservarRestaurante("GER4", "CLI2", dataInicioValida, dataAtual, 2, refeicao);
+		String resultado = reservaSessionController.reservarRestaurante("GER4", "CLI2", dataInicioValida, dataAtual, 2, refeicao);
         assertEquals("RESERVA RESTAURANTE REALIZADA", resultado);
 	}
 	
@@ -57,7 +53,7 @@ class ReservaRestauranteControllerTest {
         LocalDateTime dataInicial = LocalDateTime.now();
         LocalDateTime dataFinal = LocalDateTime.now().plusDays(1); // Reserva com 1 dia de antecedência
         String refeicao = "Almoço"; 
-        String resultado = reservaRestauranteController.reservarRestaurante("CLI2", "CLI2", dataInicial, dataFinal, 3, refeicao);
+        String resultado = reservaSessionController.reservarRestaurante("CLI2", "CLI2", dataInicial, dataFinal, 3, refeicao);
         assertEquals("APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR A RESERVA DO RESTAURANTE", resultado);
     }
 	
@@ -66,7 +62,7 @@ class ReservaRestauranteControllerTest {
         LocalDateTime dataInicio = LocalDateTime.now();
         LocalDateTime dataFim = LocalDateTime.now().plusDays(1); 
         String refeicao = "Jantar";
-        String resultado = reservaRestauranteController.reservarRestaurante("ADM1", "CLI2", dataInicio, dataFim, 4, refeicao);
+        String resultado = reservaSessionController.reservarRestaurante("ADM1", "CLI2", dataInicio, dataFim, 4, refeicao);
         assertEquals("APENAS GERENTES E FUNCIONÁRIOS PODEM EFETUAR A RESERVA DO RESTAURANTE", resultado);
     }
 	
@@ -75,8 +71,8 @@ class ReservaRestauranteControllerTest {
         LocalDateTime dataAtual= LocalDateTime.now();
         LocalDateTime dataInicioValida= dataAtual.plusDays(2);
         String refeicao = "Almoço"; 
-        reservaRestauranteController.reservarRestaurante("GER4", "CLI2", dataInicioValida, dataAtual, 3, refeicao);
-        String resultado = reservaRestauranteController.reservarRestaurante("GER4", "CLI5", dataInicioValida, dataAtual, 4, refeicao);
+        reservaSessionController.reservarRestaurante("GER4", "CLI2", dataInicioValida, dataAtual, 3, refeicao);
+        String resultado = reservaSessionController.reservarRestaurante("GER4", "CLI5", dataInicioValida, dataAtual, 4, refeicao);
         assertEquals("O RESTAURANTE JÁ ESTÁ RESERVADO NESTE PERÍODO", resultado);
     }
 
