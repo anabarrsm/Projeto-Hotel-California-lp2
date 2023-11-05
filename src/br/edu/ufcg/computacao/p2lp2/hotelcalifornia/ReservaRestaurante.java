@@ -44,18 +44,6 @@ public class ReservaRestaurante extends Reserva {
 		return isPago;
 	}
 
-//    valor reserva = num pessoas x quantidade de dias x refeicao.
-//    public Double calculaPreco(){
-//       long diferencaEmDias = dataInicio.until(dataFinal).getDays();
-//        //double valorReserva = qtdPessoas * refeicao.getValorPorPessoa();
-//        double valorReserva = valorReservaRestaurante * diferencaEmDias;
-//        return valorReserva;
-//    }
-//
-//    public double getValorReservaRestaurante() {
-//        return valorReservaRestaurante;
-//    }
-
 	public long getIdReservaRestaurante() {
 		return idReservaRestaurante;
 	}

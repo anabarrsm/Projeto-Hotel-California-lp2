@@ -139,7 +139,7 @@ class HotelCaliforniaSistemaS1S2MinTest {
 		@Test
 		@DisplayName("CA.01.3: Identificador Unico")
 		void testIdentificadorUnico() {
-			String adm2 = driver.cadastrarUsuario("ADM1", "Novo Admin 2", "ADM", 123456L);
+			String adm2 = driver.cadastrarUsuario("ADM1", "Novo Admin 2", "ADM", 123456L); 
 			String adm3 = driver.cadastrarUsuario("ADM1", "Novo Admin 3", "ADM", 123456L);
 			String adm4 = driver.cadastrarUsuario("ADM1", "Novo Admin 4", "ADM", 123456L);
 			assertAll(

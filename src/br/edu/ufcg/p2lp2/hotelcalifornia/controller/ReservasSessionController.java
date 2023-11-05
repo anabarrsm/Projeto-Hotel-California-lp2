@@ -167,7 +167,7 @@ public class ReservasSessionController {
 		}
 
 		if (dataFim.isBefore(dataInicio)) {
-			return "A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO";
+			return "A DATA DE FIM DEVE SER POSTERIOR À DATA DE INÍCIO"; 
 		}
 
 		long diferencaEmHoras = Duration.between(dataInicio, dataFim).toHours();
@@ -299,8 +299,9 @@ public class ReservasSessionController {
 
 	/**
 	 * @author maria helena
-	 * @param idAutenticacao
-	 * @param idReserva
+	 * US06 
+	 * @param idAutenticacao id do usuário que fará a exibição
+	 * @param idReserva id da reserva que será exibida
 	 * @return
 	 */
 
@@ -421,7 +422,7 @@ public class ReservasSessionController {
 		}
 
 		obterFimRefeicao(idRefeicao);
-		ReservaRestaurante reservaRestaurante = new ReservaRestaurante(idCliente, dataInicio, dataFim, qtdPessoas,
+		ReservaRestaurante reservaRestaurante = new ReservaRestaurante(idAutenticacao, idCliente, dataInicio, dataFim, qtdPessoas,
 				idRefeicao);
 
 		reservas.add(reservaRestaurante);
@@ -433,15 +434,15 @@ public class ReservasSessionController {
 		return reservaRestaurante.toString();
 	}
 
-//		private boolean verificarDisponibilidadeRestaurante(LocalDateTime dataInicio, LocalDateTime dataFim, String idRefeicao) {
-//		    for (ReservaRestaurante reserva : reservasRestaurante) {
-//		        if (reserva.getIdRefeicao().equals(idRefeicao) && !dataInicio.isAfter(reserva.getDataFim()) && !dataFim.isBefore(reserva.getDataInicio())) {
-//		            return false;
-//		        }
-//		    }
-//		    
-//		    return true;
-//		}
+		private boolean verificarDisponibilidadeRestaurante(LocalDateTime dataInicio, LocalDateTime dataFim, String idRefeicao) {
+		    for (ReservaRestaurante reserva : reservas) {
+		        if (reserva.getId().equals(idRefeicao) && !dataInicio.isAfter(reserva.getDataFim()) && !dataFim.isBefore(reserva.getDataInicio())) {
+		            return false;
+		        }
+		    }
+		    
+		    return true;
+		}
 
 	private LocalTime obterFimRefeicao(String idRefeicao) {
 		Refeicao refeicao = refeicaoController.obterRefeicaoPeloId(idRefeicao);
@@ -466,6 +467,8 @@ public class ReservasSessionController {
 			return null;
 		}
 	}
+	
+	// US11
 
 	public String reservarAuditorio(String idAutenticacao, String idCliente, long idAuditorio, LocalDateTime dataInicio,
 			LocalDateTime dataFim, int qtdPessoas) {

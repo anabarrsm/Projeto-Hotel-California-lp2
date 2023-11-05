@@ -9,7 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.QuartoController;
 import br.edu.ufcg.p2lp2.hotelcalifornia.controller.UsuarioController;
+import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
  
+
+/**
+ * @author maria helena
+ * 
+ * testes unitários da classe QuartoContoller
+ */
 class QuartoControllerTest {
 	 
 	private QuartoController quartoController;
@@ -24,28 +31,81 @@ class QuartoControllerTest {
 		
 		//cadastrando Usuários
 		this.usuarioController.cadastrarUsuario("ADM1","Maria Helena", "FUN", 111111); // [FUN2] Maria Helena
+		this.usuarioController.cadastrarUsuario("ADM1", "OIOI", "GER", 456); //[GER3]
+		this.usuarioController.cadastrarUsuario("ADM1", "blalal", "CLI", 4569878);
 		
-//		this.quartoController.disponibilizarQuartoSingle("FUN2", 601, 50.0, 100.0);
-//		this.quartoController.disponibilizarQuartoDouble("FUN2",155 , 60.0, 100.0, pedidos);
-//		this.quartoController.disponibilizarQuartoFamily("ADM1", 123, 50.0, 100.0, pedidos, 10);
-//		
 		
 	}
-//
-//	@Test
-//	void testUsuarioIndevido() {
-//		assertEquals(this.quartoController.disponibilizarQuartoSingle("GER4", 123 , 50.0, 200.0), "APENAS ADMINISTRADORES PODEM GERENCIAR OS QUARTOS");
-//		assertEquals(this.quartoController.disponibilizarQuartoDouble("FUN2", 456 , 50.0, 200.0, pedidos), "APENAS ADMINISTRADORES PODEM GERENCIAR OS QUARTOS");
-//		assertEquals(this.quartoController.disponibilizarQuartoFamily("CLI2", 789 , 50.0, 200.0, pedidos, 6), "APENAS ADMINISTRADORES PODEM GERENCIAR OS QUARTOS");
-//		assertEquals(this.quartoController.disponibilizarQuartoSingle("ADM5", 123 , 50.0, 200.0), "ESSE ADMINISTRADOR NÃO ESTÁ CADASTRADO NO SISTEMA");
-//		
-//	}
+
+	@Test
+	void testUsuarioIndevidoQuartoSingle() {
+		HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoSingle("GER3", 101, 80.0, 20.0);
+		});
+		assertTrue(hce.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+		
+		HotelCaliforniaException qsc = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoSingle("CLI4", 101, 80.0, 20.0);
+		});
+		assertTrue(qsc.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+		
+		HotelCaliforniaException qsf = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoSingle("FUN2", 101, 80.0, 20.0);
+		});
+		assertTrue(qsf.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+	
+
+	}
+	
+	
+	@Test
+	void testIndevidoQuartoDouble() {
+		
+		HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoDouble("GER3", 101, 80.0, 20.0, pedidos);
+		});
+		assertTrue(hce.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+		
+		HotelCaliforniaException qsc = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoDouble("CLI4", 101, 80.0, 20.0, pedidos);
+		});
+		assertTrue(qsc.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+		
+		HotelCaliforniaException qsf = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoDouble("FUN2", 101, 80.0, 20.0, pedidos);
+		});
+		assertTrue(qsf.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+		
+	}
+	
+	@Test
+	void testIndevidoQuartoFamily() {
+		HotelCaliforniaException hce = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoFamily("GER3", 101, 80.0, 20.0, pedidos, 2);
+		});
+		assertTrue(hce.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+		
+		HotelCaliforniaException qsc = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoFamily("CLI4", 101, 80.0, 20.0, pedidos, 7);
+		});
+		assertTrue(qsc.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+		
+		HotelCaliforniaException qsf = assertThrows(HotelCaliforniaException.class, () -> {
+			quartoController.disponibilizarQuartoFamily("FUN2", 101, 80.0, 20.0, pedidos, 6);
+		});
+		assertTrue(qsf.getMessage().toUpperCase().contains("USUARIO NAO E ADMINISTRADOR"));
+	}
+	
 	
 	@Test
 	void testDisponibilizarQuarto() {
-		//assertEquals(this.quartoController.disponibilizarQuartoSingle("ADM1", 601, 50.0, 100.0), "QUARTO SINGLE DISPONÍVEL");
-		//assertEquals(this.quartoController.disponibilizarQuartoDouble("ADM1", 301, 80.0, 20.0, pedidos), "QUARTO DOUBLE DISPONÍVEL");
-		assertEquals(this.quartoController.disponibilizarQuartoFamily("ADM1", 502, 20.0, 80.0, pedidos, 10), "QUARTO FAMILY DISPONÍVEL");
+		String quartoSingle = this.quartoController.disponibilizarQuartoSingle("ADM1", 601, 50.0, 100.0);
+		String quartoDouble = this.quartoController.disponibilizarQuartoDouble("ADM1", 301, 80.0, 20.0, pedidos);
+		String quartoFamily = this.quartoController.disponibilizarQuartoFamily("ADM1", 502, 20.0, 80.0, pedidos, 10);
+		assertEquals(quartoSingle, quartoSingle.toString());
+		assertEquals(quartoDouble, quartoDouble.toString());
+		assertEquals(quartoFamily, quartoFamily.toString());
+		
 	}
 	
 	
