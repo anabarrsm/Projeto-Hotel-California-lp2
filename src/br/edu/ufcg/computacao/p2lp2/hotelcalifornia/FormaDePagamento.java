@@ -3,13 +3,14 @@ package br.edu.ufcg.computacao.p2lp2.hotelcalifornia;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-public class FormaDePagamento {
-	private String tipoDePagamento;
-	private double percentualDesconto;
-	private int id;
+public abstract class FormaDePagamento {
+	protected String tipoDePagamento;
+	protected double percentualDesconto;
+	protected int id;
+	protected static int idcont = 1;
 	
-	public FormaDePagamento(int id, String tipoDePagamento, double percentualDesconto) {
-		this.id = id;
+	public FormaDePagamento(String tipoDePagamento, double percentualDesconto) {
+		this.id = idcont++;
 		this.tipoDePagamento = tipoDePagamento;
 		this.percentualDesconto = percentualDesconto;
 	}
@@ -35,10 +36,8 @@ public class FormaDePagamento {
 		this.percentualDesconto = percentualDesconto;
 	}
 	
-	  @Override
-	    public String toString() {
-	        DecimalFormat df = new DecimalFormat("#.#");
-	        return "[" + id + "] Forma de pagamento: " + tipoDePagamento + " (" + df.format(percentualDesconto*100) + "% de desconto em pagamentos)";
-	    }
+	public abstract void efetuarPagamento(double valorReserva, int qtdeParcelas);
+	
+	public abstract String exibirPagamento(String saida);
 
 }

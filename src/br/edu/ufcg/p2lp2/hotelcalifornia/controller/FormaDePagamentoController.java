@@ -9,11 +9,15 @@ import java.util.List;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.FormaDePagamento;
 import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.pagamento.*;
 
 import java.util.ArrayList;
 
 public class FormaDePagamentoController {
 	private UsuarioController usuarioController;
+	private CartaoPagamento cartaoPagamento;
+	private DinheiroPagamento dinheiroPagamento;
+	private PixPagamento pixPagamento;
 	private List<FormaDePagamento> formasDePagamento;
 
 	public FormaDePagamentoController(UsuarioController usuarioController) {
@@ -31,7 +35,6 @@ public class FormaDePagamentoController {
 
 	public String disponibilizarFormaDePagamento(String idAutenticacao, String tipoDePagamento,
 			double percentualDesconto) {
-		
 		/**
 		 * Lança exceção caso o autenticante não seja adm
 		 */
@@ -49,17 +52,36 @@ public class FormaDePagamentoController {
 		}
 
 		String tipoPagamentoFormatado = formataTipo(tipoDePagamento);
-
-		int novoId = formasDePagamento.size() + 1;
-		FormaDePagamento novaForma = new FormaDePagamento(novoId, tipoPagamentoFormatado, percentualDesconto);
-
+		
 		if (jahExiste(tipoPagamentoFormatado, percentualDesconto)) {
 			throw new HotelCaliforniaException("FORMA DE PAGAMENTO JA EXISTE");
 		}
-
+		
+		FormaDePagamento novaForma;
+		
+		switch(tipoPagamentoFormatado) {
+		case "CARTAO DE CREDITO":
+			novaForma = new CartaoPagamento(cartaoPagamento.getNome(), cartaoPagamento.getNumeroCartao(), cartaoPagamento.getValidade(), cartaoPagamento.getCodigoSeguranca(), cartaoPagamento.getNumeroParcelas());
+			break;
+			
+		case "DINHEIRO":
+			novaForma = new DinheiroPagamento(dinheiroPagamento.getNome());
+			break;
+			
+		case "PIX":
+			novaForma = new PixPagamento(pixPagamento.getNome(), pixPagamento.getCpf(), pixPagamento.getBanco());
+			break;
+		default:
+			throw new HotelCaliforniaException("TIPO DE PAGAMENTO DESCONHECIDO");
+		}
+		
+		novaForma.setTipo(tipoPagamentoFormatado);
+		novaForma.setPercentual(percentualDesconto);
 		formasDePagamento.add(novaForma);
- 
-		return novaForma.toString();
+		
+		return novaForma.exibirPagamento("SITUAÇÃO DO PAGAMENTO: PENDENTE");
+		
+		
 	}
 	
 	/**
@@ -98,7 +120,7 @@ public class FormaDePagamentoController {
 				if (f.getId() == id) {
 					f.setTipo(tipoPagamentoFormatado);
 					f.setPercentual(percentualDesconto);
-					return f.toString();
+					return f.exibirPagamento("SITUAÇÃO DO PAGAMENTO: PENDENTE");
 				}
 			}
 		}
@@ -127,7 +149,7 @@ public class FormaDePagamentoController {
 	public String exibirFormaDePagamento(int id) {
 		for (FormaDePagamento f : formasDePagamento) {
 			if (f.getId() == id) {
-				return f.toString();
+				return f.exibirPagamento("SITUAÇÃO DO PAGAMENTO: PENDENTE");
 			}
 		}
 		return "Forma de pagamento não encontrada!";
@@ -143,7 +165,7 @@ public class FormaDePagamentoController {
 	    String[] listaFormas = new String[formasDePagamento.size()];
 
 	    for (int i = 0; i < formasDePagamento.size(); i++) {
-	        listaFormas[i] = formasDePagamento.get(i).toString();
+	        listaFormas[i] = formasDePagamento.get(i).exibirPagamento("SITUAÇÃO DO PAGAMENTO: PENDENTE");
 	    }
 
 	    return listaFormas;

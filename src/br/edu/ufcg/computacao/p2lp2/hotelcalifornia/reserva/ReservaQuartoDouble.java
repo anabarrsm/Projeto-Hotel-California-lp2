@@ -22,6 +22,7 @@ public class ReservaQuartoDouble extends Reserva {
 	private String[] pedidos;
 	private int numPessoas;
 	private long idReserva;
+	private double valorTotal;
 	
 	
 	
@@ -47,9 +48,14 @@ public class ReservaQuartoDouble extends Reserva {
 			precoRefeicao += r.getValor();
 		}
 		double qtdeDias = Math.ceil((int)ChronoUnit.HOURS.between(getDataInicio(), getDataFim()) / 24);
-		return (int)qtdeDias * ((int)quarto.getPrecoBase() + (int)this.numPessoas * 
+		valorTotal = (int)qtdeDias * ((int)quarto.getPrecoBase() + (int)this.numPessoas * 
 				(int)quarto.getPrecoPorPessoa()) + (int)qtdeDias * (int)this.numPessoas *
 				(int)precoRefeicao;
+		return valorTotal;
+	}
+	
+	public double getValorTotal() {
+		return valorTotal;
 	}
 
 	@Override

@@ -16,9 +16,10 @@ public class ReservaRestaurante extends Reserva {
 	private Refeicao refeicao;
 	private String situacaoPagamento;
 	private boolean isPago;
+	private double valorReserva;
 	Duration diff;
 
-	public ReservaRestaurante(String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdPessoas, Refeicao refeicao) {
+	public ReservaRestaurante(String idCliente, LocalDateTime dataInicio, LocalDateTime dataFim, int qtdPessoas, Refeicao refeicao, double valorReserva) {
 		super(dataInicio, dataFim);
 		diferencaEmDias = dataInicio.until(dataFim, ChronoUnit.DAYS);//.getDays();
 		this.idCliente = idCliente;
@@ -26,16 +27,17 @@ public class ReservaRestaurante extends Reserva {
 		this.refeicao = refeicao;
 		this.situacaoPagamento = "PENDENTE";
 		this.isPago = false;
+		this.valorReserva = 0;
 		//this.idReservaRestaurante = idReservaRestaurante;
 		Duration diff = Duration.between(dataInicio, dataFim);
 	} 
 
 
-	public String situacaoPagamento(){
+	public String getSituacaoPagamento(){
         return situacaoPagamento;
     }
 	
-	public void marcarComoPaga() {
+	public void setSituacaoPagamento() {
         this.situacaoPagamento = "PAGA";
         this.isPago = true;
     }
@@ -43,6 +45,18 @@ public class ReservaRestaurante extends Reserva {
 	public boolean getIsPago() {
 		return isPago;
 	}
+
+//    valor reserva = num pessoas x quantidade de dias x refeicao.
+//    public Double calculaPreco(){
+//       long diferencaEmDias = dataInicio.until(dataFinal).getDays();
+//        //double valorReserva = qtdPessoas * refeicao.getValorPorPessoa();
+//        double valorReserva = valorReservaRestaurante * diferencaEmDias;
+//        return valorReserva;
+//    }
+//
+//    public double getValorReservaRestaurante() {
+//        return valorReservaRestaurante;
+//    }
 
 	public long getIdReservaRestaurante() {
 		return idReservaRestaurante;
@@ -71,6 +85,8 @@ public class ReservaRestaurante extends Reserva {
         double valorReserva = qtdPessoas * refeicao.getValor() * diferencaEmDias;
         return valorReserva;
     }
+	
+	
 
 
 	@Override

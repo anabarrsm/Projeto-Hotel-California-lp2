@@ -1,14 +1,19 @@
 package br.edu.ufcg.computacao.p2lp2.hotelcalifornia.pagamento;
 
-public class CartaoPagamento extends Pagamento {
+import java.text.DecimalFormat;
+
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.*;
+
+public class CartaoPagamento extends FormaDePagamento {
 	private String nomeTitular;
 	private String numCartao;
 	private String validade;
 	private String codigoDeSeguranca;
 	private int qtdeParcelas;
+	private ReservaRestaurante reservaRestaurante;
 	
-	public CartaoPagamento(long idReserva, String idCliente, String nomeTitular, String numCartao, String validade, String codigoDeSeguranca, int qtdeParcelas, double valorEfetivamentePago) {
-		super(idReserva, idCliente, "Cartão", valorEfetivamentePago);
+	public CartaoPagamento(String nomeTitular, String numCartao, String validade, String codigoDeSeguranca, int qtdeParcelas) {
+		super("Cartão", 0);
 		this.nomeTitular = nomeTitular;
 		this.numCartao = numCartao;
 		this.validade = validade;
@@ -44,7 +49,22 @@ public class CartaoPagamento extends Pagamento {
     	return qtdeParcelas;
     }
     
+    public void efetuarPagamento(double valorReserva, int qtdeParcelas) {
+    	double valorDaParcela = valorReserva / qtdeParcelas;
+    	double valorComDesconto = valorReserva;
+    	
+    	DecimalFormat df = new DecimalFormat("#.##");
+    	
+    	String saida = "SITUAÇÃO DO PAGAMENTO: " + reservaRestaurante.getSituacaoPagamento() + ".\n" + "[" + id + "] Forma de pagamento: " + tipoDePagamento + " (" + df.format(percentualDesconto * 100) + "% de desconto em pagamentos). " +
+    	        "Total efetivamente pago: R$" + df.format(valorComDesconto) + " em " + qtdeParcelas + "x de R$" + df.format(valorDaParcela) + ".";
+    }
+    
     public String getNome() {
     	return nomeTitular;
+    }
+    
+    
+    public String exibirPagamento(String saida) {
+    	return saida;
     }
 }
