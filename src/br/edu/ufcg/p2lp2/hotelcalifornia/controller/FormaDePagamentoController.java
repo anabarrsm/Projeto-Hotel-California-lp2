@@ -8,6 +8,7 @@ package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
 import java.util.List;
 
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.FormaDePagamento;
+import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.ReservaRestaurante;
 import br.edu.ufcg.p2lp2.hotelcalifornia.exception.HotelCaliforniaException;
 import br.edu.ufcg.computacao.p2lp2.hotelcalifornia.pagamento.*;
 
@@ -17,6 +18,7 @@ public class FormaDePagamentoController {
 	private UsuarioController usuarioController;
 	private CartaoPagamento cartaoPagamento;
 	private DinheiroPagamento dinheiroPagamento;
+	private ReservaRestaurante reservaRestaurante;
 	private PixPagamento pixPagamento;
 	private List<FormaDePagamento> formasDePagamento;
 
@@ -145,6 +147,23 @@ public class FormaDePagamentoController {
 	 * @param id
 	 * @return
 	 */
+	
+	public String pagarReservaComDinheiro(String idCliente, long idReserva, String nomeTitular) {
+		if (!idCliente.contains("CLI")) {
+			throw new HotelCaliforniaException("SOMENTE O PROPRIO CLIENTE PODERA PAGAR A SUA RESERVA");
+		}
+		
+		if(reservaRestaurante.getIsPago() == true) {
+			throw new HotelCaliforniaException("RESERVA JA FOI PAGA");
+		}
+		
+		double valorReserva = reservaRestaurante.getValor();
+		double valorComDesconto = valorReserva -(valorReserva * 0.10);
+		
+		
+		
+		return "SITUACAO DO PAGAMENTO: REALIZADO";
+	}
 
 	public String exibirFormaDePagamento(int id) {
 		for (FormaDePagamento f : formasDePagamento) {

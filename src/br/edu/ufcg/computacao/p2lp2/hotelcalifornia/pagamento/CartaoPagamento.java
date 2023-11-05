@@ -49,7 +49,7 @@ public class CartaoPagamento extends FormaDePagamento {
     	return qtdeParcelas;
     }
     
-    public void efetuarPagamento(double valorReserva, int qtdeParcelas) {
+    public void efetuarPagamento(long idReserva, double valorReserva, int qtdeParcelas) {
     	double valorDaParcela = valorReserva / qtdeParcelas;
     	double valorComDesconto = valorReserva;
     	

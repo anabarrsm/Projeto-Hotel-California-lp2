@@ -36,7 +36,7 @@ public abstract class FormaDePagamento {
 		this.percentualDesconto = percentualDesconto;
 	}
 	
-	public abstract void efetuarPagamento(double valorReserva, int qtdeParcelas);
+	public abstract void efetuarPagamento(long idReserva, double valorReserva, int qtdeParcelas);
 	
 	public abstract String exibirPagamento(String saida);
 

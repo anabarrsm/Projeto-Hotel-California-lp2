@@ -14,7 +14,7 @@ public class DinheiroPagamento extends FormaDePagamento{
         this.nomeTitular = nomeTitular;
     }
 	
-	public void efetuarPagamento(double valorReserva, int qtdeParcelas) {
+	public void efetuarPagamento(long idReserva, double valorReserva, int qtdeParcelas) {
 		double valorComDesconto = valorReserva - (valorReserva * 0.10);
 		
 		DecimalFormat df = new DecimalFormat("#.##");

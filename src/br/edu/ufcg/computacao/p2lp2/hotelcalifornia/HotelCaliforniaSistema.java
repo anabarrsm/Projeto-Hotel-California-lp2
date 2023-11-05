@@ -37,7 +37,6 @@ public class HotelCaliforniaSistema {
 	private FormaDePagamentoController formaDePagamentoController;
 	private AreaComumController areaComumController;
 	private ReservaAuditorioController auditorioController;
-	private PagamentoController pagamentoController;
 
 
 	public HotelCaliforniaSistema() { 
@@ -48,7 +47,6 @@ public class HotelCaliforniaSistema {
 		this.formaDePagamentoController = new FormaDePagamentoController(usuarioController);
 		this.areaComumController = new AreaComumController(usuarioController);
 		this.auditorioController = new ReservaAuditorioController(usuarioController);
-		this.pagamentoController = new PagamentoController();
 		//this.restauranteController = new ReservaRestauranteController(usuarioController, refeicaoController);
 		
 		this.usuarios= new ArrayList<>();
@@ -172,19 +170,6 @@ public class HotelCaliforniaSistema {
 	 
 	 public String[] listarFormasPagamentos() {
 		return this.formaDePagamentoController.listarFormasDePagamentos();
-	 }
-	 
-	 //US08
-	 public String pagarReservaComDinheiro(String idCliente, long idReserva, String nomeTitular) {
-		 return this.pagamentoController.pagarReservaComDinheiro(idCliente, idReserva, nomeTitular);
-	 }
-	 
-	 public String pagarReservaComPix(String idCliente, long idReserva, String nomeTitular, String cpf, String banco) {
-		 return this.pagamentoController.pagarReservaComPix(idCliente, idReserva, nomeTitular, cpf, banco);
-	 }
-	 
-	 public String pagarReservaComCartao(String idCliente, long idReserva, String nomeTitular, String numCartao, String validade, String codigoDeSeguranca, int qtdeParcelas) {
-		 return this.pagamentoController.pagarReservaComCartao(idCliente, idReserva, nomeTitular, numCartao, validade, codigoDeSeguranca, qtdeParcelas);
 	 }
 	 
 	 //US09

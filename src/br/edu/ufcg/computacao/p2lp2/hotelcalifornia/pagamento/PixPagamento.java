@@ -30,7 +30,7 @@ public class PixPagamento extends FormaDePagamento {
     	return nomeTitular;
     }
     
-    public void efetuarPagamento(double valorReserva, int qtdeParcelas) {
+    public void efetuarPagamento(long idReserva, double valorReserva, int qtdeParcelas) {
     	double valorComDesconto = valorReserva - (valorReserva * 0.5);
 		
 		DecimalFormat df = new DecimalFormat("#.##");
