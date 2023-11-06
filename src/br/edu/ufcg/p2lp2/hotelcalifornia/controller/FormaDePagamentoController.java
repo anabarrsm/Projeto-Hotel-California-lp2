@@ -1,4 +1,8 @@
 package br.edu.ufcg.p2lp2.hotelcalifornia.controller;
+/**
+ * Classe que implementa forma de pagamento da us07
+ * @author Ana Laura Barros de Melo - 122210847
+ */
 
 import java.util.List;
 
@@ -15,6 +19,15 @@ public class FormaDePagamentoController {
 		formasDePagamento = new ArrayList<>();
 		this.usuarioController = usuarioController;
 	}
+	
+	/**
+	 * Disponibiliza forma de pagamento
+	 * lança as exceções do HotelCaliforniaException
+	 * @param idAutenticacao
+	 * @param tipoDePagamento
+	 * @param percentualDesconto
+	 * @return
+	 */
 
 	public String disponibilizarFormaDePagamento(String idAutenticacao, String tipoDePagamento,
 			double percentualDesconto) {
@@ -40,6 +53,13 @@ public class FormaDePagamentoController {
 
 		return novaForma.toString();
 	}
+	
+	/**
+	 * Confere se já existe a forma de pagamento
+	 * @param tipoPagamentoFormatado
+	 * @param percentualDesconto
+	 * @return
+	 */
 
 	private boolean jahExiste(String tipoPagamentoFormatado, double percentualDesconto) {
 	    for (FormaDePagamento forma : formasDePagamento) {
@@ -49,7 +69,16 @@ public class FormaDePagamentoController {
 	    }
 	    return false;
 	}
-
+	
+	
+	/**
+	 * Altera forma de pagamento
+	 * @param idAutenticacao
+	 * @param id
+	 * @param tipoDePagamento
+	 * @param percentualDesconto
+	 * @return
+	 */
 
 	public String alterarFormaDePagamento(String idAutenticacao, int id, String tipoDePagamento,
 			double percentualDesconto) {
@@ -68,6 +97,12 @@ public class FormaDePagamentoController {
 		return "Apenas ADM pode alterar forma de pagamento";
 
 	}
+	
+	/**
+	 * formata tipo de pagamento
+	 * @param tipoDePagamento
+	 * @return
+	 */
 
 	private String formataTipo(String tipoDePagamento) {
 		if (tipoDePagamento.equals("CARTAO_DE_CREDITO")) {
@@ -80,6 +115,12 @@ public class FormaDePagamentoController {
 
 		return tipoDePagamento;
 	}
+	
+	/**
+	 * exibe forma de pagamento
+	 * @param id
+	 * @return
+	 */
 
 	public String exibirFormaDePagamento(int id) {
 		for (FormaDePagamento f : formasDePagamento) {
@@ -89,6 +130,11 @@ public class FormaDePagamentoController {
 		}
 		return "Forma de pagamento não encontrada!";
 	}
+	
+	/**
+	 * lista formas de pagamentos
+	 * @return
+	 */
 
 	public String[] listarFormasDePagamentos() {
 		

@@ -6,17 +6,17 @@ import java.util.Objects;
 public class FormaDePagamento {
 	private String tipoDePagamento;
 	private double percentualDesconto;
-	private int id;
+	private int idFormaDePagamento;
 	private static int idcont = 1;
 	
-	public FormaDePagamento(int id, String tipoDePagamento, double percentualDesconto) {
-		this.id = idcont++;
+	public FormaDePagamento(int idFormaDePagamento, String tipoDePagamento, double percentualDesconto) {
+		this.idFormaDePagamento = idcont++;
 		this.tipoDePagamento = tipoDePagamento;
 		this.percentualDesconto = percentualDesconto;
 	}
 	
 	public int getId() { 
-		return id;
+		return idFormaDePagamento;
 	}
 
 
@@ -38,7 +38,7 @@ public class FormaDePagamento {
 	
 	 @Override
 	 public String toString() {
-		 return "[" + id + "] Forma de pagamento: " + tipoDePagamento + " (" + percentualDesconto + "% de desconto em pagamentos)";
+		 return "[" + idFormaDePagamento + "] Forma de pagamento: " + tipoDePagamento + " (" + percentualDesconto + "% de desconto em pagamentos)";
 	 }
 
 }
