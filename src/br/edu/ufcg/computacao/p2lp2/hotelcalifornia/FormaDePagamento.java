@@ -6,19 +6,30 @@ import java.util.Objects;
 public class FormaDePagamento {
 	private String tipoDePagamento;
 	private double percentualDesconto;
-	private int idFormaDePagamento;
-	private static int idcont = 1;
+	private int id;
 	
-	public FormaDePagamento(int idFormaDePagamento, String tipoDePagamento, double percentualDesconto) {
-		this.idFormaDePagamento = idcont++;
+	public FormaDePagamento(int id, String tipoDePagamento, double percentualDesconto) {
+		this.id = id;
 		this.tipoDePagamento = tipoDePagamento;
 		this.percentualDesconto = percentualDesconto;
 	}
 	
 	public int getId() { 
-		return idFormaDePagamento;
+		return id;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+	    if (this == o) return true;
+	    if (o == null || getClass() != o.getClass()) return false;
+	    FormaDePagamento that = (FormaDePagamento) o;
+	    return id == that.id && Objects.equals(tipoDePagamento, that.tipoDePagamento);
 	}
 
+	@Override
+	public int hashCode() {
+	    return Objects.hash(id, tipoDePagamento);
+	}
 
 	public String getTipo() {
 		return tipoDePagamento;
@@ -36,9 +47,9 @@ public class FormaDePagamento {
 		this.percentualDesconto = percentualDesconto;
 	}
 	
-	 @Override
-	 public String toString() {
-		 return "[" + idFormaDePagamento + "] Forma de pagamento: " + tipoDePagamento + " (" + percentualDesconto + "% de desconto em pagamentos)";
-	 }
-
+	  @Override
+	    public String toString() {
+	        DecimalFormat df = new DecimalFormat("#.#");
+	        return "[" + id + "] Forma de pagamento: " + tipoDePagamento + " (" + df.format(percentualDesconto*100) + "% de desconto em pagamentos)";
+	    }
 }
